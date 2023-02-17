@@ -13,5 +13,17 @@
   },
   "legacyFolders": {},
   "legacyFiles": {},
-  "localPath": "D:\\Dropbox\\VR\\Worlds\\UdonPrefabs\\Packages\\com.sylan.gmmenu"
+  "localPath": "D:\\Dropbox\\VR\\Worlds\\UdonPrefabs\\Packages\\com.sylan.gmmenu",
+  "samples": [
+    {
+        "displayName": "GMMenu Example Scene",
+        "description": "An example scene with a GMMenu in it.",
+        "path": "Samples/Example"
+    },
+    {
+      "displayName": "GMMenu Prefab",
+      "description": "The prefab of the menu panel.",
+      "path": "Samples/Prefab"
+  }
+  ]
 }

@@ -16963,7 +16963,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 9131005775538304626}
-  permissionGM: 1
+  permissionGM: 0
   permissionFacilitator: 1
   permissionPlayer: 1
   useBasePermissionLevel: 0
