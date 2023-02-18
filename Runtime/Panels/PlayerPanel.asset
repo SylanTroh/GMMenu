@@ -122,7 +122,7 @@ MonoBehaviour:
       Data: 7|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Sylan.GMMenu.Teleporter, Assembly-CSharp
+      Data: Sylan.GMMenu.Teleporter, com.sylan.gmmenu
     - Name: 
       Entry: 8
       Data: 
@@ -188,7 +188,7 @@ MonoBehaviour:
       Data: 12|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Sylan.GMMenu.MessageSyncManager, Assembly-CSharp
+      Data: Sylan.GMMenu.MessageSyncManager, com.sylan.gmmenu
     - Name: 
       Entry: 8
       Data: 
@@ -248,7 +248,7 @@ MonoBehaviour:
       Data: 16|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Sylan.GMMenu.WatchCamera, Assembly-CSharp
+      Data: Sylan.GMMenu.WatchCamera, com.sylan.gmmenu
     - Name: 
       Entry: 8
       Data: 

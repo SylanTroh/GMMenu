@@ -170,7 +170,7 @@ MonoBehaviour:
       Data: 9|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Sylan.GMMenu.GMMenuToggle, Assembly-CSharp
+      Data: Sylan.GMMenu.GMMenuToggle, com.sylan.gmmenu
     - Name: 
       Entry: 8
       Data: 
@@ -236,7 +236,7 @@ MonoBehaviour:
       Data: 14|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Sylan.GMMenu.Teleporter, Assembly-CSharp
+      Data: Sylan.GMMenu.Teleporter, com.sylan.gmmenu
     - Name: 
       Entry: 8
       Data: 
@@ -296,7 +296,7 @@ MonoBehaviour:
       Data: 18|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Sylan.GMMenu.WatchCamera, Assembly-CSharp
+      Data: Sylan.GMMenu.WatchCamera, com.sylan.gmmenu
     - Name: 
       Entry: 8
       Data: 
@@ -410,7 +410,7 @@ MonoBehaviour:
       Data: 25|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Sylan.GMMenu.PlayerPanel[], Assembly-CSharp
+      Data: Sylan.GMMenu.PlayerPanel[], com.sylan.gmmenu
     - Name: 
       Entry: 8
       Data: 

@@ -182,7 +182,7 @@ MonoBehaviour:
       Data: 11|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Sylan.GMMenu.PlayerMover, Assembly-CSharp
+      Data: Sylan.GMMenu.PlayerMover, com.sylan.gmmenu
     - Name: 
       Entry: 8
       Data: 

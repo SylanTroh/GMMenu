@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Sylan.GMMenu.MessageSyncManager, Assembly-CSharp
+      Data: Sylan.GMMenu.MessageSyncManager, com.sylan.gmmenu
     - Name: 
       Entry: 8
       Data: 

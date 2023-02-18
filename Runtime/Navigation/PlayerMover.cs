@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
@@ -14,7 +15,7 @@ namespace Sylan.GMMenu
         [FieldChangeCallback(nameof(noclip))]
         bool _noclip = false;
 
-        public bool noclipOnDoubleJump = false;
+        [NonSerialized] public bool noclipOnDoubleJump = false;
         bool jumpPressed = false;
 
         public float speedMagnitude = 8.0f;
@@ -28,6 +29,7 @@ namespace Sylan.GMMenu
 
         public Transform station;
         BoxCollider boxCollider;
+        public bool performanceMode = true;
         void Start()
         {
             boxCollider = station.GetComponent<BoxCollider>();
@@ -98,7 +100,8 @@ namespace Sylan.GMMenu
         void UpdateStationPosition()
         {
             if (!noclip) return;
-            if (speedHorizontal == 0 && speedVertical == 0 && speedLongitudinal == 0)
+            //Don't teleport while staying still. 
+            if (performanceMode && speedHorizontal == 0 && speedVertical == 0 && speedLongitudinal == 0)
             {
                 localPlayer.SetVelocity(Vector3.zero);
                 return;

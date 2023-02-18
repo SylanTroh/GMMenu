@@ -25,5 +25,6 @@
       "description": "The prefab of the menu panel.",
       "path": "Samples/Prefab"
     }
-  ]
+  ],
+  "hideInEditor": false
 }
