@@ -17,6 +17,7 @@ namespace Sylan.GMMenu
         public const int MESSAGE_URGENT = 1;
         public const int MESSAGE_ROLL = 2;
         public const int MESSAGE_QUESTION = 3;
+        public const int MESSAGE_SILENT = 4;
 
         MessageSyncManager messageSyncManager;
         [UdonSynced] 
@@ -94,6 +95,8 @@ namespace Sylan.GMMenu
                     return owner.displayName + " needs a roll.";
                 case MESSAGE_QUESTION:
                     return owner.displayName + " has a question.";
+                case MESSAGE_SILENT:
+                    return "Join " + owner.displayName + " silently.";
 
                 default:
                     return "Invalid Messge.";
@@ -134,7 +137,12 @@ namespace Sylan.GMMenu
         public override void OnDeserialization()
         {
             //Set _owner from synced _ownerID
-            if (_ownerID != OWNER_NULL) _owner = VRCPlayerApi.GetPlayerById(_ownerID);
+            if (_ownerID == OWNER_NULL)
+            {
+                _owner = null;
+                return;
+            }
+            _owner = VRCPlayerApi.GetPlayerById(_ownerID);
         }
         public void SendOnNewMessageEvent()
         {

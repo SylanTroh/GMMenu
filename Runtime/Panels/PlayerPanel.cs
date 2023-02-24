@@ -22,8 +22,13 @@ namespace Sylan.GMMenu
         [NotNull] public RawImage image;
         int thumbnailID = 0;
 
+        [NotNull, SerializeField] GameObject summonButton, confirmSummonButton;
+
         private void Start()
         {
+            summonButton.SetActive(true);
+            confirmSummonButton.SetActive(false);
+
             SendCustomEventDelayedSeconds("EnableWatchCameraListener", 0.0f);
         }
         public VRCPlayerApi player
@@ -61,10 +66,31 @@ namespace Sylan.GMMenu
         {
             if (!Utilities.IsValid(player))
             {
-                Debug.Log("[MessagePanel]: Invalid Teleport Target");
+                Debug.Log("[PlayerPanel]: Invalid Teleport Target");
                 return;
             }
             teleporter.TeleportToPlayer(player);
+        }
+        public void SummonPlayer()
+        {
+            if (!Utilities.IsValid(player))
+            {
+                Debug.Log("[PlayerPanel]: Invalid Summon Target");
+                return;
+            }
+            teleporter.SummonPlayer(player);
+            UnConfirmSummon();
+        }
+        public void ConfirmSummon()
+        {
+            summonButton.SetActive(false);
+            confirmSummonButton.SetActive(true);
+            SendCustomEventDelayedSeconds("UnConfirmSummon", 5.0f);
+        }
+        public void UnConfirmSummon()
+        {
+            summonButton.SetActive(true);
+            confirmSummonButton.SetActive(false);
         }
         public void UndoTeleport()
         {

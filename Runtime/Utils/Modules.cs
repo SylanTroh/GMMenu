@@ -34,5 +34,9 @@ namespace Sylan.GMMenu.Utils
         {
             return self.root.Find("PlayerMover").GetComponent<PlayerMover>();
         }
+        public static PlayerSummoner[] PlayerSummoner(Transform self)
+        {
+            return self.root.Find("Teleporter").GetComponentsInChildren<PlayerSummoner>();
+        }
     }
 }

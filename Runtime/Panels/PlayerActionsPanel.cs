@@ -47,6 +47,14 @@ namespace Sylan.GMMenu
                 messageSyncManager.SetMessage(Networking.LocalPlayer, MessageData.MESSAGE_QUESTION);
             SetStatus();
         }
+        public void SetMessageSilent()
+        {
+            if (messageSyncManager.GetLocalMessageValue() == MessageData.MESSAGE_SILENT)
+                messageSyncManager.SetMessage(Networking.LocalPlayer, MessageData.MESSAGE_NULL);
+            else
+                messageSyncManager.SetMessage(Networking.LocalPlayer, MessageData.MESSAGE_SILENT);
+            SetStatus();
+        }
         public void OnMessageUpdate()
         {
             SetStatus();
@@ -83,6 +91,8 @@ namespace Sylan.GMMenu
                     return "Need a roll: ";
                 case MessageData.MESSAGE_QUESTION:
                     return "Question: ";
+                case MessageData.MESSAGE_SILENT:
+                    return "Join Silently: ";
 
                 default:
                     return "Invalid Messge.";

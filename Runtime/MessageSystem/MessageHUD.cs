@@ -16,9 +16,15 @@ namespace Sylan.GMMenu
         [NotNull] MessageSyncManager messageSyncManager;
         [NotNull] private PlayerPermissions permissions;
 
+        public GameObject hudSilent;
         public GameObject hudRoll;
         public GameObject hudQuestion;
         public GameObject hudEmergency;
+
+        public GameObject hudNewMessage;
+        int numberOfBlinks = 0;
+
+        public Transform messageIcons;
 
         void Start()
         {
@@ -40,7 +46,7 @@ namespace Sylan.GMMenu
         {
             permissions.AddListener(this);
         }
-        void Update()
+        public override void PostLateUpdate()
         {
             UpdatePosition();
             UpdateRotation();
@@ -80,15 +86,18 @@ namespace Sylan.GMMenu
             {
                 case MessageData.MESSAGE_URGENT:
                     hudEmergency.SetActive(true);
-                    break;
+                    return;
                 case MessageData.MESSAGE_QUESTION:
                     hudQuestion.SetActive(true);
-                    break;
+                    return;
                 case MessageData.MESSAGE_ROLL:
                     hudRoll.SetActive(true);
-                    break;
+                    return;
+                case MessageData.MESSAGE_SILENT:
+                    hudSilent.SetActive(true);
+                    return;
                 default:
-                    break;
+                    return;
             }
         }
         void UpdateHUDLocal()
@@ -101,15 +110,18 @@ namespace Sylan.GMMenu
             {
                 case MessageData.MESSAGE_URGENT:
                     hudEmergency.SetActive(true);
-                    break;
+                    return;
                 case MessageData.MESSAGE_QUESTION:
                     hudQuestion.SetActive(true);
-                    break;
+                    return;
                 case MessageData.MESSAGE_ROLL:
                     hudRoll.SetActive(true);
-                    break;
+                    return;
+                case MessageData.MESSAGE_SILENT:
+                    hudSilent.SetActive(true);
+                    return;
                 default:
-                    break;
+                    return;
             }
         }
         void UpdateHUD()
@@ -123,7 +135,7 @@ namespace Sylan.GMMenu
         }
         void DisableHUD()
         {
-            foreach (Transform t in canvas.transform)
+            foreach (Transform t in messageIcons)
             {
                 t.gameObject.SetActive(false);
             }
@@ -131,6 +143,23 @@ namespace Sylan.GMMenu
         public void OnNewMessage()
         {
             UpdateHUD();
+            if (permissions.getPermissionLevel() < 2) return;
+
+            if (numberOfBlinks != 0)
+            {
+                numberOfBlinks = Mathf.Min(numberOfBlinks+3,4);
+                return;
+            }
+            numberOfBlinks = 3;
+            SendCustomEventDelayedSeconds("NewMessageOff", 2.0f);
+            hudNewMessage.SetActive(true);
+
+        }
+        public void NewMessageOff()
+        {
+            numberOfBlinks--;
+            if(numberOfBlinks == 0) hudNewMessage.SetActive(false);
+            else SendCustomEventDelayedSeconds("NewMessageOff", 2.0f);
         }
         public void OnMessageUpdate()
         {

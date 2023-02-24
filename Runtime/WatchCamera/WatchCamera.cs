@@ -23,16 +23,25 @@ namespace Sylan.GMMenu
         [SerializeField] RenderTexture watchTexture;
 
         [NotNull] GMMenuToggle menuToggle;
+        [NotNull] PlayerPermissions permissions;
 
         private VRCPlayerApi player;
         private VRCPlayerApi[] playerList = new VRCPlayerApi[0];
+
+        bool idsNeedUpdate = false;
         public void Start()
         {
             menuToggle = Utils.Modules.GMMenuToggle(transform);
+            permissions = Utils.Modules.PlayerPermissions(transform);
             watchCamera = (Camera)transform.Find("WatchCamera").GetComponent(typeof(Camera));
             thumbnailCamera = (Camera)transform.Find("ThumbnailCamera").GetComponent(typeof(Camera));
 
             SendCustomEventDelayedSeconds("EnableMenuToggleListener", 0.0f);
+            SendCustomEventDelayedSeconds("EnablePermissionListener", 0.0f);
+        }
+        public void EnablePermissionListener()
+        {
+            permissions.AddListener(this);
         }
         public void EnableMenuToggleListener()
         {
@@ -40,17 +49,29 @@ namespace Sylan.GMMenu
         }
         public override void OnPlayerJoined(VRCPlayerApi player)
         {
-            playerList = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
-            VRCPlayerApi.GetPlayers(playerList);
-            UpdateThumbnailsSingle();
+            if (!menuToggle.MenuState()) 
+            {
+                idsNeedUpdate = true;
+                return; 
+            }
+            UpdateThumbnailIds();
             SendUpdateThumbnailIDEvent();
 
         }
         public override void OnPlayerLeft(VRCPlayerApi player)
         {
+            if (!menuToggle.MenuState())
+            {
+                idsNeedUpdate = true;
+                return;
+            }
+            UpdateThumbnailIds();
+            UpdateThumbnailsSingle();
+        }
+        public void UpdateThumbnailIds()
+        {
             playerList = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
             VRCPlayerApi.GetPlayers(playerList);
-            UpdateThumbnailsSingle();
             SendUpdateThumbnailIDEvent();
         }
         public bool CameraEnabled
@@ -110,7 +131,7 @@ namespace Sylan.GMMenu
             float scale = (1.0f / 1.61f) * Utils.AvatarUtils.AvatarHeight(player);
             watchCamera.transform.localPosition = new Vector3(0.0f, 0.25f * scale, -1.25f * scale);
         }
-        public void UpdateThumbnails()
+        void UpdateThumbnails()
         {
             if (!menuToggle.MenuState()) return;
             UpdateThumbnailsSingle();
@@ -118,6 +139,7 @@ namespace Sylan.GMMenu
         }
         public void UpdateThumbnailsSingle()
         {
+            if (permissions.getPermissionLevel() < 1) return;
             Debug.Log("[WatchCamera]: Updating Thumbnails");
             for (int i = 0; i < playerList.Length; i++)
             {
@@ -154,11 +176,16 @@ namespace Sylan.GMMenu
         }
         public void OnMenuToggleOn()
         {
+            if(idsNeedUpdate) UpdateThumbnailIds();
             UpdateThumbnailsSingle();
         }
         public void OnMenuToggleOff()
         {
             WatchOff();
+        }
+        public void OnPermissionUpdate()
+        {
+            UpdateThumbnailsSingle();
         }
         private void SendUpdateThumbnailIDEvent()
         {

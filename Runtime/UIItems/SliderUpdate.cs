@@ -15,7 +15,7 @@ namespace Sylan.GMMenu
 
         private void Start()
         {
-            _slider.value = 8.0f;
+            _slider.value = 16.0f;
         }
         public void SliderValueChanged()
         {

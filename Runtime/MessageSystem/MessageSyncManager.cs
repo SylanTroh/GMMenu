@@ -9,7 +9,7 @@ using VRC.Udon;
 
 namespace Sylan.GMMenu
 {
-    [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
+    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class MessageSyncManager : UdonSharpBehaviour
     {
         private MessageData[] messageData;

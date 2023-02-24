@@ -19,6 +19,7 @@ namespace Sylan.GMMenu
         [NotNull, SerializeField] private Canvas canvas;
         private RectTransform canvasTransform;
         private UdonSharpBehaviour[] MenuToggleEventListeners = new UdonSharpBehaviour[0];
+        PlayerMover playerMover;
         void Start()
         {
             inVR = Networking.LocalPlayer.IsUserInVR();
@@ -26,9 +27,11 @@ namespace Sylan.GMMenu
             Utils.CanvasUtils.CanvasSetActive(canvas, false);
             if (inVR) SetCanvasTransformVR();
             else SetCanvasTransformPC();
+
+            playerMover = Utils.Modules.PlayerMover(transform);
         }
 
-        private void Update()
+        public override void PostLateUpdate()
         {
             if (inVR) VRUpdate();
             else PCUpdate();
@@ -63,12 +66,12 @@ namespace Sylan.GMMenu
         public override void InputLookVertical(float value, UdonInputEventArgs args)
         {
             if(!inVR) return;
-            if (value <= -0.8)
+            if (value <= -0.65)
             {
                 inputLookDown = true;
-                SendCustomEventDelayedSeconds("InputLookReset", 0.5f);
+                SendCustomEventDelayedSeconds("InputLookReset", 0.75f);
             }
-            else if (value > 0.8 && inputLookDown)
+            else if (value > 0.65 && inputLookDown)
             {
                 MenuToggle();
                 InputLookReset();

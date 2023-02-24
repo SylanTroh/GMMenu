@@ -19,9 +19,9 @@ namespace Sylan.GMMenu
         bool jumpPressed = false;
 
         public float speedMagnitude = 8.0f;
-        float speedLongitudinal= 0f;
-        float speedHorizontal = 0f;
-        float speedVertical = 0f;
+        float speedLongitudinal= 0.0f;
+        float speedHorizontal = 0.0f;
+        float speedVertical = 0.0f;
 
 
         Quaternion headVector;
@@ -29,7 +29,7 @@ namespace Sylan.GMMenu
 
         public Transform station;
         BoxCollider boxCollider;
-        public bool performanceMode = true;
+        const bool performanceMode = true;
         void Start()
         {
             boxCollider = station.GetComponent<BoxCollider>();
@@ -93,17 +93,23 @@ namespace Sylan.GMMenu
             }
             get => _noclip;
         }
-        private void Update()
+        void Update()
         {
             UpdateStationPosition();
         }
-        void UpdateStationPosition()
+        public void UpdateStationPosition()
         {
             if (!noclip) return;
             //Don't teleport while staying still. 
-            if (performanceMode && speedHorizontal == 0 && speedVertical == 0 && speedLongitudinal == 0)
+            bool isStill = (speedHorizontal == 0 && speedVertical == 0 && speedLongitudinal == 0);
+            if (performanceMode && isStill)
             {
                 localPlayer.SetVelocity(Vector3.zero);
+                return;
+            }
+            if (isStill)
+            {
+                localPlayer.TeleportTo(station.position, localPlayer.GetRotation());
                 return;
             }
             headVector = localPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head).rotation;
@@ -117,6 +123,10 @@ namespace Sylan.GMMenu
         public void ToggleNoclip()
         {
             noclip = !noclip;
+        }
+        public override void OnPlayerRespawn(VRCPlayerApi player)
+        {
+            station.position = player.GetPosition();
         }
     }
 }

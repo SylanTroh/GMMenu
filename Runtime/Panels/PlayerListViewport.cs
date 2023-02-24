@@ -91,6 +91,7 @@ namespace Sylan.GMMenu
             foreach (VRCPlayerApi player in players)
             {
                 if (!Utilities.IsValid(player)) continue;
+                if (player == Networking.LocalPlayer) continue;
                 if (playerNum >= panels.Length) InstansiatePlayerPanel();
                 panels[playerNum].DrawPanel(player);
                 playerNum++;
