@@ -14,6 +14,7 @@ namespace Sylan.GMMenu
         [NotNull] GMMenuToggle menuToggle;
         [NotNull] Teleporter teleporter;
         [NotNull] WatchCamera watchCamera;
+        [NotNull] PlayerPermissions playerPermissions;
 
         VRCPlayerApi[] players = new VRCPlayerApi[0];
         PlayerPanel[] panels = new PlayerPanel[0];
@@ -23,6 +24,7 @@ namespace Sylan.GMMenu
         private void Start()
         {
             menuToggle = Utils.Modules.GMMenuToggle(transform);
+            playerPermissions = Utils.Modules.PlayerPermissions(transform);
             teleporter = Utils.Modules.Teleporter(transform);
             watchCamera = Utils.Modules.WatchCamera(transform);
 
@@ -107,6 +109,7 @@ namespace Sylan.GMMenu
             PlayerPanel playerPanel = panel.GetComponent<PlayerPanel>();
             playerPanel.teleporter = teleporter;
             playerPanel.watchCamera = watchCamera;
+            playerPanel.playerPermissions = playerPermissions;
             Utils.ArrayUtils.Append(ref panels, playerPanel);
         }
         int ComparePlayerName(VRCPlayerApi player1, VRCPlayerApi player2)

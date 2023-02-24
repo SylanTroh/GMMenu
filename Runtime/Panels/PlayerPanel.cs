@@ -15,6 +15,9 @@ namespace Sylan.GMMenu
         VRCPlayerApi _player;
         [NonSerialized] public Teleporter teleporter;
         [NonSerialized] public MessageSyncManager messageSyncManager;
+        [NonSerialized, FieldChangeCallback(nameof(playerPermissions))] 
+        public PlayerPermissions _playerPermissions;
+
         [FieldChangeCallback(nameof(watchCamera))]
         WatchCamera _watchCamera;
 
@@ -26,10 +29,8 @@ namespace Sylan.GMMenu
 
         private void Start()
         {
-            summonButton.SetActive(true);
+            summonButton.SetActive(false);
             confirmSummonButton.SetActive(false);
-
-            SendCustomEventDelayedSeconds("EnableWatchCameraListener", 0.0f);
         }
         public VRCPlayerApi player
         {
@@ -39,6 +40,16 @@ namespace Sylan.GMMenu
                 _player = value;
             }
             get => _player;
+        }
+        public PlayerPermissions playerPermissions
+        {
+            set
+            {
+                _playerPermissions = value;
+                _playerPermissions.AddListener(this);
+                if (_playerPermissions.getPermissionLevel() >= 2) summonButton.SetActive(true);
+            }
+            get => _playerPermissions;
         }
         public WatchCamera watchCamera
         {
@@ -108,6 +119,12 @@ namespace Sylan.GMMenu
         public void OnUpdateThumbnailID()
         {
             thumbnailID = watchCamera.GetThumbnailID(player);
+        }
+        public void OnPermissionUpdate()
+        {
+            confirmSummonButton.SetActive(false);
+            if (_playerPermissions.getPermissionLevel() >= 2) summonButton.SetActive(true);
+            else summonButton.SetActive(false);
         }
     }
 }
