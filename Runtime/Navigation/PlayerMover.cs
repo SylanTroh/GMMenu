@@ -29,9 +29,11 @@ namespace Sylan.GMMenu
 
         public Transform station;
         BoxCollider boxCollider;
-        const bool performanceMode = true;
+
+        GMMenuToggle menuToggle;
         void Start()
         {
+            menuToggle = Utils.Modules.GMMenuToggle(transform);
             boxCollider = station.GetComponent<BoxCollider>();
             localPlayer = Networking.LocalPlayer;
         }
@@ -60,10 +62,6 @@ namespace Sylan.GMMenu
         {
             speedHorizontal = value;
         }
-        //public override void InputLookVertical(float value, UdonInputEventArgs args)
-        //{
-        //    if (localPlayer.IsUserInVR()) speedVertical = value;
-        //}
         public void ResetJumpPressed()
         {
             jumpPressed = false;
@@ -102,23 +100,25 @@ namespace Sylan.GMMenu
             if (!noclip) return;
             //Don't teleport while staying still. 
             bool isStill = (speedHorizontal == 0 && speedVertical == 0 && speedLongitudinal == 0);
-            if (performanceMode && isStill)
+            if (!isStill)
             {
-                localPlayer.SetVelocity(Vector3.zero);
+                headVector = localPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head).rotation;
+                offset = speedLongitudinal * (headVector * Vector3.forward);
+                offset += speedHorizontal * (headVector * Vector3.right);
+                offset += speedVertical * (headVector * Vector3.up);
+                offset *= speedMagnitude * Time.deltaTime;
+                station.position += offset;
+                localPlayer.TeleportTo(station.position, localPlayer.GetRotation());
                 return;
             }
-            if (isStill)
+            if (!menuToggle.MenuState())
             {
                 localPlayer.TeleportTo(station.position, localPlayer.GetRotation());
                 return;
             }
-            headVector = localPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head).rotation;
-            offset = speedLongitudinal * (headVector * Vector3.forward);
-            offset += speedHorizontal * (headVector * Vector3.right);
-            offset += speedVertical * (headVector * Vector3.up);
-            offset *= speedMagnitude*Time.deltaTime;
-            station.position += offset;
-            localPlayer.TeleportTo(station.position, localPlayer.GetRotation());
+            localPlayer.SetVelocity(Vector3.zero);
+            return;
+
         }
         public void ToggleNoclip()
         {

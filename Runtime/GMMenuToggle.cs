@@ -19,7 +19,6 @@ namespace Sylan.GMMenu
         [NotNull, SerializeField] private Canvas canvas;
         private RectTransform canvasTransform;
         private UdonSharpBehaviour[] MenuToggleEventListeners = new UdonSharpBehaviour[0];
-        PlayerMover playerMover;
         void Start()
         {
             inVR = Networking.LocalPlayer.IsUserInVR();
@@ -27,8 +26,6 @@ namespace Sylan.GMMenu
             Utils.CanvasUtils.CanvasSetActive(canvas, false);
             if (inVR) SetCanvasTransformVR();
             else SetCanvasTransformPC();
-
-            playerMover = Utils.Modules.PlayerMover(transform);
         }
 
         public override void PostLateUpdate()
