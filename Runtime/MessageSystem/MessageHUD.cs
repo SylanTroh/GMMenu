@@ -35,8 +35,8 @@ namespace Sylan.GMMenu
             canvasTransform = canvas.GetComponent<RectTransform>();
             SetCanvasTransform();
 
-            SendCustomEventDelayedSeconds("EnableNewMessageListener", 0.0f);
-            SendCustomEventDelayedSeconds("EnablePermissionEventListener", 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnableNewMessageListener), 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnablePermissionEventListener), 0.0f);
         }
         public void EnableNewMessageListener()
         {
@@ -151,7 +151,7 @@ namespace Sylan.GMMenu
                 return;
             }
             numberOfBlinks = 3;
-            SendCustomEventDelayedSeconds("NewMessageOff", 2.0f);
+            SendCustomEventDelayedSeconds(nameof(NewMessageOff), 2.0f);
             hudNewMessage.SetActive(true);
 
         }
@@ -159,7 +159,7 @@ namespace Sylan.GMMenu
         {
             numberOfBlinks--;
             if(numberOfBlinks == 0) hudNewMessage.SetActive(false);
-            else SendCustomEventDelayedSeconds("NewMessageOff", 2.0f);
+            else SendCustomEventDelayedSeconds(nameof(NewMessageOff), 2.0f);
         }
         public void OnMessageUpdate()
         {

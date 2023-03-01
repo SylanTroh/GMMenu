@@ -92,7 +92,7 @@ namespace Sylan.GMMenu
         {
             summonButton.SetActive(false);
             confirmSummonButton.SetActive(true);
-            SendCustomEventDelayedSeconds("UnConfirmSummon", 5.0f);
+            SendCustomEventDelayedSeconds(nameof(UnConfirmSummon), 5.0f);
         }
         public void UnConfirmSummon()
         {

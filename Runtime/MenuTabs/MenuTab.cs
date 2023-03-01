@@ -28,8 +28,8 @@ namespace Sylan.GMMenu
             toggleByPermission = transform.GetComponent<ToggleByPermission>();
 
             //Delay Module Setup to avoid race conditions
-            SendCustomEventDelayedSeconds("EnablePermissionListener", 0.0f);
-            SendCustomEventDelayedSeconds("EnableMenuToggleListener", 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnablePermissionListener), 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnableMenuToggleListener), 0.0f);
 
             panelParent = panel.transform.parent;
             //Only have first panel enabled on start

@@ -151,7 +151,7 @@ namespace Sylan.GMMenu
         }
         public void SendOnReadRemoteEvent()
         {
-            SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "OnReadRemote");
+            SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, nameof(OnReadRemote));
         }
         public void OnReadRemote()
         {
@@ -162,7 +162,7 @@ namespace Sylan.GMMenu
         }
         public void SendOnUndoReadRemoteEvent()
         {
-            SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "OnUndoReadRemote");
+            SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, nameof(OnUndoReadRemote));
         }
         public void OnUndoReadRemote()
         {
@@ -173,7 +173,7 @@ namespace Sylan.GMMenu
         public void SendOnMessageStaleEvent()
         {
             //Add one to avoid floating point precision messing with comparison
-            SendCustomEventDelayedSeconds("OnMessageStale", TIME_UNTIL_STALE + 1.0f);
+            SendCustomEventDelayedSeconds(nameof(OnMessageStale), TIME_UNTIL_STALE + 1.0f);
         }
         public void OnMessageStale()
         {
@@ -182,7 +182,7 @@ namespace Sylan.GMMenu
             var timePassed = Time.time - timeRead;
             if (timePassed <= TIME_UNTIL_STALE)
             {
-                SendCustomEventDelayedSeconds("OnMessageStale", TIME_UNTIL_STALE - timePassed + 1.0f);
+                SendCustomEventDelayedSeconds(nameof(OnMessageStale), TIME_UNTIL_STALE - timePassed + 1.0f);
                 return;
             }
             message = MESSAGE_NULL;

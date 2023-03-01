@@ -27,10 +27,6 @@ namespace Sylan.GMMenu
         Color activeColor = new Color(217f / 255f, 108f / 255f, 198f / 255f, 191f / 255f);
         Color inactiveColor = new Color(153f / 255f, 76f / 255f, 140f / 255f, 191f / 255f);
 
-        private void Start()
-        {
-            SendCustomEventDelayedSeconds("EnableWatchCameraListener", 0.0f);
-        }
         public MessageData message
         {
             set

@@ -17,7 +17,7 @@ namespace Sylan.GMMenu
         {
             messageSyncManager = Utils.Modules.MessageSyncManager(transform);
 
-            SendCustomEventDelayedSeconds("EnableNewMessageListener", 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnableNewMessageListener), 0.0f);
         }
         public void EnableNewMessageListener()
         {

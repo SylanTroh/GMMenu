@@ -21,8 +21,8 @@ namespace Sylan.GMMenu
         {
             Permissions = Utils.Modules.PlayerPermissions(transform);
 
-            SendCustomEventDelayedSeconds("EnablePermissionListener", 0.0f);
-            SendCustomEventDelayedSeconds("OnPermissionUpdate", 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnablePermissionListener), 0.0f);
+            SendCustomEventDelayedSeconds(nameof(OnPermissionUpdate), 0.0f);
         }
         public void EnablePermissionListener()
         {

@@ -51,7 +51,7 @@ namespace Sylan.GMMenu
             {
                 jumpPressed = true;
                 boxCollider.enabled = false;
-                SendCustomEventDelayedSeconds("ResetJumpPressed", 0.5f);
+                SendCustomEventDelayedSeconds(nameof(ResetJumpPressed), 0.5f);
             }
         }
         public override void InputMoveVertical(float value, UdonInputEventArgs args)

@@ -28,7 +28,7 @@ namespace Sylan.GMMenu
             teleporter = Utils.Modules.Teleporter(transform);
             watchCamera = Utils.Modules.WatchCamera(transform);
 
-            SendCustomEventDelayedSeconds("EnableMenuToggleListener", 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnableMenuToggleListener), 0.0f);
         }
         public override void OnPlayerJoined(VRCPlayerApi player)
         {

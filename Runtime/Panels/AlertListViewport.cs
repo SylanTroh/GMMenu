@@ -25,8 +25,8 @@ namespace Sylan.GMMenu
             teleporter = Utils.Modules.Teleporter(transform);
             watchCamera = Utils.Modules.WatchCamera(transform);
 
-            SendCustomEventDelayedSeconds("EnableMenuToggleListener", 0.0f);
-            SendCustomEventDelayedSeconds("EnableNewMessageListener", 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnableMenuToggleListener), 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnableNewMessageListener), 0.0f);
         }
 
         //Event Listeners
@@ -62,7 +62,7 @@ namespace Sylan.GMMenu
         public void UpdateViewportContinuous()
         {
             UpdateViewport();
-            if(menuToggle.MenuState()) SendCustomEventDelayedSeconds("UpdateViewportContinuous", 5.0f);
+            if(menuToggle.MenuState()) SendCustomEventDelayedSeconds(nameof(UpdateViewportContinuous), 5.0f);
         }
 
         private void ClearViewport()

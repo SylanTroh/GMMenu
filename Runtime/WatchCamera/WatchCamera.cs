@@ -38,8 +38,8 @@ namespace Sylan.GMMenu
             watchCamera = (Camera)transform.Find("WatchCamera").GetComponent(typeof(Camera));
             thumbnailCamera = (Camera)transform.Find("ThumbnailCamera").GetComponent(typeof(Camera));
 
-            SendCustomEventDelayedSeconds("EnableMenuToggleListener", 0.0f);
-            SendCustomEventDelayedSeconds("EnablePermissionListener", 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnableMenuToggleListener), 0.0f);
+            SendCustomEventDelayedSeconds(nameof(EnablePermissionListener), 0.0f);
         }
         public void EnablePermissionListener()
         {
@@ -116,7 +116,7 @@ namespace Sylan.GMMenu
         {
             if (!CameraEnabled) return;
             UpdateWatchSingle();
-            SendCustomEventDelayedSeconds("UpdateWatch", 3.0f);
+            SendCustomEventDelayedSeconds(nameof(UpdateWatch), 3.0f);
         }
         public void UpdateWatchSingle()
         {
