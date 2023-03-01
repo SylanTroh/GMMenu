@@ -70,7 +70,7 @@ namespace Sylan.GMMenu
 
             WatchCamera.SetThumbnailUV(image, thumbnailID);
 
-            gameObject.SetActive(true);
+            if(!gameObject.activeSelf) gameObject.SetActive(true);
         }
         void SetMarkReadButton()
         {

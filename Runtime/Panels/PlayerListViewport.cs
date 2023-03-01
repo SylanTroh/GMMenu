@@ -75,17 +75,8 @@ namespace Sylan.GMMenu
         public void UpdateViewportContinuous()
         {
             UpdateViewport();
-            if (menuToggle.MenuState()) SendCustomEventDelayedSeconds("UpdateViewportContinuous", 5.0f);
+            if (menuToggle.MenuState()) SendCustomEventDelayedSeconds(nameof(UpdateViewportContinuous), 5.0f);
         }
-
-        private void ClearViewport()
-        {
-            foreach (Transform a in PlayerListContent)
-            {
-                Destroy(a.gameObject);
-            }
-        }
-
         private void ShowPlayers(VRCPlayerApi[] players)
         {
             if (!Utilities.IsValid(players)) return;

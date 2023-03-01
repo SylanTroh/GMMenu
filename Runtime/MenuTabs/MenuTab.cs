@@ -1,5 +1,6 @@
 ﻿
 using JetBrains.Annotations;
+using System.Runtime.CompilerServices;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
@@ -17,7 +18,7 @@ namespace Sylan.GMMenu
         bool isInitialized = false;
         bool isFirstActive;
         [Header("------Don't Touch------")]
-        [NotNull, SerializeField] private GameObject panel;
+        [NotNull, SerializeField] private CanvasGroup panel;
 
         void Start()
         {
@@ -86,9 +87,25 @@ namespace Sylan.GMMenu
         {
             foreach(Transform g in panelParent)
             {
-                g.gameObject.SetActive(false);
+                g.GetComponent<CanvasGroup>().SetActive(false);
             }
             panel.SetActive(true);
+        }
+    }
+    public static class CanvasGroupExtensions
+    {
+        public static void SetActive(this CanvasGroup canvasGroup,bool value)
+        {
+            if (value)
+            {
+                canvasGroup.alpha = 1;
+                canvasGroup.blocksRaycasts = true;
+                canvasGroup.interactable = true;
+                return;
+            }
+            canvasGroup.alpha = 0;
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
         }
     }
 }

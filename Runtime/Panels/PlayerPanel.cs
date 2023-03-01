@@ -26,12 +26,6 @@ namespace Sylan.GMMenu
         int thumbnailID = 0;
 
         [NotNull, SerializeField] GameObject summonButton, confirmSummonButton;
-
-        private void Start()
-        {
-            summonButton.SetActive(false);
-            confirmSummonButton.SetActive(false);
-        }
         public VRCPlayerApi player
         {
             set
@@ -47,7 +41,9 @@ namespace Sylan.GMMenu
             {
                 _playerPermissions = value;
                 _playerPermissions.AddListener(this);
+                confirmSummonButton.SetActive(false);
                 if (_playerPermissions.getPermissionLevel() >= 2) summonButton.SetActive(true);
+                else summonButton.SetActive(false);
             }
             get => _playerPermissions;
         }
@@ -70,7 +66,7 @@ namespace Sylan.GMMenu
 
             WatchCamera.SetThumbnailUV(image, thumbnailID);
 
-            gameObject.SetActive(true);
+            if(!gameObject.activeSelf) gameObject.SetActive(true);
         }
         //Button Onclick funtions
         public void TeleportToPlayer()

@@ -27,6 +27,8 @@ namespace Sylan.GMMenu
 
         private VRCPlayerApi player;
         private VRCPlayerApi[] playerList = new VRCPlayerApi[0];
+        bool[] playerIsUpdated= new bool[0];
+        const int updatesPerFrame = 4;
 
         bool idsNeedUpdate = false;
         public void Start()
@@ -55,8 +57,7 @@ namespace Sylan.GMMenu
                 return; 
             }
             UpdateThumbnailIds();
-            SendUpdateThumbnailIDEvent();
-
+            UpdateThumbnailsOnce();
         }
         public override void OnPlayerLeft(VRCPlayerApi player)
         {
@@ -66,11 +67,12 @@ namespace Sylan.GMMenu
                 return;
             }
             UpdateThumbnailIds();
-            UpdateThumbnailsSingle();
+            UpdateThumbnailsOnce();
         }
         public void UpdateThumbnailIds()
         {
             playerList = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
+            playerIsUpdated = new bool[VRCPlayerApi.GetPlayerCount()];
             VRCPlayerApi.GetPlayers(playerList);
             SendUpdateThumbnailIDEvent();
         }
@@ -131,26 +133,32 @@ namespace Sylan.GMMenu
             float scale = (1.0f / 1.61f) * Utils.AvatarUtils.AvatarHeight(player);
             watchCamera.transform.localPosition = new Vector3(0.0f, 0.25f * scale, -1.25f * scale);
         }
-        void UpdateThumbnails()
-        {
-            if (!menuToggle.MenuState()) return;
-            UpdateThumbnailsSingle();
-            SendCustomEventDelayedSeconds("UpdateThumbnails", 3.0f);
-        }
-        public void UpdateThumbnailsSingle()
+        public void UpdateThumbnailsOnce()
         {
             if (permissions.getPermissionLevel() < 1) return;
             Debug.Log("[WatchCamera]: Updating Thumbnails");
+            playerIsUpdated = new bool[VRCPlayerApi.GetPlayerCount()];
+            UpdateThumbnail();
+        }
+        public void UpdateThumbnail()
+        {
+            int numUpdates = 0;
             for (int i = 0; i < playerList.Length; i++)
             {
+                if (playerIsUpdated[i]) continue;
                 var player = playerList[i];
-                if (Utilities.IsValid(player)) UpdateThumbnail(player, i);
+                if (!Utilities.IsValid(player)) continue;
+                MoveThumbnailCamera(player, i);
+                thumbnailCamera.Render();
+                playerIsUpdated[i] = true;
+                numUpdates++;
+                if (numUpdates >= updatesPerFrame)
+                {
+                    if (i == playerList.Length - 1) return;
+                    SendCustomEventDelayedFrames(nameof(UpdateThumbnail), 1);
+                    return;
+                }
             }
-        }
-        private void UpdateThumbnail(VRCPlayerApi player, int i)
-        {
-            MoveThumbnailCamera(player, i);
-            thumbnailCamera.Render();
         }
         private void MoveThumbnailCamera(VRCPlayerApi player, int i)
         {
@@ -177,7 +185,7 @@ namespace Sylan.GMMenu
         public void OnMenuToggleOn()
         {
             if(idsNeedUpdate) UpdateThumbnailIds();
-            UpdateThumbnailsSingle();
+            UpdateThumbnailsOnce();
         }
         public void OnMenuToggleOff()
         {
@@ -185,7 +193,7 @@ namespace Sylan.GMMenu
         }
         public void OnPermissionUpdate()
         {
-            UpdateThumbnailsSingle();
+            UpdateThumbnailsOnce();
         }
         private void SendUpdateThumbnailIDEvent()
         {
