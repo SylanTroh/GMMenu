@@ -71,6 +71,10 @@ namespace Sylan.GMMenu
         //Event Listeners
         public void OnPermissionUpdate()
         {
+            SendCustomEventDelayedFrames(nameof(SetFirstActive), 1);
+        }
+        public void SetFirstActive()
+        {
             isFirstActive = IsFirstActive();
         }
         public void OnMenuToggleOn()
