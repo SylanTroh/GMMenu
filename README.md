@@ -8,7 +8,7 @@ An UDON menu panel designed for VRChat roleplay.
 4. Import the GMMenu Prefab. Importing Example Scene is not neccessary if you already have a scene in your project.
 ![Permissions](https://github.com/SylanTroh/GMMenu/blob/main/Installation/install1.png)
 6. In your Assets folder, navigate to Samples > GMMenu > 1.1.X > GMMenu Prefab. Drag and drop the GMMenu into your scene.
-7. (Optional) Locate the GMMenu in your hierarchy, expand it and select the PlayerPermissions gameobject. You can uncheck "Everyone Is GM" and set specific permissions by entering VRChat usernames into the GMList and FacilitatorList. These names must be case-sensitive.
+7. (Optional) Locate the GMMenu in your hierarchy, expand it and select the PlayerPermissions gameobject. You can uncheck "Everyone Is GM" and set specific permissions by entering VRChat display names into the GMList and FacilitatorList. These names must be case-sensitive.
 ![Permissions](https://github.com/SylanTroh/GMMenu/blob/main/Installation/install3.png)
 
 ## Known Issues
