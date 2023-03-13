@@ -10,8 +10,8 @@ Features Include:
 - NoClip for quick navigation around the map
 - A permission system, allowing for both hard-coded permissions, and self-assigned permissions.
 <p align="center">
-  <img src="https://github.com/SylanTroh/GMMenu/blob/main/Images/alerts.png" height="300" />
-  <img src="https://github.com/SylanTroh/GMMenu/blob/main/Images/playerlist.png" height="300" />
+  <img src="https://github.com/SylanTroh/GMMenu/blob/main/Images/alerts.png" height="250" />
+  <img src="https://github.com/SylanTroh/GMMenu/blob/main/Images/playerlist.png" height="250" />
 </p>
 
 # Installation
