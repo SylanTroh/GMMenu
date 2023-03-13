@@ -2,6 +2,9 @@
 An UDON menu panel designed for VRChat roleplay. 
 
 Features Include:
+- Works in both Desktop and in VR. To activate the menu:
+  - In Desktop, push the Tab Key
+  - In VR, quickly move the right joystick/trackpad down, and then up.
 - A synced ping system, allowing players to request assistance from Game Masters
   - GMs are notified via their HUD when a player makes a ping, and can see all active pings sorted by priority, and how long ago they were sent
   - Players are notified via their HUD when a GM responds to their ping
