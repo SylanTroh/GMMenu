@@ -1,0 +1,19 @@
+{
+    "name": "com.sylan.gmmenu",
+    "references": [
+        "VRC.SDK3",
+        "VRC.SDKBase",
+        "UdonSharp.Runtime",
+        "UdonSharp.Editor",
+        "UdonSharp.Lib"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
