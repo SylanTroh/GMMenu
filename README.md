@@ -18,8 +18,9 @@ Features Include:
 </p>
 
 # Installation
-1. Go to https://sylantroh.github.io/GMMenu/ and click "Add to VCC"
-2. Click Manage Project in the creator companion and press the plus button next to GMMenu
+1. Go to https://sylantroh.github.io/SylanVCCListing/
+2. Find GMMenu and click "Add to VCC"
+3. Click Manage Project in the creator companion and press the plus button next to GMMenu
 
 ## Known Issues
 Upon uploading the world and coming to the World Configuration screen, the Upload button may be unresponsive. This is apparently caused by a conflict between the VRChat uploader, and additional canvases in the scene. If this occurs, simply disable the GMMenu in the hierarchy (since the world has already been built, this will not affect the upload). The upload button should then become responsive.
