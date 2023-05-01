@@ -68,6 +68,10 @@ namespace Sylan.GMMenu
 
             if (_owner != Networking.LocalPlayer) return;
 
+            SendCustomEventDelayedFrames(nameof(TeleportEvent), 1);
+        }
+        public void TeleportEvent()
+        {
             var teleportTarget = VRCPlayerApi.GetPlayerById(requester);
             if (!Utilities.IsValid(teleportTarget)) return;
             teleporter.TeleportToPlayer(teleportTarget);
