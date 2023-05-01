@@ -3,22 +3,7 @@
   "displayName": "GMMenu",
   "version": "1.1.4",
   "description": "An UDON menu panel designed for VRChat roleplay.",
-  "url": "https://github.com/SylanTroh/GMMenu.git",
-  "dependencies": {
-    "com.vrchat.udonsharp": "1.1.7"
-  },
-  "gitDependencies": {},
-  "vpmDependencies": {
-    "com.vrchat.udonsharp": "1.1.6"
-  },
-  "legacyFolders": {},
-  "legacyFiles": {},
   "samples": [
-    {
-      "displayName": "GMMenu Example Scene",
-      "description": "An example scene with a GMMenu in it.",
-      "path": "Samples/Example"
-    },
     {
       "displayName": "GMMenu Prefab",
       "description": "The prefab of the menu panel.",
