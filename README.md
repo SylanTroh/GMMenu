@@ -18,8 +18,8 @@ Features Include:
 </p>
 
 # Installation
-1. Go to https://sylantroh.github.io/SylanVCCListing/
-2. Find GMMenu and click "Add to VCC"
+1. Go to https://sylantroh.github.io/SylanVCC/
+2. Click "Add to VCC"
 3. Click Manage Project in the creator companion and press the plus button next to GMMenu
 
 ## Known Issues
