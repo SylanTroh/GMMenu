@@ -1,5 +1,4 @@
-﻿
-using System.Threading;
+﻿using System.Threading;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
