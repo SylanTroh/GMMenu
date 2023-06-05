@@ -3,7 +3,9 @@ using UnityEngine;
 using VRC.SDKBase;
 using JetBrains.Annotations;
 using UnityEditor;
+#if !COMPILER_UDONSHARP && UNITY_EDITOR
 using VRC.SDKBase.Editor.BuildPipeline;
+#endif
 using Sylan.GMMenu;
 
 namespace Sylan.GMMenu
