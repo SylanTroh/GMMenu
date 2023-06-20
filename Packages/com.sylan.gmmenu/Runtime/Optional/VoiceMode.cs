@@ -11,6 +11,8 @@ namespace Sylan.GMMenu
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class VoiceMode : GMMenuPart
     {
+        bool isInitialized = false;
+
         [HideInInspector] public int priority = 2000;
 
         const int OWNER_NULL = -1;
@@ -58,6 +60,14 @@ namespace Sylan.GMMenu
             (DataToken)false //Voice Lowpass
         };
 
+        private void Start()
+        {
+            SettingWhisper[0] = voiceModeManager.whisperGain;
+            SettingWhisper[2] = voiceModeManager.whisperFarRange;
+            SettingYell[0] = voiceModeManager.yellGain;
+            SettingYell[2] = voiceModeManager.yellFarRange;
+        }
+
         public void ResetVariables()
         {
             setting = SETTING_NULL;
@@ -92,6 +102,11 @@ namespace Sylan.GMMenu
             _owner = VRCPlayerApi.GetPlayerById(_ownerID);
             if (!Utilities.IsValid(_owner)) return;
             if (_owner == Networking.LocalPlayer) voiceModeManager.localVoiceMode = this;
+            if (!isInitialized)
+            {
+                SetVoiceMode(setting);
+                isInitialized = true;
+            }
         }
         public int setting
         {
@@ -100,31 +115,35 @@ namespace Sylan.GMMenu
                 _setting = value;
                 if (!Utilities.IsValid(owner)) return;
                 if (owner == Networking.LocalPlayer) return;
-                if (setting == SETTING_WHISPER)
-                {
-                    owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
-                    owner.AddAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID, priority, SettingWhisper);
-                    voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
-                }
-                else if (setting == SETTING_YELL)
-                {
-                    owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
-                    owner.AddAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID, priority, SettingYell);
-                    voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
-                }
-                else if (setting == SETTING_BROADCAST)
-                {
-                    owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
-                    owner.AddAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID, int.MinValue, SettingBroadcast);
-                    voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
-                }
-                else
-                {
-                    owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
-                    voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
-                }
+                SetVoiceMode(value);
             }
             get => _setting;
+        }
+        public void SetVoiceMode(int setting)
+        {
+            if (setting == SETTING_WHISPER)
+            {
+                owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
+                owner.AddAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID, priority, SettingWhisper);
+                voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
+            }
+            else if (setting == SETTING_YELL)
+            {
+                owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
+                owner.AddAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID, priority, SettingYell);
+                voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
+            }
+            else if (setting == SETTING_BROADCAST)
+            {
+                owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
+                owner.AddAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID, int.MinValue, SettingBroadcast);
+                voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
+            }
+            else
+            {
+                owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
+                voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
+            }
         }
     }
 

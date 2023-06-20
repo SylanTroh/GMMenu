@@ -10,6 +10,7 @@ namespace Sylan.GMMenu
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class GMWhisper : GMMenuPart
     {
+        bool isInitialized = false;
         const int OWNER_NULL = -1;
         [UdonSynced]
         int _ownerID = OWNER_NULL;
@@ -59,6 +60,11 @@ namespace Sylan.GMMenu
                 if (id != _ownerID) ResetVariables();
                 _ownerID = id;
                 if (_owner == Networking.LocalPlayer) gmWhisperManager.localGMWhisper = this;
+                if (!isInitialized)
+                {
+                    SetGMWhisper();
+                    isInitialized = true;
+                }
             }
             get => _owner;
         }
@@ -73,6 +79,7 @@ namespace Sylan.GMMenu
             _owner = VRCPlayerApi.GetPlayerById(_ownerID);
             if (!Utilities.IsValid(_owner)) return;
             if (_owner == Networking.LocalPlayer) gmWhisperManager.localGMWhisper = this;
+
         }
         public int[] playerIDs
         {
@@ -81,21 +88,25 @@ namespace Sylan.GMMenu
                 _playerIDs = value;
                 if (!Utilities.IsValid(owner)) return;
                 if (owner == Networking.LocalPlayer) return;
-                int localID = Networking.LocalPlayer.playerId;
-                foreach(var id in _playerIDs)
-                {
-                    if(id != localID) continue;
-                    owner.RemoveAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID);
-                    owner.AddAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID, int.MinValue, SettingBroadcast);
-                    gmWhisperManager.audioSettingManager.UpdateAudioSettings(owner);
-
-                    return;
-                }
-                owner.RemoveAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID);
-                if(_playerIDs.Length > 0) owner.AddAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID, int.MinValue, SettingOff);
-                gmWhisperManager.audioSettingManager.UpdateAudioSettings(owner);
+                SetGMWhisper();
             }
             get => _playerIDs;
+        }
+        public void SetGMWhisper()
+        {
+            int localID = Networking.LocalPlayer.playerId;
+            foreach (var id in _playerIDs)
+            {
+                if (id != localID) continue;
+                owner.RemoveAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID);
+                owner.AddAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID, int.MinValue, SettingBroadcast);
+                gmWhisperManager.audioSettingManager.UpdateAudioSettings(owner);
+
+                return;
+            }
+            owner.RemoveAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID);
+            if (_playerIDs.Length > 0) owner.AddAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID, int.MinValue, SettingOff);
+            gmWhisperManager.audioSettingManager.UpdateAudioSettings(owner);
         }
     }
 }

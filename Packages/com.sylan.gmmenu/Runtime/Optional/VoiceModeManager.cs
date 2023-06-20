@@ -19,6 +19,10 @@ namespace Sylan.GMMenu
         [Space(-10, order = 1)]
         [Header("Audiozones have priority 1000", order = 2)]
         public int priority = 2000;
+        public float whisperGain = 10f;
+        public float whisperFarRange = 5f;
+        public float yellGain = 15f;
+        public float yellFarRange = 30f;
         [SerializeField] GameObject VoiceModeButtons;
 
         void Start()
