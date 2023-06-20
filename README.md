@@ -20,6 +20,5 @@ Features Include:
 # Installation
 1. Go to https://sylantroh.github.io/SylanVCC/ and click "Add to VCC"
 2. Click Manage Project in the creator companion and press the plus button next to GMMenu
-
-## Known Issues
-Upon uploading the world and coming to the World Configuration screen, the Upload button may be unresponsive. This is apparently caused by a conflict between the VRChat uploader, and additional canvases in the scene. If this occurs, simply disable the GMMenu in the hierarchy (since the world has already been built, this will not affect the upload). The upload button should then become responsive.
+3. Import the GMMenu Prefab into the scene.
+4. If you would like to use the features that change audio settings, add an AudioSettingManager to the scene, and link it to the appropriate scripts under the Optional Gameobject.
