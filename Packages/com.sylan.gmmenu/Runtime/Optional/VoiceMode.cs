@@ -1,0 +1,131 @@
+﻿
+using UdonSharp;
+using UnityEngine;
+using VRC.SDKBase;
+using VRC.SDK3.Data;
+using VRC.Udon;
+using Sylan.AudioManager;
+
+namespace Sylan.GMMenu
+{
+    [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
+    public class VoiceMode : GMMenuPart
+    {
+        [HideInInspector] public int priority = 2000;
+
+        const int OWNER_NULL = -1;
+        [UdonSynced]
+        int _ownerID = OWNER_NULL;
+
+        [FieldChangeCallback(nameof(owner))]
+        VRCPlayerApi _owner;
+
+        public const int SETTING_NULL = -1;
+        public const int SETTING_EMPTY = 0;
+        public const int SETTING_TALK = 1;
+        public const int SETTING_WHISPER = 2;
+        public const int SETTING_YELL = 3;
+        public const int SETTING_BROADCAST = 4;
+
+        [UdonSynced, FieldChangeCallback(nameof(setting))]
+        int _setting = SETTING_NULL;
+
+        public VoiceModeManager voiceModeManager;
+
+        public const string AUDIO_ZONE_SETTING_ID = "GMMENUAUDIOSETTING";
+        DataList SettingWhisper = new DataList()
+        {
+            (DataToken)10.0f, //Voice Gain
+            (DataToken)0.0f, //Voice Range Near
+            (DataToken)5.0f, //Voice Range Far
+            (DataToken)AudioSettingManager.DEFAULT_VOICE_VOLUMETRIC_RADIUS,
+            (DataToken)AudioSettingManager.DEFAULT_VOICE_LOWPASS
+        };
+        DataList SettingYell = new DataList()
+        {
+            (DataToken)15.0f, //Voice Gain
+            (DataToken)0.0f, //Voice Range Near
+            (DataToken)30.0f, //Voice Range Far
+            (DataToken)AudioSettingManager.DEFAULT_VOICE_VOLUMETRIC_RADIUS,
+            (DataToken)false //Voice Lowpass
+        };
+        DataList SettingBroadcast = new DataList()
+        {
+            (DataToken)0.0f, //Voice Gain
+            (DataToken)999999.0f, //Voice Range Near
+            (DataToken)1000000.0f, //Voice Range Far
+            (DataToken)AudioSettingManager.DEFAULT_VOICE_VOLUMETRIC_RADIUS,
+            (DataToken)false //Voice Lowpass
+        };
+
+        public void ResetVariables()
+        {
+            setting = SETTING_NULL;
+        }
+        public VRCPlayerApi owner
+        {
+            set
+            {
+                Networking.SetOwner(Networking.LocalPlayer, gameObject);
+                _owner = value;
+                if (!Utilities.IsValid(value))
+                {
+                    _ownerID = OWNER_NULL;
+                    ResetVariables();
+                    return;
+                }
+                var id = VRCPlayerApi.GetPlayerId(value);
+                if (id != _ownerID) ResetVariables();
+                _ownerID = id;
+                if (_owner == Networking.LocalPlayer) voiceModeManager.localVoiceMode = this;
+            }
+            get => _owner;
+        }
+        public override void OnDeserialization()
+        {
+            //Set _owner from synced _ownerID
+            if (_ownerID == OWNER_NULL)
+            {
+                _owner = null;
+                return;
+            }
+            _owner = VRCPlayerApi.GetPlayerById(_ownerID);
+            if (!Utilities.IsValid(_owner)) return;
+            if (_owner == Networking.LocalPlayer) voiceModeManager.localVoiceMode = this;
+        }
+        public int setting
+        {
+            set
+            {
+                _setting = value;
+                if (!Utilities.IsValid(owner)) return;
+                if (owner == Networking.LocalPlayer) return;
+                if (setting == SETTING_WHISPER)
+                {
+                    owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
+                    owner.AddAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID, priority, SettingWhisper);
+                    voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
+                }
+                else if (setting == SETTING_YELL)
+                {
+                    owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
+                    owner.AddAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID, priority, SettingYell);
+                    voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
+                }
+                else if (setting == SETTING_BROADCAST)
+                {
+                    owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
+                    owner.AddAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID, int.MinValue, SettingBroadcast);
+                    voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
+                }
+                else
+                {
+                    owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
+                    voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
+                }
+            }
+            get => _setting;
+        }
+    }
+
+}

@@ -8,12 +8,12 @@ using VRC.SDKBase;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class MenuTab : UdonSharpBehaviour
+    public class MenuTab : GMMenuPart
     {
         [NotNull] private Transform panelParent;
         [NotNull] private PlayerPermissions Permissions;
         [NotNull] private GMMenuToggle MenuToggle;
-        [NotNull] private ToggleByPermission toggleByPermission;
+        private ToggleByPermission toggleByPermission;
 
         bool isInitialized = false;
         bool isFirstActive;
@@ -23,13 +23,12 @@ namespace Sylan.GMMenu
         void Start()
         {
             //Modules
-            Permissions = Utils.Modules.PlayerPermissions(transform);
-            MenuToggle = Utils.Modules.GMMenuToggle(transform);
+            Permissions = gmMenu.PlayerPermissions;
+            MenuToggle = gmMenu.GMMenuToggle;
             toggleByPermission = transform.GetComponent<ToggleByPermission>();
 
-            //Delay Module Setup to avoid race conditions
-            SendCustomEventDelayedSeconds(nameof(EnablePermissionListener), 0.0f);
-            SendCustomEventDelayedSeconds(nameof(EnableMenuToggleListener), 0.0f);
+            Permissions.AddListener(this);
+            MenuToggle.AddListener(this);
 
             panelParent = panel.transform.parent;
             //Only have first panel enabled on start
@@ -38,6 +37,7 @@ namespace Sylan.GMMenu
         //Set DefaultPanel
         public bool IsActive()
         {
+            if (!Utilities.IsValid(toggleByPermission)) return true;
             return toggleByPermission.IsActive();
         }
         private bool IsFirstActive()
@@ -58,15 +58,6 @@ namespace Sylan.GMMenu
         {
             if (isFirstActive) panel.SetActive(true);
             else panel.SetActive(false);
-        }
-        //Enable Event Listeners
-        public void EnablePermissionListener()
-        {
-            Permissions.AddListener(this);
-        }
-        public void EnableMenuToggleListener()
-        {
-            MenuToggle.AddListener(this);
         }
         //Event Listeners
         public void OnPermissionUpdate()
@@ -94,6 +85,7 @@ namespace Sylan.GMMenu
                 g.GetComponent<CanvasGroup>().SetActive(false);
             }
             panel.SetActive(true);
+            gmMenu.PlayerSelector.ClearPlayers();
         }
     }
     public static class CanvasGroupExtensions

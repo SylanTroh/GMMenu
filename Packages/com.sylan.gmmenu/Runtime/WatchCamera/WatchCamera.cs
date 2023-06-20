@@ -10,7 +10,7 @@ using VRC.Udon;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class WatchCamera : UdonSharpBehaviour
+    public class WatchCamera : GMMenuPart
     {
         private Camera watchCamera;
         private Camera thumbnailCamera;
@@ -33,20 +33,12 @@ namespace Sylan.GMMenu
         bool idsNeedUpdate = false;
         public void Start()
         {
-            menuToggle = Utils.Modules.GMMenuToggle(transform);
-            permissions = Utils.Modules.PlayerPermissions(transform);
+            menuToggle = gmMenu.GMMenuToggle;
+            permissions = gmMenu.PlayerPermissions;
             watchCamera = (Camera)transform.Find("WatchCamera").GetComponent(typeof(Camera));
             thumbnailCamera = (Camera)transform.Find("ThumbnailCamera").GetComponent(typeof(Camera));
 
-            SendCustomEventDelayedSeconds(nameof(EnableMenuToggleListener), 0.0f);
-            SendCustomEventDelayedSeconds(nameof(EnablePermissionListener), 0.0f);
-        }
-        public void EnablePermissionListener()
-        {
             permissions.AddListener(this);
-        }
-        public void EnableMenuToggleListener()
-        {
             menuToggle.AddListener(this);
         }
         public override void OnPlayerJoined(VRCPlayerApi player)

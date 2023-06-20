@@ -10,7 +10,7 @@ using VRC.Udon;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class PermissionOptionButtons : UdonSharpBehaviour
+    public class PermissionOptionButtons : GMMenuPart
     {
         [NotNull] private PlayerPermissions Permissions;
         [NotNull,SerializeField] Image gmButton, facilitatorButton, playerButton;
@@ -19,14 +19,10 @@ namespace Sylan.GMMenu
 
         void Start()
         {
-            Permissions = Utils.Modules.PlayerPermissions(transform);
+            Permissions = gmMenu.PlayerPermissions;
 
-            SendCustomEventDelayedSeconds(nameof(EnablePermissionListener), 0.0f);
-            SendCustomEventDelayedSeconds(nameof(OnPermissionUpdate), 0.0f);
-        }
-        public void EnablePermissionListener()
-        {
             Permissions.AddListener(this);
+            OnPermissionUpdate();
         }
         public void SetPermissionGM()
         {

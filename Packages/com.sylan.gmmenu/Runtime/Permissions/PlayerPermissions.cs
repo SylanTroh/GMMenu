@@ -7,7 +7,7 @@ using VRC.Udon;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class PlayerPermissions : UdonSharpBehaviour
+    public class PlayerPermissions : GMMenuPart
     {
         [SerializeField] private bool everyoneIsGM;
         [SerializeField] private string[] GMList;

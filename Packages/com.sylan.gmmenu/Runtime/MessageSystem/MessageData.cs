@@ -6,7 +6,7 @@ using VRC.SDKBase;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
-    public class MessageData : UdonSharpBehaviour
+    public class MessageData : GMMenuPart
     {
         const int OWNER_NULL = -1;
         const float TIME_NULL = -1.0f;
@@ -18,6 +18,7 @@ namespace Sylan.GMMenu
         public const int MESSAGE_ROLL = 2;
         public const int MESSAGE_QUESTION = 3;
         public const int MESSAGE_SILENT = 4;
+        public const int MESSAGE_GMRADIO = 5;
 
         MessageSyncManager messageSyncManager;
         [UdonSynced] 
@@ -26,7 +27,7 @@ namespace Sylan.GMMenu
         [FieldChangeCallback(nameof(owner))] 
         VRCPlayerApi _owner;
 
-        [UdonSynced, FieldChangeCallback(nameof(message))] 
+        [SerializeField, UdonSynced, FieldChangeCallback(nameof(message))] 
         int _message = MESSAGE_NULL;
 
         public float timeReceived = TIME_NULL;
@@ -37,7 +38,7 @@ namespace Sylan.GMMenu
 
         void Start()
         {
-            messageSyncManager = Utils.Modules.MessageSyncManager(transform);
+            messageSyncManager = gmMenu.MessageSyncManager;
         }
         public VRCPlayerApi owner
         {
@@ -97,6 +98,8 @@ namespace Sylan.GMMenu
                     return owner.displayName + " has a question.";
                 case MESSAGE_SILENT:
                     return "Join " + owner.displayName + " silently.";
+                case MESSAGE_GMRADIO:
+                    return owner.displayName + " requests GM Radio.";
 
                 default:
                     return "Invalid Messge.";

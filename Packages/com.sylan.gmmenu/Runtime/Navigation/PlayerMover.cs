@@ -9,7 +9,7 @@ using VRC.Udon.Common;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class PlayerMover : UdonSharpBehaviour
+    public class PlayerMover : GMMenuPart
     {
         VRCPlayerApi localPlayer;
         [FieldChangeCallback(nameof(noclip))]
@@ -33,7 +33,7 @@ namespace Sylan.GMMenu
         GMMenuToggle menuToggle;
         void Start()
         {
-            menuToggle = Utils.Modules.GMMenuToggle(transform);
+            menuToggle = gmMenu.GMMenuToggle;
             boxCollider = station.GetComponent<BoxCollider>();
             localPlayer = Networking.LocalPlayer;
         }

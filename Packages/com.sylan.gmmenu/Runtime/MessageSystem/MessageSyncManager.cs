@@ -1,5 +1,4 @@
 ﻿
-using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using UdonSharp;
@@ -10,7 +9,7 @@ using VRC.Udon;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class MessageSyncManager : UdonSharpBehaviour
+    public class MessageSyncManager : GMMenuPart
     {
         private MessageData[] messageData;
         private MessageData[] sortedMessages;
@@ -19,7 +18,7 @@ namespace Sylan.GMMenu
 
         private void Start()
         {
-            messageData = Utils.Modules.MessageData(transform);
+            messageData = GetComponentsInChildren<MessageData>();
         }
         //Manage Message Data Ownership
         public override void OnPlayerJoined(VRCPlayerApi player)
@@ -163,6 +162,7 @@ namespace Sylan.GMMenu
             Utils.ArrayUtils.Append(ref NewMessageEventListeners, b);
         }
         //Quicksort
+        [RecursiveMethod]
         private void QuickSortMessages(MessageData[] arr,int start, int end)
         {
             if (!Utilities.IsValid(arr)) return;

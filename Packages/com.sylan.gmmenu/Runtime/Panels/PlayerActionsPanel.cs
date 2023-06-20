@@ -9,13 +9,13 @@ using UnityEngine.UI;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class PlayerActionsPanel : UdonSharpBehaviour
+    public class PlayerActionsPanel : GMMenuPart
     {
         [NotNull] MessageSyncManager messageSyncManager;
         [SerializeField, NotNull] Text status;
         void Start()
         {
-            messageSyncManager = Utils.Modules.MessageSyncManager(transform);
+            messageSyncManager = gmMenu.MessageSyncManager;
 
             SendCustomEventDelayedSeconds(nameof(EnableNewMessageListener), 0.0f);
         }
@@ -53,6 +53,14 @@ namespace Sylan.GMMenu
                 messageSyncManager.SetMessage(Networking.LocalPlayer, MessageData.MESSAGE_NULL);
             else
                 messageSyncManager.SetMessage(Networking.LocalPlayer, MessageData.MESSAGE_SILENT);
+            SetStatus();
+        }
+        public void SetMessageGMRadio()
+        {
+            if (messageSyncManager.GetLocalMessageValue() == MessageData.MESSAGE_GMRADIO)
+                messageSyncManager.SetMessage(Networking.LocalPlayer, MessageData.MESSAGE_NULL);
+            else
+                messageSyncManager.SetMessage(Networking.LocalPlayer, MessageData.MESSAGE_GMRADIO);
             SetStatus();
         }
         public void OnMessageUpdate()
@@ -93,6 +101,8 @@ namespace Sylan.GMMenu
                     return "Question: ";
                 case MessageData.MESSAGE_SILENT:
                     return "Join Silently: ";
+                case MessageData.MESSAGE_GMRADIO:
+                    return "GM Radio requested: ";
 
                 default:
                     return "Invalid Messge.";

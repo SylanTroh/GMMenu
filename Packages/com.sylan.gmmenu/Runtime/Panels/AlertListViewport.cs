@@ -7,10 +7,10 @@ using VRC.SDKBase;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class AlertListViewport : UdonSharpBehaviour
+    public class AlertListViewport : GMMenuPart
     {
-        public GameObject AlertTemplate;
-        public Transform AlertListContent;
+        [SerializeField] GameObject AlertTemplate;
+        [SerializeField] Transform AlertListContent;
         [NotNull] MessageSyncManager messageSyncManager;
         [NotNull] GMMenuToggle menuToggle;
         [NotNull] Teleporter teleporter;
@@ -20,22 +20,12 @@ namespace Sylan.GMMenu
  
         private void Start()
         {
-            menuToggle = Utils.Modules.GMMenuToggle(transform);
-            messageSyncManager = Utils.Modules.MessageSyncManager(transform);
-            teleporter = Utils.Modules.Teleporter(transform);
-            watchCamera = Utils.Modules.WatchCamera(transform);
+            menuToggle = gmMenu.GMMenuToggle;
+            messageSyncManager = gmMenu.MessageSyncManager;
+            teleporter = gmMenu.Teleporter;
+            watchCamera = gmMenu.WatchCamera;
 
-            SendCustomEventDelayedSeconds(nameof(EnableMenuToggleListener), 0.0f);
-            SendCustomEventDelayedSeconds(nameof(EnableNewMessageListener), 0.0f);
-        }
-
-        //Event Listeners
-        public void EnableMenuToggleListener()
-        {
             menuToggle.AddListener(this);
-        }
-        public void EnableNewMessageListener()
-        {
             messageSyncManager.AddListener(this);
         }
 

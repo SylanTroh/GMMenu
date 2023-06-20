@@ -11,7 +11,7 @@ using Sylan.GMMenu;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class TeleportButton : UdonSharpBehaviour
+    public class TeleportButton : GMMenuPart
     {
         [NotNull, SerializeField, HideInInspector] public Teleporter teleporter;
         public Transform teleportPosition;
