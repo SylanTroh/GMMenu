@@ -10,7 +10,7 @@
         "url":"https://twitter.com/sylan_troh"
     },
   "vpmDependencies": {
-        "com.vrchat.udonsharp": "1.1.X",
+        "com.vrchat.udonsharp": "1.1.X"
     },
   "samples": [
     {
