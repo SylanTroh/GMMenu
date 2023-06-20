@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Sylan.GMMenu
 {
-    public class NoclipToggle : UdonSharpBehaviour
+    public class NoclipToggle : GMMenuPart
     {
         [SerializeField] PlayerMover playerMover;
         [SerializeField] Text text;

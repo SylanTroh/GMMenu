@@ -7,20 +7,21 @@ using static VRC.SDKBase.VRC_SceneDescriptor;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class Teleporter : UdonSharpBehaviour
+    public class Teleporter : GMMenuPart
     {
         private Vector3 prevPos;
         private Quaternion prevRot;
         bool teleportFlag;
 
         PlayerMover playerMover;
-        PlayerSummoner[] playerSummoner;
+        [SerializeField] PlayerSummoner[] playerSummoner;
+
+        [SerializeField] public GameObject summonWarning;
 
         private UdonSharpBehaviour[] TeleportEventListeners = new UdonSharpBehaviour[0];
         void Start()
         {
-            playerMover = Utils.Modules.PlayerMover(transform);
-            playerSummoner = Utils.Modules.PlayerSummoner(transform);
+            playerMover = gmMenu.PlayerMover;
         }
         public void TeleportTo(Vector3 teleportPos, Quaternion teleportRot, SpawnOrientation teleportOrientation = SpawnOrientation.AlignPlayerWithSpawnPoint)
         {
@@ -111,6 +112,10 @@ namespace Sylan.GMMenu
                 if (summoner.owner == player) return summoner;
             }
             return null;
+        }
+        public void SummonWarning(bool state)
+        {
+            summonWarning.SetActive(state);
         }
     }
 }

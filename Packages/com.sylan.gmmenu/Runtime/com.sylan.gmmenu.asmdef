@@ -5,7 +5,8 @@
         "VRC.SDKBase",
         "UdonSharp.Runtime",
         "UdonSharp.Editor",
-        "UdonSharp.Lib"
+        "UdonSharp.Lib",
+        "com.sylan.audiomanager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

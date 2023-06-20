@@ -7,7 +7,7 @@ using VRC.Udon;
 
 namespace Sylan.GMMenu
 {
-    public class SliderUpdate : UdonSharpBehaviour
+    public class SliderUpdate : GMMenuPart
     {
         [SerializeField] Slider _slider;
         [SerializeField] Text _sliderText;
@@ -19,7 +19,7 @@ namespace Sylan.GMMenu
         }
         public void SliderValueChanged()
         {
-            _sliderText.text = "Speed: ";
+            _sliderText.text = "Noclip Speed: ";
             _sliderText.text += _slider.value.ToString("#.#");
             playerMover.speedMagnitude = _slider.value;
         }

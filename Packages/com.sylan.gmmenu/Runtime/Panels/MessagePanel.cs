@@ -9,41 +9,24 @@ using System;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class MessagePanel : UdonSharpBehaviour
+    public class MessagePanel : PanelTemplate
     {
         [FieldChangeCallback(nameof(message))]
         MessageData _message;
-        [NonSerialized] public Teleporter teleporter;
-        [NonSerialized] public MessageSyncManager messageSyncManager;
-        [FieldChangeCallback(nameof(watchCamera))]
-        WatchCamera _watchCamera;
 
-        [NotNull] public Text alertMessage;
-        [NotNull] public Text timePassed;
-        [NotNull] public RawImage image;
-        int thumbnailID = 0;
+        [SerializeField,NotNull] Text alertMessage;
+        [SerializeField,NotNull] Text timePassed;
 
         [NotNull,SerializeField] Image backgroundColor;
-        Color activeColor = new Color(217f / 255f, 108f / 255f, 198f / 255f, 191f / 255f);
-        Color inactiveColor = new Color(153f / 255f, 76f / 255f, 140f / 255f, 191f / 255f);
 
         public MessageData message
         {
             set
             {
-                thumbnailID = watchCamera.GetThumbnailID(value.owner);
+                player = value.owner;
                 _message = value;
             }
             get => _message;
-        }
-        public WatchCamera watchCamera
-        {
-            set
-            {
-                value.AddListener(this);
-                _watchCamera = value;
-            }
-            get => _watchCamera;
         }
         public void DrawPanel(MessageData m)
         {
@@ -55,9 +38,10 @@ namespace Sylan.GMMenu
             if (message.IsRead())
             { 
                 alertMessage.text += "(GM Present)\n";
-                backgroundColor.color = inactiveColor;
+                isActive = false;
             }
-            else backgroundColor.color = activeColor;
+            else isActive = true;
+            SetBorderColor();
 
             alertMessage.text += message.PrintMessage();
 
@@ -74,19 +58,6 @@ namespace Sylan.GMMenu
             transform.Find("VerticalLayout/HorizontalLayout/UndoRead").gameObject.SetActive(message.isReadLocal);
         }
         //Button Onclick funtions
-        public void TeleportToPlayer()
-        {
-            if (!Utilities.IsValid(message.owner))
-            {
-                Debug.Log("[MessagePanel]: Invalid Teleport Target");
-                return;
-            }
-            teleporter.TeleportToPlayer(message.owner);
-        }
-        public void UndoTeleport()
-        {
-            teleporter.UndoTeleport();
-        }
         public void MarkRead()
         {
             message.SyncReadStatus(true);
@@ -94,15 +65,6 @@ namespace Sylan.GMMenu
         public void UndoRead()
         {
             message.SyncReadStatus(false);
-        }
-        public void WatchCameraEnable()
-        {
-            if (!Utilities.IsValid(message.owner))
-            {
-                Debug.Log("[MessagePanel]: Invalid Watch Target");
-                return;
-            }
-            watchCamera.WatchPlayer(message.owner);
         }
         string PrettyPrintTime(MessageData message)
         {
@@ -112,10 +74,6 @@ namespace Sylan.GMMenu
             if (timePassed < 60) return Math.Floor(timePassed).ToString() + "m";
             timePassed /= 24;
             return Math.Floor(timePassed).ToString() + "h";
-        }
-        public void OnUpdateThumbnailID()
-        {
-            thumbnailID = watchCamera.GetThumbnailID(message.owner);
         }
     }
 }

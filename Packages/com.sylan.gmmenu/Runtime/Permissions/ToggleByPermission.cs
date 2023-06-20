@@ -9,7 +9,7 @@ using VRC.Udon;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class ToggleByPermission : UdonSharpBehaviour
+    public class ToggleByPermission : GMMenuPart
     {
         [NotNull] private PlayerPermissions Permissions;
         [Header("Set who has permissions to view this Gameobject")]
@@ -29,14 +29,10 @@ namespace Sylan.GMMenu
             if (permissionFacilitator) permissionMask += 2;
             if (permissionPlayer) permissionMask += 1;
 
-            Permissions = Utils.Modules.PlayerPermissions(transform);
+            Permissions = gmMenu.PlayerPermissions;
 
-            SendCustomEventDelayedSeconds(nameof(EnablePermissionListener), 0.0f);
-            SendCustomEventDelayedSeconds(nameof(OnPermissionUpdate), 0.0f);
-        }
-        public void EnablePermissionListener()
-        {
             Permissions.AddListener(this);
+            OnPermissionUpdate();
         }
         public void OnPermissionUpdate()
         {

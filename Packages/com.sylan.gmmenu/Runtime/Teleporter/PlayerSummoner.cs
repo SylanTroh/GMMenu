@@ -7,7 +7,7 @@ using VRC.Udon;
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
-    public class PlayerSummoner : UdonSharpBehaviour
+    public class PlayerSummoner : GMMenuPart
     {
         Teleporter teleporter;
 
@@ -23,7 +23,7 @@ namespace Sylan.GMMenu
         int _requester = OWNER_NULL;
         void Start()
         {
-            teleporter = Utils.Modules.Teleporter(transform);
+            teleporter = gmMenu.Teleporter;
         }
         public VRCPlayerApi owner
         {
@@ -67,13 +67,17 @@ namespace Sylan.GMMenu
 
             if (_owner != Networking.LocalPlayer) return;
 
-            SendCustomEventDelayedFrames(nameof(TeleportEvent), 1);
+            var teleportTarget = VRCPlayerApi.GetPlayerById(requester);
+            if (!Utilities.IsValid(teleportTarget)) return;
+            teleporter.SummonWarning(true);
+            SendCustomEventDelayedSeconds(nameof(TeleportEvent), 3);
         }
         public void TeleportEvent()
         {
             var teleportTarget = VRCPlayerApi.GetPlayerById(requester);
             if (!Utilities.IsValid(teleportTarget)) return;
             teleporter.TeleportToPlayer(teleportTarget);
+            teleporter.SummonWarning(false);
         }
     }
 }
