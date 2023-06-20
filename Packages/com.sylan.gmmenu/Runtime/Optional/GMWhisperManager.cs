@@ -1,11 +1,8 @@
-﻿
-using Sylan.AudioManager;
+﻿using Sylan.AudioManager;
 using UdonSharp;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace Sylan.GMMenu
 {

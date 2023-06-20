@@ -1,7 +1,7 @@
 {
   "name": "com.sylan.gmmenu",
   "displayName": "GMMenu",
-  "version": "1.2.2-pre-release",
+  "version": "1.2.3-pre-release",
   "description": "An UDON menu panel designed for VRChat roleplay.",
   "url": "https://github.com/SylanTroh/GMMenu.git",
   "author": {
@@ -10,7 +10,8 @@
         "url":"https://twitter.com/sylan_troh"
     },
   "vpmDependencies": {
-        "com.vrchat.udonsharp": "1.1.X"
+        "com.vrchat.udonsharp": "1.1.X",
+        "com.sylan.audiomanager": "1.1.X"
     },
   "samples": [
     {
