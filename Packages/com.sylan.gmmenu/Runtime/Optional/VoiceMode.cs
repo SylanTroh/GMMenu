@@ -104,7 +104,7 @@ namespace Sylan.GMMenu
             if (_owner == Networking.LocalPlayer) voiceModeManager.localVoiceMode = this;
             if (!isInitialized)
             {
-                SetVoiceMode(setting);
+                SendCustomEventDelayedSeconds(nameof(SetVoiceMode), 10f);
                 isInitialized = true;
             }
         }
@@ -115,11 +115,11 @@ namespace Sylan.GMMenu
                 _setting = value;
                 if (!Utilities.IsValid(owner)) return;
                 if (owner == Networking.LocalPlayer) return;
-                SetVoiceMode(value);
+                SetVoiceMode();
             }
             get => _setting;
         }
-        public void SetVoiceMode(int setting)
+        public void SetVoiceMode()
         {
             if (setting == SETTING_WHISPER)
             {

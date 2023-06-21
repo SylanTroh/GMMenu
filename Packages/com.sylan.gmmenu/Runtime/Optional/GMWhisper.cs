@@ -10,7 +10,6 @@ namespace Sylan.GMMenu
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class GMWhisper : GMMenuPart
     {
-        bool isInitialized = false;
         const int OWNER_NULL = -1;
         [UdonSynced]
         int _ownerID = OWNER_NULL;
@@ -60,11 +59,6 @@ namespace Sylan.GMMenu
                 if (id != _ownerID) ResetVariables();
                 _ownerID = id;
                 if (_owner == Networking.LocalPlayer) gmWhisperManager.localGMWhisper = this;
-                if (!isInitialized)
-                {
-                    SetGMWhisper();
-                    isInitialized = true;
-                }
             }
             get => _owner;
         }
