@@ -37,11 +37,11 @@ namespace Sylan.GMMenu
         public const string AUDIO_ZONE_SETTING_ID = "GMMENUAUDIOSETTING";
         DataList SettingWhisper = new DataList()
         {
-            (DataToken)10.0f, //Voice Gain
+            (DataToken)15.0f, //Voice Gain
             (DataToken)0.0f, //Voice Range Near
             (DataToken)5.0f, //Voice Range Far
             (DataToken)AudioSettingManager.DEFAULT_VOICE_VOLUMETRIC_RADIUS,
-            (DataToken)AudioSettingManager.DEFAULT_VOICE_LOWPASS
+            (DataToken)false
         };
         DataList SettingYell = new DataList()
         {
@@ -104,7 +104,7 @@ namespace Sylan.GMMenu
             if (_owner == Networking.LocalPlayer) voiceModeManager.localVoiceMode = this;
             if (!isInitialized)
             {
-                SendCustomEventDelayedSeconds(nameof(SetVoiceMode), 10f);
+                SetVoiceMode();
                 isInitialized = true;
             }
         }

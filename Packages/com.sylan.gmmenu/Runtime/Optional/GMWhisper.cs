@@ -10,6 +10,8 @@ namespace Sylan.GMMenu
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class GMWhisper : GMMenuPart
     {
+        bool isInitialized = false;
+
         const int OWNER_NULL = -1;
         [UdonSynced]
         int _ownerID = OWNER_NULL;
@@ -73,7 +75,11 @@ namespace Sylan.GMMenu
             _owner = VRCPlayerApi.GetPlayerById(_ownerID);
             if (!Utilities.IsValid(_owner)) return;
             if (_owner == Networking.LocalPlayer) gmWhisperManager.localGMWhisper = this;
-
+            if (!isInitialized)
+            {
+                SetGMWhisper();
+                isInitialized = true;
+            }
         }
         public int[] playerIDs
         {
