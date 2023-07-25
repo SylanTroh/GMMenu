@@ -15408,6 +15408,7 @@ MonoBehaviour:
   priority: 2000
   whisperGain: 15
   whisperFarRange: 5
+  whisperNearRange: 0.5
   yellGain: 15
   yellFarRange: 40
   VoiceModeButtons: {fileID: 6070655378968862450}
