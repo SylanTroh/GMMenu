@@ -63,6 +63,7 @@ namespace Sylan.GMMenu
         private void Start()
         {
             SettingWhisper[0] = voiceModeManager.whisperGain;
+            SettingWhisper[1] = voiceModeManager.whisperNearRange;
             SettingWhisper[2] = voiceModeManager.whisperFarRange;
             SettingYell[0] = voiceModeManager.yellGain;
             SettingYell[2] = voiceModeManager.yellFarRange;
