@@ -21,6 +21,7 @@ namespace Sylan.GMMenu
         public int priority = 2000;
         public float whisperGain = 15f;
         public float whisperFarRange = 5f;
+        public float whisperNearRange = 0.5f;
         public float yellGain = 15f;
         public float yellFarRange = 40f;
         [SerializeField] GameObject VoiceModeButtons;

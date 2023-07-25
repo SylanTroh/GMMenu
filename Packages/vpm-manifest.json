@@ -13,18 +13,18 @@
       "version": "0.1.18"
     },
     "com.sylan.audiomanager": {
-      "version": "1.1.1"
+      "version": "1.1.4"
     }
   },
   "locked": {
     "com.vrchat.worlds": {
-      "version": "3.2.1",
+      "version": "3.2.2-beta.1",
       "dependencies": {
-        "com.vrchat.base": "^3.2.1"
+        "com.vrchat.base": "3.2.2-beta.1"
       }
     },
     "com.vrchat.base": {
-      "version": "3.2.1",
+      "version": "3.2.2-beta.1",
       "dependencies": {}
     },
     "com.vrchat.udonsharp": {
@@ -34,17 +34,17 @@
       }
     },
     "com.vrchat.clientsim": {
-      "version": "1.2.5",
+      "version": "1.2.6",
       "dependencies": {
         "com.vrchat.worlds": "^3.1.x"
       }
     },
     "com.vrchat.core.vpm-resolver": {
-      "version": "0.1.20",
+      "version": "0.1.21",
       "dependencies": {}
     },
     "com.sylan.audiomanager": {
-      "version": "1.1.2",
+      "version": "1.1.5",
       "dependencies": {
         "com.vrchat.udonsharp": "1.1.X"
       }
