@@ -17,7 +17,7 @@ namespace Sylan.GMMenu
 
         const int OWNER_NULL = -1;
         [UdonSynced]
-        int _ownerID = OWNER_NULL;
+        private int _ownerID = OWNER_NULL;
 
         [FieldChangeCallback(nameof(owner))]
         VRCPlayerApi _owner;
