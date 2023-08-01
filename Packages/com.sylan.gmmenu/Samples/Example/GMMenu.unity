@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6192,7 +6192,6 @@ GameObject:
   - component: {fileID: 1344707367}
   - component: {fileID: 1344707370}
   - component: {fileID: 1344707369}
-  - component: {fileID: 1344707371}
   m_Layer: 0
   m_Name: VRCWorld
   m_TagString: Untagged
@@ -7215,19 +7214,6 @@ MonoBehaviour:
   strafeSpeed: 2.5
   gravity: 1
   useLegacyLocomotion: 0
---- !u!114 &1344707371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1344707365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 229740497, guid: 4ecd63eff847044b68db9453ce219299, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  contentType: 1
 --- !u!1 &1350524522 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6070655379763711554, guid: 4351c432d0cc2304ca29728c308703c9,
@@ -14101,6 +14087,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6070655379858003954, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 6070655379863213139, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_Spacing
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6070655379863213139, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6070655379884177256, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -14113,6 +14109,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6312714064154292849, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 7675985258220574015, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8600690620339083405, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -15451,6 +15452,31 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8600690622471392972, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969415505656532139, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969415505656532139, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969415505656532139, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969415505656532139, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969415505656532139, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0

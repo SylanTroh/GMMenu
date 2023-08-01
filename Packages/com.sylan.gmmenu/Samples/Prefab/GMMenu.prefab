@@ -7049,6 +7049,7 @@ GameObject:
   - component: {fileID: 938608410778125006}
   - component: {fileID: 2403128656747501786}
   - component: {fileID: 4774697248279007360}
+  - component: {fileID: 3760622803344534245}
   m_Layer: 13
   m_Name: RadioMode
   m_TagString: Untagged
@@ -7074,7 +7075,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 75}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &938608410778125006
 CanvasRenderer:
@@ -7122,6 +7123,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 1
+--- !u!114 &3760622803344534245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3609861183341264697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.8, b: 0.96862745, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: cf547c3b264c80a41bba0a855f9bcdde, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 0
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 4
 --- !u!1 &6070655377747763148
 GameObject:
   m_ObjectHideFlags: 0
@@ -7522,7 +7552,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377757371629}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377757371629
 MonoBehaviour:
@@ -7688,7 +7717,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377773872991}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377773872991
 MonoBehaviour:
@@ -8101,7 +8129,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377810989053}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377810989053
 MonoBehaviour:
@@ -8185,7 +8212,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377820684994}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377820684994
 MonoBehaviour:
@@ -8269,7 +8295,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377830148922}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377830148922
 MonoBehaviour:
@@ -8353,7 +8378,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377843721011}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377843721011
 MonoBehaviour:
@@ -8817,7 +8841,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377883135493}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377883135493
 MonoBehaviour:
@@ -9449,7 +9472,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377963879837}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377963879837
 MonoBehaviour:
@@ -9533,7 +9555,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377971630022}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377971630022
 MonoBehaviour:
@@ -9617,7 +9638,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655377990540829}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655377990540829
 MonoBehaviour:
@@ -9857,7 +9877,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378035437822}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378035437822
 MonoBehaviour:
@@ -10022,7 +10041,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378040265218}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378040265218
 MonoBehaviour:
@@ -10484,7 +10502,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378068116951}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378068116951
 MonoBehaviour:
@@ -10568,7 +10585,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378071327902}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378071327902
 MonoBehaviour:
@@ -10804,7 +10820,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378111466618}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378111466618
 MonoBehaviour:
@@ -10888,7 +10903,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378124407377}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378124407377
 MonoBehaviour:
@@ -11054,7 +11068,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378128741918}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378128741918
 MonoBehaviour:
@@ -11138,7 +11151,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378130534623}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378130534623
 MonoBehaviour:
@@ -11222,7 +11234,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378138921647}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378138921647
 MonoBehaviour:
@@ -11395,7 +11406,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378144456775}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378144456775
 MonoBehaviour:
@@ -11479,7 +11489,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378156558906}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378156558906
 MonoBehaviour:
@@ -11719,7 +11728,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378179560329}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378179560329
 MonoBehaviour:
@@ -11803,7 +11811,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378179835728}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378179835728
 MonoBehaviour:
@@ -12587,7 +12594,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378238594880}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378238594880
 MonoBehaviour:
@@ -12753,7 +12759,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378262334848}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378262334848
 MonoBehaviour:
@@ -12837,7 +12842,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378263775097}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378263775097
 MonoBehaviour:
@@ -12998,7 +13002,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378296006272}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378296006272
 MonoBehaviour:
@@ -13082,7 +13085,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378315697962}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378315697962
 MonoBehaviour:
@@ -13166,7 +13168,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378327719122}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378327719122
 MonoBehaviour:
@@ -13250,7 +13251,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378344159876}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378344159876
 MonoBehaviour:
@@ -13416,7 +13416,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378353061653}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378353061653
 MonoBehaviour:
@@ -13500,7 +13499,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378372056511}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378372056511
 MonoBehaviour:
@@ -13584,7 +13582,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378396610255}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378396610255
 MonoBehaviour:
@@ -14133,7 +14130,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378451785900}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378451785900
 MonoBehaviour:
@@ -14281,7 +14277,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378464171836}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378464171836
 MonoBehaviour:
@@ -14533,7 +14528,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378507049260}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378507049260
 MonoBehaviour:
@@ -14695,7 +14689,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378514839566}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378514839566
 MonoBehaviour:
@@ -14861,7 +14854,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378558140971}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378558140971
 MonoBehaviour:
@@ -15027,7 +15019,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378564773512}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378564773512
 MonoBehaviour:
@@ -15111,7 +15102,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378577024495}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378577024495
 MonoBehaviour:
@@ -15195,7 +15185,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378589336641}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378589336641
 MonoBehaviour:
@@ -15279,7 +15268,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378589924567}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378589924567
 MonoBehaviour:
@@ -15363,7 +15351,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378595745467}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378595745467
 MonoBehaviour:
@@ -15622,7 +15609,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378618749424}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378618749424
 MonoBehaviour:
@@ -15952,7 +15938,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378683584957}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378683584957
 MonoBehaviour:
@@ -16614,7 +16599,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378830491683}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378830491683
 MonoBehaviour:
@@ -16780,7 +16764,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378849767578}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378849767578
 MonoBehaviour:
@@ -17352,7 +17335,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655378924199577}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655378924199577
 MonoBehaviour:
@@ -17472,6 +17454,7 @@ GameObject:
   - component: {fileID: 6070655378968862408}
   - component: {fileID: 6070655378968862454}
   - component: {fileID: 6070655378968862409}
+  - component: {fileID: 2110119481232606077}
   m_Layer: 13
   m_Name: VoiceMode
   m_TagString: Untagged
@@ -17500,7 +17483,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 75}
+  m_SizeDelta: {x: 315, y: 75}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6070655378968862452
 CanvasRenderer:
@@ -17603,6 +17586,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 0
+--- !u!114 &2110119481232606077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6070655378968862450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.8, b: 0.96862745, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: cf547c3b264c80a41bba0a855f9bcdde, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 0
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 4
 --- !u!1 &6070655379002387721
 GameObject:
   m_ObjectHideFlags: 0
@@ -17864,7 +17876,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379017726307}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379017726307
 MonoBehaviour:
@@ -18211,7 +18222,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379025609779}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379025609779
 MonoBehaviour:
@@ -18369,7 +18379,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379053095001}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379053095001
 MonoBehaviour:
@@ -18542,7 +18551,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379085065651}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379085065651
 MonoBehaviour:
@@ -18778,7 +18786,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379124379436}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379124379436
 MonoBehaviour:
@@ -19100,7 +19107,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379152166621}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379152166621
 MonoBehaviour:
@@ -19968,7 +19974,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379200808941}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379200808941
 MonoBehaviour:
@@ -20052,7 +20057,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379202000718}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379202000718
 MonoBehaviour:
@@ -20296,7 +20300,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379224411751}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379224411751
 MonoBehaviour:
@@ -20462,7 +20465,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379244452030}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379244452030
 MonoBehaviour:
@@ -20546,7 +20548,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379245307569}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379245307569
 MonoBehaviour:
@@ -20630,7 +20631,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379246589682}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379246589682
 MonoBehaviour:
@@ -20714,7 +20714,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379246732570}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379246732570
 MonoBehaviour:
@@ -20798,7 +20797,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379251964838}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379251964838
 MonoBehaviour:
@@ -20882,7 +20880,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379252992833}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379252992833
 MonoBehaviour:
@@ -20966,7 +20963,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379264906420}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379264906420
 MonoBehaviour:
@@ -21050,7 +21046,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379265215509}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379265215509
 MonoBehaviour:
@@ -21134,7 +21129,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379287180643}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379287180643
 MonoBehaviour:
@@ -21218,7 +21212,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379292706182}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379292706182
 MonoBehaviour:
@@ -21384,7 +21377,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379343904405}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379343904405
 MonoBehaviour:
@@ -21692,7 +21684,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379379122102}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379379122102
 MonoBehaviour:
@@ -21858,7 +21849,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379416521000}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379416521000
 MonoBehaviour:
@@ -22262,7 +22252,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379439962875}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379439962875
 MonoBehaviour:
@@ -22498,7 +22487,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379448606874}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379448606874
 MonoBehaviour:
@@ -23259,7 +23247,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379547821916}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379547821916
 MonoBehaviour:
@@ -23429,7 +23416,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379573363393}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379573363393
 MonoBehaviour:
@@ -23726,7 +23712,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379609569095}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379609569095
 MonoBehaviour:
@@ -24004,7 +23989,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379616348895}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379616348895
 MonoBehaviour:
@@ -24470,7 +24454,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379702841199}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379702841199
 MonoBehaviour:
@@ -24632,7 +24615,7 @@ MonoBehaviour:
           m_StringArgument: SetTalk
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &6070655379707762877
 GameObject:
   m_ObjectHideFlags: 0
@@ -24916,7 +24899,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379715784649}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379715784649
 MonoBehaviour:
@@ -25215,7 +25197,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379739472723}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379739472723
 MonoBehaviour:
@@ -25299,7 +25280,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379763711556}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379763711556
 MonoBehaviour:
@@ -25383,7 +25363,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379773172072}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379773172072
 MonoBehaviour:
@@ -25467,7 +25446,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379791991234}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379791991234
 MonoBehaviour:
@@ -25551,7 +25529,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379799167563}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379799167563
 MonoBehaviour:
@@ -25799,7 +25776,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379819185571}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379819185571
 MonoBehaviour:
@@ -26410,10 +26386,10 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 2
-  m_Spacing: 0
+  m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
+  m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -26473,7 +26449,6 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 6070655379884177175}
   gmMenu: {fileID: 6070655379445407196}
   priority: 2000
-  _ownerID: -1
   voiceModeManager: {fileID: 6070655378612963361}
 --- !u!114 &6070655379884177175
 MonoBehaviour:
