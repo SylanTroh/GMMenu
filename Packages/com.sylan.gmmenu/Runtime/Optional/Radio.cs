@@ -35,6 +35,7 @@ namespace Sylan.AudioManager
             {
                 Networking.SetOwner(Networking.LocalPlayer, gameObject);
                 _owner = value;
+                channel = channel; // force update after changing owner
                 if (!Utilities.IsValid(value))
                 {
                     _ownerID = OWNER_NULL;
@@ -57,6 +58,7 @@ namespace Sylan.AudioManager
                 return;
             }
             _owner = VRCPlayerApi.GetPlayerById(_ownerID);
+            channel = channel; // force update after changing owner
             if (!Utilities.IsValid(_owner)) return;
             if (_owner == Networking.LocalPlayer) _RadioManager.localRadio = this;
         }
@@ -66,6 +68,8 @@ namespace Sylan.AudioManager
             set
             {
                 _channel = value;
+                if (owner == null)
+                    return;
                 if (channel <= CHANNEL_EMPTY)
                 {
                     owner.ExitRadioChannel(_RadioManager);
