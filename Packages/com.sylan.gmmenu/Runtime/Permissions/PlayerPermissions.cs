@@ -25,8 +25,8 @@ namespace Sylan.GMMenu
         void Start()
         {
             if (everyoneIsGM) _permission = PERMISSION_GM;
-            else if(everyoneIsFacilitator) _permission = PERMISSION_FACILITATOR;
             else _permission = ResetPermission(GMList, FacilitatorList);
+            if (everyoneIsFacilitator) _permission = Mathf.Max(_permission, PERMISSION_FACILITATOR);
             _tempPermission = _permission;
             Debug.Log("Permission Level:" + getPermissionLevel().ToString());
             SendPermissionUpdateEvent();
