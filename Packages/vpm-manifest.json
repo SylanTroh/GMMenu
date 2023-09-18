@@ -44,7 +44,7 @@
       "dependencies": {}
     },
     "com.sylan.audiomanager": {
-      "version": "1.1.6",
+      "version": "1.1.7",
       "dependencies": {
         "com.vrchat.udonsharp": "1.1.X"
       }
