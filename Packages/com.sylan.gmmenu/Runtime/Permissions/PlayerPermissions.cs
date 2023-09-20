@@ -83,14 +83,14 @@ namespace Sylan.GMMenu
         {
             foreach(string player in GMList)
             {
-                if (PlayerName = player)
+                if (PlayerName == player)
                 {
                     return 2;
                 }
             }
             foreach(string player in FacilitatorList)
             {
-                if (PlayerName = player)
+                if (PlayerName == player)
                 {
                     return 1;
                 }
