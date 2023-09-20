@@ -79,5 +79,23 @@ namespace Sylan.GMMenu
         {
             Utils.ArrayUtils.Append(ref PermissionEventListeners, b);
         }
+        public int GetPlayerBasePermLevel(string PlayerName)
+        {
+            foreach(string player in GMList)
+            {
+                if (PlayerName == player)
+                {
+                    return 2;
+                }
+            }
+            foreach(string player in FacilitatorList)
+            {
+                if (PlayerName == player)
+                {
+                    return 1;
+                }
+            }
+            return 0;
+        }
     }
 }
