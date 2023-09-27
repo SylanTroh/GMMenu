@@ -81,13 +81,13 @@ namespace Sylan.GMMenu
         {
             InsertPlayer(player);
             CopyPlayersToArray();
-            UpdateViewport();
+            SendCustomEventDelayedFrames(nameof(UpdateViewport), 1);
         }
         public override void OnPlayerLeft(VRCPlayerApi player)
         {
             RemovePlayer(player);
             CopyPlayersToArray();
-            UpdateViewport();
+            SendCustomEventDelayedFrames(nameof(UpdateViewport), 1);
         }
         // Events
         public void OnMenuToggleOn()
