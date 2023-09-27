@@ -40,11 +40,11 @@
       }
     },
     "com.vrchat.core.vpm-resolver": {
-      "version": "0.1.21",
+      "version": "0.1.23",
       "dependencies": {}
     },
     "com.sylan.audiomanager": {
-      "version": "1.1.7",
+      "version": "1.2.0-pre-release",
       "dependencies": {
         "com.vrchat.udonsharp": "1.1.X"
       }
