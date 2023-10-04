@@ -20,6 +20,9 @@ namespace Sylan.GMMenu
         private MessageSyncManager messageSyncManager;
         public MessageSyncManager MessageSyncManager { get { return messageSyncManager; } }
         [SerializeField]
+        private VoiceModeManager voiceModeManager;
+        public VoiceModeManager VoiceModeManager { get { return voiceModeManager; } }
+        [SerializeField]
         private Teleporter teleporter;
         public Teleporter Teleporter { get { return teleporter; } }
         [SerializeField]

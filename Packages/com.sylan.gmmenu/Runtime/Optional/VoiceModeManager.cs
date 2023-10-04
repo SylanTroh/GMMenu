@@ -12,6 +12,8 @@ namespace Sylan.GMMenu
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class VoiceModeManager : GMMenuPart
     {
+        private UdonSharpBehaviour[] VoiceModeChangedEventListeners = new UdonSharpBehaviour[0];
+
         [HideInInspector] public VoiceMode localVoiceMode;
         private VoiceMode[] audioSettings;
         [SerializeField] public AudioSettingManager audioSettingManager;
@@ -87,6 +89,7 @@ namespace Sylan.GMMenu
                 Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_TALK;
             localVoiceMode.RequestSerialization();
+            SendVoiceModeChangedEvent();
         }
         public void SetWhisper()
         {
@@ -95,6 +98,7 @@ namespace Sylan.GMMenu
                 Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_WHISPER;
             localVoiceMode.RequestSerialization();
+            SendVoiceModeChangedEvent();
         }
         public void SetYell()
         {
@@ -103,6 +107,7 @@ namespace Sylan.GMMenu
                 Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_YELL;
             localVoiceMode.RequestSerialization();
+            SendVoiceModeChangedEvent();
         }
         public void SetBroadcast()
         {
@@ -111,6 +116,16 @@ namespace Sylan.GMMenu
                 Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_BROADCAST;
             localVoiceMode.RequestSerialization();
+            SendVoiceModeChangedEvent();
+        }
+        //Events
+        public void SendVoiceModeChangedEvent()
+        {
+            Utils.Events.SendEvent("OnVoiceModeChanged", VoiceModeChangedEventListeners);
+        }
+        public void AddListener(UdonSharpBehaviour b)
+        {
+            Utils.ArrayUtils.Append(ref VoiceModeChangedEventListeners, b);
         }
     }
 }

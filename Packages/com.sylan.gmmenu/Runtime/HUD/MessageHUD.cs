@@ -19,6 +19,7 @@ namespace Sylan.GMMenu
         public GameObject hudNewMessage;
         int numberOfBlinks = 0;
 
+        public GameObject hud;
         public Transform messageIcons;
 
         void Start()
@@ -74,18 +75,23 @@ namespace Sylan.GMMenu
             {
                 case MessageData.MESSAGE_URGENT:
                     hudEmergency.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 case MessageData.MESSAGE_QUESTION:
                     hudQuestion.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 case MessageData.MESSAGE_ROLL:
                     hudRoll.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 case MessageData.MESSAGE_SILENT:
                     hudSilent.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 case MessageData.MESSAGE_GMRADIO:
                     hudGMRadio.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 default:
                     return;
@@ -106,6 +112,7 @@ namespace Sylan.GMMenu
             {
                 t.gameObject.SetActive(false);
             }
+            hud.SetActive(false);
         }
         public void OnNewMessage()
         {
