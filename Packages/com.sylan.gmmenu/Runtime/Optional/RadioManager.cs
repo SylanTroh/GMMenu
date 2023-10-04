@@ -39,10 +39,13 @@ namespace Sylan.AudioManager
             AudioSettingManager.DEFAULT_VOICE_VOLUMETRIC_RADIUS,
             false
         };
+
+        public GameObject RadioButton;
         private void Start()
         {
             if(_AudioSettingManager == null)
             {
+                Destroy(RadioButton);
                 Destroy(gameObject);
                 return;
             }

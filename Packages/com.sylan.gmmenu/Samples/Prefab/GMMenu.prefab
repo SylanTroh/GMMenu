@@ -4808,7 +4808,7 @@ GameObject:
   - component: {fileID: 3576604228525237613}
   - component: {fileID: 3576604228525237608}
   m_Layer: 0
-  m_Name: GMMenu 1
+  m_Name: GMMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45165,6 +45165,7 @@ MonoBehaviour:
   voiceRangeFar: 1000000
   volumetricRadius: 0
   voiceLowpass: 0
+  RadioButton: {fileID: 6306490701249415053}
 --- !u!114 &4080077073723927596
 MonoBehaviour:
   m_ObjectHideFlags: 0

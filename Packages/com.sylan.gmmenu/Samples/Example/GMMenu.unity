@@ -5025,6 +5025,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3576604229320192149, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+      propertyPath: audioSettingManager
+      value: 
+      objectReference: {fileID: 1538985855}
+    - target: {fileID: 3576604229320192149, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 3576604229320192149, guid: 4351c432d0cc2304ca29728c308703c9,
@@ -5456,6 +5461,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3576604229758526756, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: audioSettingManager
+      value: 
+      objectReference: {fileID: 1538985855}
     - target: {fileID: 3576604229758526756, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -5988,6 +5998,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7079054267580615629, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 7113339529959457896, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: _AudioSettingManager
+      value: 
+      objectReference: {fileID: 1538985855}
     - target: {fileID: 7113339529959457896, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
