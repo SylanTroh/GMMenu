@@ -4190,6 +4190,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3576604228250339198, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 3576604228259143689, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576604228259143690, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576604228259143690, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576604228259143690, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576604228259143690, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604228262561748, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab

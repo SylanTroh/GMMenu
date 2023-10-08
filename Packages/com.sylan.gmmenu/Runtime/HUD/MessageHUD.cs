@@ -48,18 +48,23 @@ namespace Sylan.GMMenu
             {
                 case MessageData.MESSAGE_URGENT:
                     hudEmergency.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 case MessageData.MESSAGE_QUESTION:
                     hudQuestion.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 case MessageData.MESSAGE_ROLL:
                     hudRoll.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 case MessageData.MESSAGE_SILENT:
                     hudSilent.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 case MessageData.MESSAGE_GMRADIO:
                     hudGMRadio.SetActive(true);
+                    hud.SetActive(true);
                     return;
                 default:
                     return;
