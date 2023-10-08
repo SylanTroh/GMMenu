@@ -3,10 +3,10 @@
     "references": [
         "VRC.SDK3",
         "VRC.SDKBase",
+        "com.sylan.audiomanager",
         "UdonSharp.Runtime",
         "UdonSharp.Editor",
-        "UdonSharp.Lib",
-        "com.sylan.audiomanager"
+        "UdonSharp.Lib"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
