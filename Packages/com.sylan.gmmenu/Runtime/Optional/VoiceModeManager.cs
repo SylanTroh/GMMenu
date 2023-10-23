@@ -4,6 +4,7 @@ using UdonSharp;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using VRC.SDK3.Data;
 using VRC.SDKBase;
 using VRC.Udon;
 
@@ -16,6 +17,7 @@ namespace Sylan.GMMenu
 
         [HideInInspector] public VoiceMode localVoiceMode;
         private VoiceMode[] audioSettings;
+        private DataDictionary audioSettingsIndex = new DataDictionary();
         [SerializeField] public AudioSettingManager audioSettingManager;
         [Header("Lower number means higher priority", order = 0)]
         [Space(-10, order = 1)]
@@ -30,7 +32,7 @@ namespace Sylan.GMMenu
 
         void Start()
         {
-            if(audioSettingManager == null)
+            if (audioSettingManager == null)
             {
                 Destroy(VoiceModeButtons.gameObject);
                 Destroy(gameObject);
@@ -49,12 +51,14 @@ namespace Sylan.GMMenu
         }
         private void SetAudioSettingOwnership(VRCPlayerApi player)
         {
-            foreach (VoiceMode voiceMode in audioSettings)
+            for (int i = 0; i < audioSettings.Length; i++)
             {
+                VoiceMode voiceMode = audioSettings[i];
                 if (voiceMode.owner != null) continue;
 
                 voiceMode.owner = player;
                 voiceMode.RequestSerialization();
+                audioSettingsIndex.SetValue(player.playerId, i);
                 return;
             }
         }
@@ -65,12 +69,14 @@ namespace Sylan.GMMenu
         }
         private void RevokeAudioSettingOwnership(VRCPlayerApi player)
         {
-            foreach (VoiceMode voiceMode in audioSettings)
+            for (int i = 0; i < audioSettings.Length; i++)
             {
+                VoiceMode voiceMode = audioSettings[i];
                 if (voiceMode.owner != player) continue;
 
                 voiceMode.owner = null;
                 voiceMode.RequestSerialization();
+                audioSettingsIndex.Remove(player.playerId);
             }
         }
         public VoiceMode GetLocalSetting()
@@ -81,6 +87,15 @@ namespace Sylan.GMMenu
         {
             if (!Utilities.IsValid(localVoiceMode)) return VoiceMode.SETTING_NULL;
             return localVoiceMode.setting;
+        }
+        public int GetPlayerSettingValue(VRCPlayerApi player)
+        {
+            if (audioSettingsIndex.TryGetValue(player.playerId, TokenType.Int, out DataToken value))
+            {
+                int i = value.Int;
+                return audioSettings[i].setting;
+            }
+            return VoiceMode.SETTING_NULL;
         }
         public void SetTalk()
         {
@@ -94,7 +109,7 @@ namespace Sylan.GMMenu
         public void SetWhisper()
         {
             if (!Utilities.IsValid(localVoiceMode)) return;
-            if (!Networking.IsOwner(localVoiceMode.gameObject)) 
+            if (!Networking.IsOwner(localVoiceMode.gameObject))
                 Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_WHISPER;
             localVoiceMode.RequestSerialization();
@@ -103,7 +118,7 @@ namespace Sylan.GMMenu
         public void SetYell()
         {
             if (!Utilities.IsValid(localVoiceMode)) return;
-            if (!Networking.IsOwner(localVoiceMode.gameObject)) 
+            if (!Networking.IsOwner(localVoiceMode.gameObject))
                 Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_YELL;
             localVoiceMode.RequestSerialization();
@@ -112,7 +127,7 @@ namespace Sylan.GMMenu
         public void SetBroadcast()
         {
             if (!Utilities.IsValid(localVoiceMode)) return;
-            if (!Networking.IsOwner(localVoiceMode.gameObject)) 
+            if (!Networking.IsOwner(localVoiceMode.gameObject))
                 Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_BROADCAST;
             localVoiceMode.RequestSerialization();
