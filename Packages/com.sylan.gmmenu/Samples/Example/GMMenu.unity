@@ -3071,26 +3071,6 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
-      propertyPath: everyoneIsGM
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
-        type: 3}
-      propertyPath: GMListURL.url
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
-        type: 3}
-      propertyPath: GMList.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
-        type: 3}
-      propertyPath: FacilitatorListURL.url
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
-        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
@@ -3114,6 +3094,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352804964775398476, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
       objectReference: {fileID: 0}
     - target: {fileID: 1352804964779887615, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
@@ -4176,6 +4161,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3576604228038244081, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 3576604228041148216, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604228041148223, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4291,6 +4281,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3576604228108265340, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604228108586007, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -4334,6 +4329,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3576604228209711652, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 3576604228225020624, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604228229149152, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -4389,6 +4389,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3576604228262561748, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 3576604228265563016, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604228265563023, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4451,6 +4456,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576604228344045256, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
       objectReference: {fileID: 0}
     - target: {fileID: 3576604228344045261, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
@@ -4618,6 +4628,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3576604228501644671, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604228506495171, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -4751,6 +4766,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3576604228625102370, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 3576604228638931857, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604228640976179, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -5066,6 +5086,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3576604228941837073, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604228953036847, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -5287,6 +5312,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576604229353164550, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
       objectReference: {fileID: 0}
     - target: {fileID: 3576604229354133596, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
@@ -5558,6 +5588,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3576604229619737665, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604229625015102, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -5624,6 +5659,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3576604229734344693, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 3576604229757886020, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604229757886027, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5743,6 +5783,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3576604229842624171, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 3576604229844464223, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604229887745659, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -5792,6 +5837,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3576604229941735437, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
     - target: {fileID: 3576604229942813605, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5816,6 +5866,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576604229942813606, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
       objectReference: {fileID: 0}
     - target: {fileID: 3576604229947664042, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
