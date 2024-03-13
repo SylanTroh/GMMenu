@@ -1,18 +1,33 @@
 ﻿
+using System.Security.Policy;
+using System;
 using UdonSharp;
 using UnityEngine;
+using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
 using VRC.Udon;
+using VRC.Udon.Common.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class PlayerPermissions : GMMenuPart
     {
+        [Header("Elevate Default Permission for Everyone")]
         [SerializeField] private bool everyoneIsGM;
-        [SerializeField] private string[] GMList;
         [SerializeField] private bool everyoneIsFacilitator;
+
+        [Header("Optional List of Names")]
+        [SerializeField] private string[] GMList;
         [SerializeField] private string[] FacilitatorList;
+
+        [Header("Optional URL with List of Names" +
+            "\n" +
+            "One Name Per Line (Case Sensitive)")]
+        [SerializeField] public VRCUrl GMListURL;
+        [SerializeField] public VRCUrl FacilitatorListURL;
+
         [Header("------Don't Touch------")]
         private int _permission = 0;
         private int _tempPermission = 0;
@@ -24,14 +39,18 @@ namespace Sylan.GMMenu
 
         void Start()
         {
-            if (everyoneIsGM) _permission = PERMISSION_GM;
-            else _permission = ResetPermission(GMList, FacilitatorList);
+            _permission = GetPermissionFromLists(GMList, FacilitatorList);
+
+            if (everyoneIsGM) _permission = Mathf.Max(_permission, PERMISSION_GM);
             if (everyoneIsFacilitator) _permission = Mathf.Max(_permission, PERMISSION_FACILITATOR);
+
             _tempPermission = _permission;
             Debug.Log("Permission Level:" + getPermissionLevel().ToString());
             SendPermissionUpdateEvent();
+
+            LoadPermissionLists();
         }
-        private static int ResetPermission(string[] GMList, string[] FacilitatorList)
+        private static int GetPermissionFromLists(string[] GMList, string[] FacilitatorList)
         {
             var localName = Networking.LocalPlayer.displayName;
             foreach (string name in GMList)
@@ -43,6 +62,36 @@ namespace Sylan.GMMenu
                 if (localName == name) return PERMISSION_FACILITATOR;
             }
             return 0;
+        }
+        public void LoadPermissionLists()
+        {
+            if(GMListURL != VRCUrl.Empty)
+            {
+                VRCStringDownloader.LoadUrl(GMListURL, (IUdonEventReceiver)this);
+            }
+            if (FacilitatorListURL != VRCUrl.Empty)
+            {
+                VRCStringDownloader.LoadUrl(FacilitatorListURL, (IUdonEventReceiver)this);
+            }
+        }
+        public override void OnStringLoadSuccess(IVRCStringDownload result)
+        {
+            var s = result.Result.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            if (result.Url == GMListURL)
+            {
+                GMList = s;
+            }
+            else if(result.Url ==  FacilitatorListURL)
+            {
+                FacilitatorList = s;
+            }
+            _permission = GetPermissionFromLists(GMList, FacilitatorList);
+            _tempPermission = Mathf.Max(_permission, _tempPermission);
+            SendPermissionUpdateEvent();
+        }
+
+        public override void OnStringLoadError(IVRCStringDownload result)
+        {
         }
         public int getPermissionLevel()
         {

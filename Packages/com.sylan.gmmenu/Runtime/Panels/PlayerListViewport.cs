@@ -30,18 +30,18 @@ namespace Sylan.GMMenu
             watchCamera = gmMenu.WatchCamera;
 
             menuToggle.AddListener(this);
-            InitializePlayerList();
+            //InitializePlayerList(); VRChat fires OnPlayerJoined Events on world join so this is not needed
         }
-        private void InitializePlayerList()
-        {
-            VRCPlayerApi[] players = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
-            VRCPlayerApi.GetPlayers(players);
-            foreach (VRCPlayerApi player in players)
-            {
-                InsertPlayer(player);
-            }
-            CopyPlayersToArray();
-        }
+        //private void InitializePlayerList()
+        //{
+        //    VRCPlayerApi[] players = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
+        //    VRCPlayerApi.GetPlayers(players);
+        //    foreach (VRCPlayerApi player in players)
+        //    {
+        //        InsertPlayer(player);
+        //    }
+        //    CopyPlayersToArray();
+        //}
         private void InsertPlayer(VRCPlayerApi player)
         {
             int insertIndex = playerNameList.BinarySearch(player.displayName);

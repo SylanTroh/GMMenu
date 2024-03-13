@@ -3071,6 +3071,26 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+      propertyPath: everyoneIsGM
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: GMListURL.url
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: GMList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: FacilitatorListURL.url
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
@@ -3742,6 +3762,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1352804965726368953, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+    - target: {fileID: 1352804965763847978, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1352804965765610644, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
       propertyPath: serializationData.Prefab

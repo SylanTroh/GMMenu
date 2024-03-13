@@ -1,12 +1,14 @@
 {
     "name": "com.sylan.gmmenu",
+    "rootNamespace": "",
     "references": [
         "VRC.SDK3",
         "VRC.SDKBase",
         "com.sylan.audiomanager",
         "UdonSharp.Runtime",
         "UdonSharp.Editor",
-        "UdonSharp.Lib"
+        "UdonSharp.Lib",
+        "VRC.Udon.Serialization.OdinSerializer"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
