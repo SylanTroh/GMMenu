@@ -17,30 +17,36 @@ namespace Sylan.GMMenu
         [Header("Elevate Default Permission for Everyone")]
         [SerializeField] private bool everyoneIsGM;
         [SerializeField] private bool everyoneIsFacilitator;
+        [SerializeField] private bool everyoneIsDisabled;
 
         [Header("Optional List of Names")]
         [SerializeField] private string[] GMList;
         [SerializeField] private string[] FacilitatorList;
+        [SerializeField] private string[] DisabledList;
 
         [Header("Optional URL with List of Names" +
             "\n" +
             "One Name Per Line (Case Sensitive)")]
         [SerializeField] public VRCUrl GMListURL;
         [SerializeField] public VRCUrl FacilitatorListURL;
+        [SerializeField] public VRCUrl DisabledListURL;
+
 
         [Header("------Don't Touch------")]
-        private int _permission = 0;
-        private int _tempPermission = 0;
+        public int _permission = 0;
+        public int _tempPermission = 0;
         private UdonSharpBehaviour[] PermissionEventListeners = new UdonSharpBehaviour[0];
 
         public const int PERMISSION_GM = 2;
         public const int PERMISSION_FACILITATOR = 1;
         public const int PERMISSION_PLAYER = 0;
+        public const int PERMISSION_DISABLED = -1;
 
         void Start()
         {
-            _permission = GetPermissionFromLists(GMList, FacilitatorList);
+            _permission = GetPermissionFromLists();
 
+            if (everyoneIsDisabled) _permission = Mathf.Min(_permission, PERMISSION_DISABLED);
             if (everyoneIsGM) _permission = Mathf.Max(_permission, PERMISSION_GM);
             if (everyoneIsFacilitator) _permission = Mathf.Max(_permission, PERMISSION_FACILITATOR);
 
@@ -50,7 +56,7 @@ namespace Sylan.GMMenu
 
             LoadPermissionLists();
         }
-        private static int GetPermissionFromLists(string[] GMList, string[] FacilitatorList)
+        private int GetPermissionFromLists()
         {
             var localName = Networking.LocalPlayer.displayName;
             foreach (string name in GMList)
@@ -60,6 +66,10 @@ namespace Sylan.GMMenu
             foreach (string name in FacilitatorList)
             {
                 if (localName == name) return PERMISSION_FACILITATOR;
+            }
+            foreach (string name in DisabledList)
+            {
+                if (localName == name) return PERMISSION_DISABLED;
             }
             return 0;
         }
@@ -73,6 +83,10 @@ namespace Sylan.GMMenu
             {
                 VRCStringDownloader.LoadUrl(FacilitatorListURL, (IUdonEventReceiver)this);
             }
+            if (DisabledListURL != VRCUrl.Empty)
+            {
+                VRCStringDownloader.LoadUrl(DisabledListURL, (IUdonEventReceiver)this);
+            }
         }
         public override void OnStringLoadSuccess(IVRCStringDownload result)
         {
@@ -85,7 +99,7 @@ namespace Sylan.GMMenu
             {
                 FacilitatorList = s;
             }
-            _permission = GetPermissionFromLists(GMList, FacilitatorList);
+            _permission = GetPermissionFromLists();
             _tempPermission = Mathf.Max(_permission, _tempPermission);
             SendPermissionUpdateEvent();
         }
@@ -103,7 +117,7 @@ namespace Sylan.GMMenu
         }
         public void SetTempPermission(int p)
         {
-            if (PERMISSION_PLAYER <= p && p <= PERMISSION_GM)
+            if (PERMISSION_DISABLED <= p && p <= PERMISSION_GM)
             {
                 _tempPermission = p;
                 SendPermissionUpdateEvent();
@@ -115,6 +129,7 @@ namespace Sylan.GMMenu
             if (p == "GM") _tempPermission = PERMISSION_GM;
             else if (p == "Facilitator") _tempPermission = PERMISSION_FACILITATOR;
             else if (p == "Player" || p == "Default") _tempPermission = PERMISSION_PLAYER;
+            else if (p == "Disabled") _tempPermission = PERMISSION_DISABLED;
             else Debug.LogError("[GMMenuPermissions]: Permission Level Out of Bounds");
             SendPermissionUpdateEvent();
         }

@@ -46,6 +46,7 @@ namespace Sylan.GMMenu
         }
         public void MenuToggle()
         {
+            if (gmMenu.PlayerPermissions.getPermissionLevel() <= PlayerPermissions.PERMISSION_DISABLED) return;
             if (menuToggle)
             {
                 menuToggle = false;

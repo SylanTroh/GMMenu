@@ -104,6 +104,11 @@ namespace Sylan.GMMenu
         }
         void UpdateHUD()
         {
+            if(permissions.getPermissionLevel() == PlayerPermissions.PERMISSION_DISABLED)
+            {
+                DisableHUD() ;
+                return;
+            }
             if (permissions.getPermissionLevel() == PlayerPermissions.PERMISSION_GM)
             {
                 UpdateHUDGM();
