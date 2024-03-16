@@ -159,6 +159,13 @@ namespace Sylan.GMMenu
                     return 1;
                 }
             }
+            foreach (string player in DisabledList)
+            {
+                if (PlayerName == player)
+                {
+                    return -1;
+                }
+            }
             return 0;
         }
     }
