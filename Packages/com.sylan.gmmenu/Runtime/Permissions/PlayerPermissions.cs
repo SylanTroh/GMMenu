@@ -33,8 +33,8 @@ namespace Sylan.GMMenu
 
 
         [Header("------Don't Touch------")]
-        public int _permission = 0;
-        public int _tempPermission = 0;
+        private int _permission = 0;
+        private int _tempPermission = 0;
         private UdonSharpBehaviour[] PermissionEventListeners = new UdonSharpBehaviour[0];
 
         public const int PERMISSION_GM = 2;
