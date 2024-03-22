@@ -92,14 +92,20 @@ namespace Sylan.GMMenu
         public override void OnStringLoadSuccess(IVRCStringDownload result)
         {
             var s = result.Result.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
             if (result.Url == GMListURL)
             {
                 GMList = s;
             }
-            else if(result.Url ==  FacilitatorListURL)
+            else if(result.Url == FacilitatorListURL)
             {
                 FacilitatorList = s;
             }
+            else if(result.Url == DisabledListURL)
+            {
+                DisabledList = s;
+            }
+
             _permission = GetPermissionFromLists();
             _tempPermission = Mathf.Max(_permission, _tempPermission);
             SendPermissionUpdateEvent();
