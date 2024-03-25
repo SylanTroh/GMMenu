@@ -8,8 +8,8 @@ public class MenuModSetter : UdonSharpBehaviour
 {
     private void Start()
     {
-        MovementSpeedMedium();
-        JumpHeightMedium();
+        MovementSpeedSlow();
+        JumpHeightLow();
     }
     public void MovementSpeedSlow()
     {
