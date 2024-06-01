@@ -19,11 +19,13 @@ namespace Sylan.GMMenu
         [SerializeField] private bool everyoneIsFacilitator;
         [SerializeField] private bool everyoneIsDisabled;
 
+        //Variables to store the list of VRChat usernames
         [Header("Optional List of Names")]
         [SerializeField] private string[] GMList;
         [SerializeField] private string[] FacilitatorList;
         [SerializeField] private string[] DisabledList;
 
+        //URL for String Loading
         [Header("Optional URL with List of Names" +
             "\n" +
             "One Name Per Line (Case Sensitive)")]
@@ -76,7 +78,7 @@ namespace Sylan.GMMenu
         }
         public void LoadPermissionLists()
         {
-            if(GMListURL != VRCUrl.Empty)
+            if (GMListURL != VRCUrl.Empty)
             {
                 VRCStringDownloader.LoadUrl(GMListURL, (IUdonEventReceiver)this);
             }
@@ -97,11 +99,11 @@ namespace Sylan.GMMenu
             {
                 GMList = s;
             }
-            else if(result.Url == FacilitatorListURL)
+            else if (result.Url == FacilitatorListURL)
             {
                 FacilitatorList = s;
             }
-            else if(result.Url == DisabledListURL)
+            else if (result.Url == DisabledListURL)
             {
                 DisabledList = s;
             }
@@ -152,14 +154,14 @@ namespace Sylan.GMMenu
         }
         public int GetPlayerBasePermLevel(string PlayerName)
         {
-            foreach(string player in GMList)
+            foreach (string player in GMList)
             {
                 if (PlayerName == player)
                 {
                     return 2;
                 }
             }
-            foreach(string player in FacilitatorList)
+            foreach (string player in FacilitatorList)
             {
                 if (PlayerName == player)
                 {
