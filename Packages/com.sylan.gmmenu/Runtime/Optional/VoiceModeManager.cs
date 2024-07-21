@@ -4,6 +4,7 @@ using UdonSharp;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
 using VRC.Udon;
@@ -13,12 +14,22 @@ namespace Sylan.GMMenu
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class VoiceModeManager : GMMenuPart
     {
+        [SerializeField] GameObject VoiceModeButtons;
+
+#if SYLAN_AUDIOMANAGER
+        [HideInInspector,SerializeField] public AudioSettingManager audioSettingManager;
+        public const string AudioSettingManagerPropertyName = nameof(audioSettingManager);
+#else
+        [HideInInspector, SerializeField] public UdonBehaviour audioSettingManager = null;
+        public const string AudioSettingManagerPropertyName = null;
+#endif
+
         private UdonSharpBehaviour[] VoiceModeChangedEventListeners = new UdonSharpBehaviour[0];
 
         [HideInInspector] public VoiceMode localVoiceMode;
         private VoiceMode[] audioSettings;
         private DataDictionary audioSettingsIndex = new DataDictionary();
-        [SerializeField] public AudioSettingManager audioSettingManager;
+
         [Header("Lower number means higher priority", order = 0)]
         [Space(-10, order = 1)]
         [Header("Audiozones have priority 1000", order = 2)]
@@ -28,16 +39,9 @@ namespace Sylan.GMMenu
         public float whisperNearRange = 0.5f;
         public float yellGain = 15f;
         public float yellFarRange = 40f;
-        [SerializeField] GameObject VoiceModeButtons;
 
         void Start()
         {
-            if (audioSettingManager == null)
-            {
-                Destroy(VoiceModeButtons.gameObject);
-                Destroy(gameObject);
-                return;
-            }
             audioSettings = GetComponentsInChildren<VoiceMode>();
             foreach (VoiceMode voiceMode in audioSettings)
             {

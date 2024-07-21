@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 81e469501d265294395b1140c18c9a00, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 2dfa7ffd2f864ff42be0232d7ef001dc, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -398,7 +398,7 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 0
-  _syncMethod: 2
+  _syncMethod: 1
   serializedProgramAsset: {fileID: 11400000, guid: a6a65fd70f9c65041a8e2140b4df5900,
     type: 2}
   programSource: {fileID: 11400000, guid: c8df303ceb45ae84f85a11591f741734, type: 2}
@@ -500,7 +500,7 @@ MonoBehaviour:
   - {fileID: 3480278762663400089}
   spawnOrder: 2
   spawnOrientation: 0
-  ReferenceCamera: {fileID: 0}
+  ReferenceCamera: {fileID: 1069902874}
   RespawnHeightY: -100
   ObjectBehaviourAtRespawnHeight: 0
   ForbidUserPortals: 0
@@ -515,6 +515,7 @@ MonoBehaviour:
   contentOther: 0
   releasePublic: 0
   unityVersion: 2019.4.31f1
+  udonProducts: []
   Name: 
   NSFW: 0
   SpawnPosition: {x: 0, y: 0, z: 0}
@@ -523,10 +524,10 @@ MonoBehaviour:
   useAssignedLayers: 0
   DynamicPrefabs: []
   DynamicMaterials:
-  - {fileID: 2100000, guid: 894ee20937580a8438c099274ace71be, type: 2}
-  - {fileID: 2100000, guid: 8fe325a4edb92764097f43d3f44b330a, type: 2}
-  - {fileID: 2100000, guid: c2a20d783840f0d47a0762c84f03ee84, type: 2}
-  - {fileID: 2100000, guid: fb9637df278da7c4aa6a4996a3e632be, type: 2}
+  - {fileID: 2100000, guid: 1433c87871ba7914dba3813a9ffc4064, type: 2}
+  - {fileID: 2100000, guid: e65daddb2d2398c47a993a48ef9032ec, type: 2}
+  - {fileID: 2100000, guid: 25b67738c9ca4df4baac3b5402e941c7, type: 2}
+  - {fileID: 2100000, guid: 767267794eccd0a4c9fef32394cab79f, type: 2}
   LightMapsNear: []
   LightMapsFar: []
   LightMode: 0
@@ -579,129 +580,10 @@ MonoBehaviour:
   RenderReflectionBounces: 0
   RenderReflectionIntensity: 0
   RenderSkybox: {fileID: 0}
-  NetworkIDs:
-  - gameObject: {fileID: 0}
-    ID: 10
-  - gameObject: {fileID: 0}
-    ID: 11
-  - gameObject: {fileID: 0}
-    ID: 12
-  - gameObject: {fileID: 0}
-    ID: 13
-  - gameObject: {fileID: 0}
-    ID: 14
-  - gameObject: {fileID: 0}
-    ID: 15
-  - gameObject: {fileID: 0}
-    ID: 16
-  - gameObject: {fileID: 0}
-    ID: 17
-  - gameObject: {fileID: 0}
-    ID: 18
-  - gameObject: {fileID: 0}
-    ID: 19
-  - gameObject: {fileID: 0}
-    ID: 20
-  - gameObject: {fileID: 0}
-    ID: 21
-  - gameObject: {fileID: 0}
-    ID: 22
-  - gameObject: {fileID: 0}
-    ID: 23
-  - gameObject: {fileID: 0}
-    ID: 24
-  - gameObject: {fileID: 0}
-    ID: 25
-  - gameObject: {fileID: 0}
-    ID: 26
-  - gameObject: {fileID: 0}
-    ID: 27
-  - gameObject: {fileID: 0}
-    ID: 28
-  - gameObject: {fileID: 0}
-    ID: 29
-  - gameObject: {fileID: 0}
-    ID: 30
-  - gameObject: {fileID: 0}
-    ID: 31
-  - gameObject: {fileID: 0}
-    ID: 32
-  - gameObject: {fileID: 0}
-    ID: 33
-  - gameObject: {fileID: 0}
-    ID: 34
-  - gameObject: {fileID: 0}
-    ID: 35
-  - gameObject: {fileID: 0}
-    ID: 36
-  - gameObject: {fileID: 0}
-    ID: 37
-  - gameObject: {fileID: 0}
-    ID: 38
-  - gameObject: {fileID: 0}
-    ID: 39
-  - gameObject: {fileID: 0}
-    ID: 40
-  - gameObject: {fileID: 0}
-    ID: 41
-  - gameObject: {fileID: 0}
-    ID: 42
-  - gameObject: {fileID: 0}
-    ID: 43
-  - gameObject: {fileID: 0}
-    ID: 44
-  - gameObject: {fileID: 0}
-    ID: 45
-  - gameObject: {fileID: 0}
-    ID: 46
-  - gameObject: {fileID: 0}
-    ID: 47
-  - gameObject: {fileID: 0}
-    ID: 48
-  - gameObject: {fileID: 0}
-    ID: 49
-  - gameObject: {fileID: 0}
-    ID: 50
-  - gameObject: {fileID: 0}
-    ID: 51
-  - gameObject: {fileID: 0}
-    ID: 52
-  - gameObject: {fileID: 0}
-    ID: 53
-  - gameObject: {fileID: 0}
-    ID: 54
-  - gameObject: {fileID: 0}
-    ID: 55
-  - gameObject: {fileID: 0}
-    ID: 56
-  - gameObject: {fileID: 0}
-    ID: 57
-  - gameObject: {fileID: 0}
-    ID: 58
-  - gameObject: {fileID: 0}
-    ID: 59
-  - gameObject: {fileID: 0}
-    ID: 60
-  - gameObject: {fileID: 0}
-    ID: 61
-  - gameObject: {fileID: 0}
-    ID: 62
-  - gameObject: {fileID: 0}
-    ID: 63
-  - gameObject: {fileID: 0}
-    ID: 64
-  - gameObject: {fileID: 0}
-    ID: 65
-  - gameObject: {fileID: 0}
-    ID: 66
-  - gameObject: {fileID: 0}
-    ID: 67
-  - gameObject: {fileID: 0}
-    ID: 68
-  - gameObject: {fileID: 3480278762663670689}
-    ID: 69
+  NetworkIDs: []
   portraitCameraPositionOffset: {x: 0, y: 0, z: 0}
   portraitCameraRotationOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  NavigationAreas: []
 --- !u!64 &7606902903243430482
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -771,7 +653,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb9637df278da7c4aa6a4996a3e632be, type: 2}
+  - {fileID: 2100000, guid: 767267794eccd0a4c9fef32394cab79f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

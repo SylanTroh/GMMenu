@@ -1,19 +1,28 @@
-﻿using Sylan.AudioManager;
+﻿#if SYLAN_AUDIOMANAGER
+using Sylan.AudioManager;
+#endif
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.SDKBase;
+using VRC.Udon;
 
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class GMWhisperManager : GMMenuPart
     {
+        [SerializeField] GameObject GMWhisperButton;
         [HideInInspector] public GMWhisper localGMWhisper;
         private GMWhisper[] gmWhispers;
-        [SerializeField] public AudioSettingManager audioSettingManager;
+#if SYLAN_AUDIOMANAGER
+        [HideInInspector,SerializeField] public AudioSettingManager audioSettingManager;
+        public const string AudioSettingManagerPropertyName = nameof(audioSettingManager);
+#else
+        [HideInInspector, SerializeField] public UdonBehaviour audioSettingManager = null;
+        public const string AudioSettingManagerPropertyName = null;
+#endif
 
-        [SerializeField] GameObject GMWhisperButton;
         [SerializeField] Text GMWhisperButtonText;
         bool gmWhisperEnabled = false;
 

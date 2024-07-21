@@ -1,9 +1,9 @@
-﻿
-using System;
-using System.Reflection.Emit;
+﻿#if SYLAN_AUDIOMANAGER
+using Sylan.AudioManager;
+#endif
+using Sylan.GMMenu;
 using UdonSharp;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
 
@@ -12,8 +12,13 @@ namespace Sylan.AudioManager
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class RadioManager : UdonSharpBehaviour
     {
-        [SerializeField] public AudioSettingManager _AudioSettingManager;
-        public const string AudioSettingManagerPropertyName = nameof(_AudioSettingManager);
+#if SYLAN_AUDIOMANAGER
+        [HideInInspector,SerializeField] public AudioSettingManager audioSettingManager;
+        public const string AudioSettingManagerPropertyName = nameof(audioSettingManager);
+#else
+        [HideInInspector, SerializeField] public AudioSettingManager audioSettingManager = null;
+        public const string AudioSettingManagerPropertyName = null;
+#endif
 
         [HideInInspector, SerializeField] private Radio[] Radios;
         public const string RadioChannelsPropertyName = nameof(Radios);
@@ -43,7 +48,7 @@ namespace Sylan.AudioManager
         public GameObject RadioButton;
         private void Start()
         {
-            if(_AudioSettingManager == null)
+            if(audioSettingManager == null)
             {
                 Destroy(RadioButton);
                 Destroy(gameObject);
@@ -190,7 +195,7 @@ namespace Sylan.AudioManager
             {
                 //If someone else caused the update, update triggering player
                 ApplyRadioChannelSetting(triggeringPlayer);
-                _AudioSettingManager.ApplyAudioSetting(triggeringPlayer);
+                audioSettingManager.ApplyAudioSetting(triggeringPlayer);
             }
             else
             {
@@ -200,7 +205,7 @@ namespace Sylan.AudioManager
                 foreach (VRCPlayerApi player in players)
                 {
                     ApplyRadioChannelSetting(player);
-                    _AudioSettingManager.ApplyAudioSetting(player);
+                    audioSettingManager.ApplyAudioSetting(player);
                 }
             }
         }
@@ -211,12 +216,12 @@ namespace Sylan.AudioManager
             if (Networking.LocalPlayer.SharesRadioChannelWith(player, this))
             {
                 //Debug.Log("[AudioManager] Shares AudioZone with" + player.displayName + ".");
-                _AudioSettingManager.AddAudioSetting(player, RADIO_CHANNEL_SETTING_ID, RADIO_CHANNEL_PRIORITY, RadioChannelAudioSettings);
+                audioSettingManager.AddAudioSetting(player, RADIO_CHANNEL_SETTING_ID, RADIO_CHANNEL_PRIORITY, RadioChannelAudioSettings);
             }
             else
             {
                 //Debug.Log("[AudioManager] Does not share AudioZone with " + player.displayName + ".");
-                _AudioSettingManager.RemoveAudioSetting(player, RADIO_CHANNEL_SETTING_ID);
+                audioSettingManager.RemoveAudioSetting(player, RADIO_CHANNEL_SETTING_ID);
             }
         }
 

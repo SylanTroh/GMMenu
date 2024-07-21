@@ -1,5 +1,6 @@
 {
     "name": "com.sylan.gmmenu.Editor",
+    "rootNamespace": "",
     "references": [
         "GUID:6490804aa441dfe4b88eb56cccbdf081",
         "GUID:1b3abf7e59395d84c84b48d69677daaa",
@@ -7,7 +8,8 @@
         "GUID:6e9c6119ac4eb334284fb7b4bc6d1f05",
         "GUID:4db9264f9b7d8dc4db05ce3b4f985ea6",
         "GUID:84265b35cca3905448e623ef3903f0ff",
-        "GUID:99835874ee819da44948776e0df4ff1d"
+        "GUID:99835874ee819da44948776e0df4ff1d",
+        "GUID:1672080bce8200a45a7242051b0566e6"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -16,6 +18,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.sylan.audiomanager",
+            "expression": "1.4.2",
+            "define": "SYLAN_AUDIOMANAGER"
+        }
+    ],
     "noEngineReferences": false
 }

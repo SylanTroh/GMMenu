@@ -3,35 +3,26 @@
     "com.vrchat.udonsharp": {
       "version": "1.1.7"
     },
-    "com.vrchat.core.vpm-resolver": {
-      "version": "0.1.18"
-    },
-    "com.sylan.audiomanager": {
-      "version": "1.1.4"
-    },
     "com.vrchat.worlds": {
       "version": "3.5.0"
+    },
+    "com.vrchat.core.vpm-resolver": {
+      "version": "0.1.29"
     }
   },
   "locked": {
+    "com.vrchat.worlds": {
+      "version": "3.6.1",
+      "dependencies": {
+        "com.vrchat.base": "3.6.1"
+      }
+    },
     "com.vrchat.core.vpm-resolver": {
-      "version": "0.1.27",
+      "version": "0.1.29",
       "dependencies": {}
     },
-    "com.sylan.audiomanager": {
-      "version": "1.4.0",
-      "dependencies": {
-        "com.vrchat.worlds": "^3.5.0"
-      }
-    },
-    "com.vrchat.worlds": {
-      "version": "3.5.0",
-      "dependencies": {
-        "com.vrchat.base": "3.5.0"
-      }
-    },
     "com.vrchat.base": {
-      "version": "3.5.0",
+      "version": "3.6.1",
       "dependencies": {}
     }
   }
