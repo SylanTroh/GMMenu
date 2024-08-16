@@ -3508,6 +3508,16 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+      propertyPath: everyoneIsGM
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: everyoneIsDisabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,

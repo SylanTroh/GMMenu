@@ -46,10 +46,9 @@ namespace Sylan.GMMenu
 
         void Start()
         {
-            if (everyoneIsDisabled) _permission = Mathf.Min(_permission, PERMISSION_DISABLED);
-
             _permission = GetPermissionFromLists();
 
+            if (everyoneIsDisabled) _permission = Mathf.Min(_permission, PERMISSION_DISABLED);
             if (everyoneIsGM) _permission = Mathf.Max(_permission, PERMISSION_GM);
             if (everyoneIsFacilitator) _permission = Mathf.Max(_permission, PERMISSION_FACILITATOR);
 
