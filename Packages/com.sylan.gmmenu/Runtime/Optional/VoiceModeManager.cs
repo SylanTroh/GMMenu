@@ -1,13 +1,9 @@
 ﻿
 using Sylan.AudioManager;
 using UdonSharp;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace Sylan.GMMenu
 {
@@ -16,13 +12,8 @@ namespace Sylan.GMMenu
     {
         [SerializeField] GameObject VoiceModeButtons;
 
-#if SYLAN_AUDIOMANAGER
         [HideInInspector,SerializeField] public AudioSettingManager audioSettingManager;
         public const string AudioSettingManagerPropertyName = nameof(audioSettingManager);
-#else
-        [HideInInspector, SerializeField] public UdonBehaviour audioSettingManager = null;
-        public const string AudioSettingManagerPropertyName = null;
-#endif
 
         private UdonSharpBehaviour[] VoiceModeChangedEventListeners = new UdonSharpBehaviour[0];
 
