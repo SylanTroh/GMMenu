@@ -1,5 +1,17 @@
 {
   "dependencies": {
+    "com.mmmaellon.lightsync": {
+      "version": "file:com.mmmaellon.lightsync",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.sylan.audiomanager": {
+      "version": "file:com.sylan.audiomanager",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.sylan.gmmenu": {
       "version": "file:com.sylan.gmmenu",
       "depth": 0,
