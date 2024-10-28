@@ -1,19 +1,19 @@
 {
   "name": "com.sylan.gmmenu",
   "displayName": "GMMenu",
-  "version": "1.5.12",
+  "version": "1.5.13",
   "unity": "2022.3",
   "description": "An UDON menu panel designed for VRChat roleplay.",
   "vrchatVersion": "2022.1.1",
   "url": "https://github.com/SylanTroh/GMMenu.git",
   "author": {
-        "email":"sylantroh@gmail.com",
-        "name":"Sylan Troh",
-        "url":"https://twitter.com/sylan_troh"
-    },
+    "email": "sylantroh@gmail.com",
+    "name": "Sylan Troh",
+    "url": "https://twitter.com/sylan_troh"
+  },
   "vpmDependencies": {
-        "com.sylan.audiomanager": "~1.4.0"
-    },
+    "com.sylan.audiomanager": "~1.4.0"
+  },
   "samples": [
     {
       "displayName": "GMMenu Prefab",

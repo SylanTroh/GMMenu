@@ -1,13 +1,11 @@
-﻿
-using System.Security.Policy;
-using System;
+﻿using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
 using VRC.Udon;
 using VRC.Udon.Common.Interfaces;
-using System.Text.RegularExpressions;
+using UnityEngine.Serialization;
 
 namespace Sylan.GMMenu
 {
@@ -15,15 +13,15 @@ namespace Sylan.GMMenu
     public class PlayerPermissions : GMMenuPart
     {
         [Header("Elevate Default Permission for Everyone")]
-        [SerializeField] private bool everyoneIsGM;
-        [SerializeField] private bool everyoneIsFacilitator;
-        [SerializeField] private bool everyoneIsDisabled;
+        [SerializeField, FormerlySerializedAs("everyoneIsGM")] private bool playersAreGM;
+        [SerializeField, FormerlySerializedAs("everyoneIsFacilitator")] private bool playersAreFacilitator;
+        [SerializeField, FormerlySerializedAs("everyoneIsDisabled")] private bool playersAreDeactivated;
 
         //Variables to store the list of VRChat usernames
         [Header("Optional List of Names")]
         [SerializeField] private string[] GMList;
         [SerializeField] private string[] FacilitatorList;
-        [SerializeField] private string[] DisabledList;
+        [SerializeField, FormerlySerializedAs("DisabledList")] private string[] DeactivatedList;
 
         //URL for String Loading
         [Header("Optional URL with List of Names" +
@@ -31,7 +29,7 @@ namespace Sylan.GMMenu
             "One Name Per Line (Case Sensitive)")]
         [SerializeField] public VRCUrl GMListURL;
         [SerializeField] public VRCUrl FacilitatorListURL;
-        [SerializeField] public VRCUrl DisabledListURL;
+        [SerializeField, FormerlySerializedAs("DisabledListURL")] public VRCUrl DeactivatedListURL;
 
 
         [Header("------Don't Touch------")]
@@ -42,15 +40,15 @@ namespace Sylan.GMMenu
         public const int PERMISSION_GM = 2;
         public const int PERMISSION_FACILITATOR = 1;
         public const int PERMISSION_PLAYER = 0;
-        public const int PERMISSION_DISABLED = -1;
+        public const int PERMISSION_DEACTIVATED = -1;
 
         void Start()
         {
-            _permission = GetPermissionFromLists();
+            if (playersAreDeactivated) _permission = PERMISSION_DEACTIVATED;
+            if (playersAreFacilitator) _permission = PERMISSION_FACILITATOR;
+            if (playersAreGM) _permission = PERMISSION_GM;
 
-            if (everyoneIsDisabled) _permission = Mathf.Min(_permission, PERMISSION_DISABLED);
-            if (everyoneIsGM) _permission = Mathf.Max(_permission, PERMISSION_GM);
-            if (everyoneIsFacilitator) _permission = Mathf.Max(_permission, PERMISSION_FACILITATOR);
+            _permission = GetPermissionFromLists();
 
             _tempPermission = _permission;
             Debug.Log("Permission Level:" + getPermissionLevel().ToString());
@@ -69,9 +67,9 @@ namespace Sylan.GMMenu
             {
                 if (localName == name) return PERMISSION_FACILITATOR;
             }
-            foreach (string name in DisabledList)
+            foreach (string name in DeactivatedList)
             {
-                if (localName == name) return PERMISSION_DISABLED;
+                if (localName == name) return PERMISSION_DEACTIVATED;
             }
             return 0;
         }
@@ -85,9 +83,9 @@ namespace Sylan.GMMenu
             {
                 VRCStringDownloader.LoadUrl(FacilitatorListURL, (IUdonEventReceiver)this);
             }
-            if (DisabledListURL != VRCUrl.Empty)
+            if (DeactivatedListURL != VRCUrl.Empty)
             {
-                VRCStringDownloader.LoadUrl(DisabledListURL, (IUdonEventReceiver)this);
+                VRCStringDownloader.LoadUrl(DeactivatedListURL, (IUdonEventReceiver)this);
             }
         }
         public override void OnStringLoadSuccess(IVRCStringDownload result)
@@ -102,9 +100,9 @@ namespace Sylan.GMMenu
             {
                 FacilitatorList = s;
             }
-            else if (result.Url == DisabledListURL)
+            else if (result.Url == DeactivatedListURL)
             {
-                DisabledList = s;
+                DeactivatedList = s;
             }
 
             _permission = GetPermissionFromLists();
@@ -125,7 +123,7 @@ namespace Sylan.GMMenu
         }
         public void SetTempPermission(int p)
         {
-            if (PERMISSION_DISABLED <= p && p <= PERMISSION_GM)
+            if (PERMISSION_DEACTIVATED <= p && p <= PERMISSION_GM)
             {
                 _tempPermission = p;
                 SendPermissionUpdateEvent();
@@ -137,7 +135,7 @@ namespace Sylan.GMMenu
             if (p == "GM") _tempPermission = PERMISSION_GM;
             else if (p == "Facilitator") _tempPermission = PERMISSION_FACILITATOR;
             else if (p == "Player" || p == "Default") _tempPermission = PERMISSION_PLAYER;
-            else if (p == "Disabled") _tempPermission = PERMISSION_DISABLED;
+            else if (p == "Disabled" || p == "Deactivated") _tempPermission = PERMISSION_DEACTIVATED;
             else Debug.LogError("[GMMenuPermissions]: Permission Level Out of Bounds");
             SendPermissionUpdateEvent();
         }
@@ -167,7 +165,7 @@ namespace Sylan.GMMenu
                     return 1;
                 }
             }
-            foreach (string player in DisabledList)
+            foreach (string player in DeactivatedList)
             {
                 if (PlayerName == player)
                 {
