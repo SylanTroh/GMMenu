@@ -1,0 +1,7 @@
+﻿<UXML xmlns="UnityEngine.UIElements">
+    <VisualElement name="notification-block" class="col mt-2 mb-2 w-100">
+        <Label class="text-lg" name="main-text" />
+        <Label name="details-text" class="mt-2 p-2 white-space-normal flex-grow-1 d-none" />
+        <Button class="mt-2 w-100 d-none" name="action-button" />
+    </VisualElement>
+</UXML>

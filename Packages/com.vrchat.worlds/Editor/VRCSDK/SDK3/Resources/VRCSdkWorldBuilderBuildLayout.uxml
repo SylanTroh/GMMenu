@@ -1,0 +1,48 @@
+﻿<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:vrc="VRC.SDKBase.Editor.Elements">
+    <VisualElement class="mt-2 col" name="local-testing">
+        <VisualElement class="col">
+            <VisualElement class="row ml-1 mr-1 mb-1 align-items-center">
+                <Label class="subheader2" text="Offline Testing" />
+                <Button class="help-button" tooltip="What is Offline Testing?" name="show-local-test-help-button" />
+            </VisualElement>
+            <Label class="white-space-normal mt-1 ml-1 mr-1 mb-2 d-none" name="local-test-help-text" text="Before uploading your world you may build and test it in the VRChat client. You won't be able to invite anyone from online but you can launch multiple of your own clients." />
+        </VisualElement>
+        <VisualElement class="row align-items-center mt-2" name="local-test-settings">
+            <uie:IntegerField label="Number of Clients" class="d-flex flex-1" name="num-clients" value="1" />
+            <Toggle class="d-flex flex-1" name="force-non-vr" >
+                <Label text="Force Non-VR" class="white-space-normal m-2" />
+            </Toggle>
+            <Toggle class="d-flex flex-1 m-unity-field" name="enable-world-reload">
+                <Label text="Enable World Reload" class="white-space-normal m-2" />
+            </Toggle>
+        </VisualElement>
+        <VisualElement class="row flex-shrink-0 relative" name="local-test-buttons">
+            <Button name="test-last-build-button" class="ml-0 mr-1 pr-4 pl-4 d-flex flex-1" text="Test Last Build" />
+            <Button name="build-and-test-button" class="mr-0 ml-1 pr-4 pl-4 d-flex flex-1" text="Build &amp; Test New Build" />
+            <VisualElement name="local-test-disabled-block" class="d-none absolute">
+                <Label name="local-test-disabled-text" text="You must fix the issues listed above before you can do a Local Test" class="white-space-normal" />
+            </VisualElement>
+        </VisualElement>
+    </VisualElement>
+    <VisualElement class="mt-2 mb-1 col" name="online-publishing">
+        <VisualElement class="col">
+            <VisualElement class="row ml-1 mr-1 mb-1 align-items-center">
+                <Label class="subheader2" text="Online Publishing" />
+                <Button class="help-button" tooltip="What is Online Publishing" name="show-online-publishing-help-button" />
+            </VisualElement>
+            <Label class="white-space-normal mt-1  ml-1 mr-1 mb-2 d-none" name="online-publishing-help-text" text="In order for other people to see your world in VRChat it must be built and published to our game servers." />
+        </VisualElement>
+        <VisualElement class="d-flex row align-items-center pl-1 mt-1 mb-2">
+            <Toggle name="accept-terms-toggle" />
+            <Label text="The information provided above is accurate and I have the rights to upload this content to VRChat" class="ml-2 flex-shrink-1 white-space-normal pr-2"  />
+        </VisualElement>
+        <VisualElement class="row flex-shrink-0 mt-2 relative">
+            <Button name="upload-last-build-button" class="ml-0 mr-1 pr-4 pl-4 d-flex flex-1" text="Upload Last Build" />
+            <Button name="build-and-upload-button" class="mr-0 ml-1 pr-4 pl-4 d-flex flex-1" text="Build and Upload" />
+            <VisualElement name="build-and-upload-disabled-block" class="d-none absolute">
+                <Label name="build-and-upload-disabled-text" text="You must fix the issues listed above before you can Upload a Build" class="white-space-normal" />
+            </VisualElement>
+        </VisualElement>
+    </VisualElement>
+    <VisualElement class="mt-2 mb-1 col mr-auto" name="v3-block" />
+</UXML>

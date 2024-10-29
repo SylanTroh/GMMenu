@@ -1,0 +1,6 @@
+﻿#world-debugging-toggle {
+    border-bottom-width: 0;
+    background-color: rgba(0,0,0,0);
+    padding-left: 0;
+    
+}

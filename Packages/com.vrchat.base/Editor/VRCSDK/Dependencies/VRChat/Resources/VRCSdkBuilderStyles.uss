@@ -1,0 +1,412 @@
+﻿.block {
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    padding: 5px;
+}
+
+#content-info-block {
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+#content-info{
+    align-items: flex-start;
+}
+
+.content-info-field {
+    white-space: normal;
+    margin-bottom: 4px;
+}
+
+#content-name {
+    margin-bottom: 4px;
+}
+
+#save-changes-block {
+    height: 0;
+    overflow: hidden;
+    align-items: stretch;
+}
+
+#save-changes-button {
+    color: white;
+    -unity-font-style: bold;
+    margin: 0;
+}
+
+#discard-changes-button {
+    color: white;
+    -unity-font-style: bold;
+    margin: 0;
+}
+
+.progress-container {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    margin: 4px 0;
+    height: 28px;
+    width: 100%;
+    position: relative;
+    overflow:hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-bar {
+    position: absolute;
+    left: 0;
+    top:0;
+    height: 100%;
+    width: 0;
+}
+
+.progress-text {
+    position: absolute;
+    left: 0;
+    top:0;
+    height: 100%;
+    width: 100%;
+    -unity-text-align: middle-center;
+    /*-unity-font-style: bold;*/
+    font-size: 12px;
+}
+
+#content-info TextField {
+    margin-left: 0;
+}
+
+#build-block {
+    align-self: flex-end;
+}
+
+#local-test-settings IntegerField IntegerInput {
+    min-width: 20px;
+}
+
+#local-test-settings IntegerField Label {
+    min-width: 120px;
+}
+
+#local-test-settings Toggle Label {
+    min-width: 120px;
+}
+
+#local-test-settings Toggle VisualElement.unity-toggle__input {
+    justify-content: flex-end;
+}
+
+.help-button {
+    background-image: resource("d__Help");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(255,255,255,0);
+    border-width: 0;
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    cursor: link;
+}
+
+.help-button:hover {
+    opacity: 0.75;
+}
+
+#descriptor-error {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#descriptor-error-text {
+    font-size: 16px;
+    -unity-font-style: bold-and-italic;
+}
+
+#local-test-disabled-block, #build-and-upload-disabled-block {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(50,50,50,0.75);
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    -unity-text-align: middle-center;
+    border-radius: 3px;
+}
+
+.section-header {
+    width: 100%;
+    border-bottom-width: 1px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    padding-left: 2px;
+    margin-top: 1px;
+}
+
+.dark .section-header  {
+    border-bottom-color: rgb(26, 26, 26);
+    background-color: rgb(60, 60, 60);
+}
+
+.light .section-header  {
+    border-bottom-color: rgb(127, 127, 127);
+    background-color: rgb(203, 203, 203);
+}
+
+.section-header > Label {
+    -unity-font-style: bold;
+    top: 1px;
+}
+
+.section-header .icon {
+    width: 12px;
+    height: 12px;
+    top: 2px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 2px;
+}
+
+#validations-icon {
+    width: 12px;
+    height: 12px;
+    top: 2px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 2px;
+}
+
+.dark #validations-icon {
+    background-image: resource("d_console.infoicon");
+}
+
+.light #validations-icon {
+    background-image: resource("console.infoicon");
+}
+
+#avatar-selector {
+    width: 100%;
+    border-bottom-width: 1px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+
+.dark #avatar-selector  {
+    border-bottom-color: rgb(26, 26, 26);
+    background-color: rgb(60, 60, 60);
+}
+
+.light #avatar-selector  {
+    border-bottom-color: rgb(127, 127, 127);
+    background-color: rgb(203, 203, 203);
+}
+
+#avatar-selector-popup #icon {
+    width: 12px;
+    height: 12px;
+    top: 3px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 2px;
+}
+
+#avatar-selector-popup > Label {
+    -unity-font-style: bold;
+}
+
+.dark #avatar-selector-popup #icon {
+    background-image: resource("d_Avatar Icon");
+}
+
+.light #avatar-selector-popup #icon {
+    background-image: resource("Avatar Icon");
+}
+
+.section-foldout Toggle {
+    margin: 0;
+    padding: 2px;
+}
+
+.section-foldout Toggle:checked {
+    border-bottom-width: 1px;
+}
+
+.section-foldout {
+    margin-top:1px;
+    border-bottom-width: 1px;
+}
+
+.dark .section-foldout  {
+    border-bottom-color: rgb(26, 26, 26);
+}
+
+.light .section-foldout  {
+    border-bottom-color: rgb(127, 127, 127);
+}
+
+.dark .section-foldout > Toggle {
+    background-color: rgb(60, 60, 60);
+    border-bottom-color: rgb(48, 48, 48);
+}
+
+.light .section-foldout > Toggle {
+    background-color: rgb(203, 203, 203);
+    border-bottom-color: rgb(186, 186, 186);
+}
+
+.dark .section-foldout > Toggle:hover {
+    background-color: rgb(71, 71, 71);
+}
+
+.section-foldout > Toggle Label {
+    -unity-font-style: bold;
+}
+
+
+#info-foldout #info-icon {
+    width: 14px;
+    height: 14px;
+    top: 1px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 4px;
+}
+
+.dark #info-foldout #info-icon {
+    background-image: resource("d_UnityEditor.InspectorWindow");
+}
+
+.light #info-foldout #info-icon {
+    background-image: resource("UnityEditor.InspectorWindow");
+}
+
+.dark #validations-block  {
+    border-bottom-color: rgb(26, 26, 26);
+}
+
+.light #validations-block  {
+    border-bottom-color: rgb(127, 127, 127);
+}
+
+#build-foldout #unity-content {
+    margin-left: 0;
+}
+
+#build-foldout {
+    border-bottom-width: 0;
+    border-top-width: 1px;
+    margin-top: 0;
+}
+
+.dark #build-foldout  {
+    border-top-color: rgb(26, 26, 26);
+}
+
+.light #build-foldout  {
+    border-top-color: rgb(127, 127, 127);
+}
+
+.dark .windows-icon {
+    background-image: resource("d_BuildSettings.Metro");
+}
+
+.light .windows-icon {
+    background-image: resource("BuildSettings.Metro");
+}
+
+.dark .android-icon {
+    background-image: resource("d_BuildSettings.Android");
+}
+
+.light .android-icon {
+    background-image: resource("BuildSettings.Android");
+}
+
+#platform-switcher-popup .icon {
+    width: 12px;
+    height: 12px;
+    top: 3px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 2px;
+}
+
+#platform-switcher-popup > Label {
+    -unity-font-style: bold;
+}
+
+#platform-switcher {
+    border-top-width: 1px;
+    border-bottom-width: 0;
+}
+
+.dark #platform-switcher {
+    border-top-color: rgb(26, 26, 26);
+}
+
+.light #platform-switcher {
+    border-top-color: rgb(127, 127, 127);
+}
+
+#platform-switcher {
+    padding-left: 0;
+}
+
+.field-label {
+    min-width: 135px;
+}
+
+.help-box {
+    padding: 6px;
+    border-radius: 4px;
+    border-width: 1px;
+    margin-right: 3px;
+}
+
+.dark .help-box {
+    background-color: rgba(96, 96, 96, 0.2039216);
+    border-color: #232323;
+    color: #BDBDBD;
+}
+
+.light .help-box {
+    background-color: rgba(235, 235, 235, 0.2039216);
+    border-color: #A9A9A9;
+    color: #161616;
+}
+
+.light #build-foldout #unity-content {
+    background-color: rgb(194, 194, 194);
+}
+
+.dark #build-foldout #unity-content {
+    background-color: rgb(56, 56, 56);
+}
+
+#builder-notification {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: -500px;
+}
+
+.dark #builder-notification {
+    background-color: rgb(42, 42, 42)
+}
+
+.light #builder-notification {
+    background-color: rgb(240, 240, 240)
+}
+
+#builder-notification-dismiss {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+
+.light #builder-notification-header {
+    background-color: rgb(211, 211, 211);
+}
+
+.dark #builder-notification-header {
+    background-color: rgb(75, 75, 75);
+}
+
+#content-info-scrollview {
+    min-height: 430px;
+}

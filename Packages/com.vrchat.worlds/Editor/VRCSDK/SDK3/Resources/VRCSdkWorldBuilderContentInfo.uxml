@@ -1,0 +1,67 @@
+﻿<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:vrc="VRC.SDKBase.Editor.Elements">
+    <VisualElement class="col w-100">
+        <Foldout text="World Info" class="section-foldout" name="info-foldout">
+            <VisualElement class="col mt-2 mb-2" name="content-info">
+                <VisualElement class="col w-100">
+                    <vrc:VRCTextField class="content-info-field flex-grow-1" label="Name" placeholder="Give your world a name" name="content-name" />
+                    <vrc:VRCTextField class="content-info-field flex-grow-1" label="Description" multiline="true" placeholder="Describe world so it is easier to find!" name="content-description" />
+                </VisualElement>
+                <VisualElement class="row align-items-center w-100 mb-1">
+                    <uie:IntegerField  label="Max. Capacity" tooltip="Maximum capacity" value="32" name="content-capacity" class="flex-1" />
+                    <Button class="help-button" tooltip="What is Maximum Capacity" name="show-capacity-help-button" />
+                </VisualElement>
+                <VisualElement name="capacity-help-text" class="d-none help-box mb-2 mt-1">
+                    <Label class="white-space-normal" text="Maximum Capacity controls how many users are allowed into one instance of a world at a time. Additional users are not allowed to join over this limit with very few exceptions, such as the world creator, instance owners, and group owners." />
+                </VisualElement>
+                <VisualElement class="row align-items-center w-100 mb-1">
+                    <uie:IntegerField  label="Rec. Capacity" tooltip="Recommended Capacity" value="16" name="content-recommended-capacity" class="flex-1" />
+                    <Button class="help-button" tooltip="What is Recommended Capacity" name="show-recommended-capacity-help-button" />
+                </VisualElement>
+                <VisualElement name="recommended-capacity-help-text" class="d-none help-box mb-2 mt-1">
+                    <Label class="white-space-normal" text="Recommended Capacity controls how many users are allowed into one Public or Group Public instance of a world before that instance is no longer visible on the world instance list. Instances above Recommended Capacity are still accessible through other methods, such as joining through a group, or off of a friend. All other instance types are not impacted by the Recommended Capacity." />
+                </VisualElement>
+                <vrc:TagsField label="Tags" class="content-info-field w-100 m-unity-field" name="content-tags" />
+                <vrc:ContentWarningsField label="Content Warnings" class="content-info-field mb-0 w-100 m-unity-field" name="content-warnings" />
+                <VisualElement class="d-flex flex-grow-1" />
+                <VisualElement class="row align-items-center m-unity-field">
+                    <Label text="World Debugging" class="field-label" />
+                    <Toggle name="world-debugging-toggle" class="top-05 relative" />
+                    <Button class="help-button" tooltip="What is World Debugging" name="show-world-debugging-help-button" />
+                </VisualElement>
+                <VisualElement name="world-debugging-help-text" class="d-none help-box mb-2 mt-2">
+                    <Label class="white-space-normal" text="By default, World debug tools are only usable by you, the owner of the world. If you enable world debugging, then anyone can use them in your world." />
+                    <Label class="white-space-normal mt-2" text="Warning: Enabling world debug tools will reveal the location and state of Udon Behaviours in your world. If you are making a puzzle world, or have secrets in your world, this could ruin the fun!" />
+                    <Label class="white-space-normal mt-2" text="To use the world debug tools, you'll need to pass the --enable-debug-gui flag to VRChat at startup, and press RShift-` along with 7, 8, or 9. See the keyboard binding documentation at docs.vrchat.com for more details." />
+                </VisualElement>
+                <VisualElement class="row m-unity-field mt-2">
+                    <Label class="field-label" text="Supported Platforms" />
+                    <Label text="Loading..." name="content-platform-info" />
+                </VisualElement>
+                <VisualElement class="row m-unity-field mt-2">
+                    <Label class="field-label" text="Last Updated" />
+                    <Label text="Loading..." name="last-updated-label" />
+                </VisualElement>
+                <VisualElement class="row m-unity-field mt-2">
+                    <Label class="field-label" text="Version" />
+                    <Label text="Loading..." name="version-label" />
+                </VisualElement>
+            </VisualElement>
+        </Foldout>
+        <vrc:ThumbnailFoldout />
+        <Foldout text="World Visibility" class="section-foldout d-none" name="visibility-foldout">
+            <VisualElement class="mt-2 mb-2 w-100 col">
+                <VisualElement class="row align-items-center m-unity-field">
+                    <Label class="field-label" text="Current Visibility" />
+                    <Label text="Loading..." name="visibility-label" />
+                </VisualElement>
+                <VisualElement class="mt-2 d-none row align-items-center" name="publish-block">
+                    <Button name="publish-button" class="flex-grow-1" />
+                    <Button class="help-button" tooltip="Learn more about Community Labs" name="community-labs-help-button" />
+                </VisualElement>
+            </VisualElement>
+        </Foldout>
+    </VisualElement>
+    <VisualElement class="w-100" name="new-world-block">
+        <vrc:Checklist label="Creating a New World" icon-name="CreateAddNew" name="new-world-checklist" />
+    </VisualElement>
+</UXML>

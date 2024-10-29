@@ -1,0 +1,15 @@
+﻿<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <VisualElement class="row">
+        <Label name="tags-label" class="mt-2" />
+        <VisualElement clas="row flex-wrap">
+            <VisualElement class="tags-row" />
+            <VisualElement class="d-none row flex-grow-1 mr-1" name="add-tag-block">
+                <TextField class="tag-input flex-1" name="tag-input" />
+                <VisualElement class="buttons-row">
+                    <Button class="first add-tag-button" name="add-tag-button" text="Add" />
+                    <Button class="last add-tag-button" name="cancel-add-tag-button" text="Cancel" />
+                </VisualElement>
+            </VisualElement>
+        </VisualElement>
+    </VisualElement>
+</UXML>

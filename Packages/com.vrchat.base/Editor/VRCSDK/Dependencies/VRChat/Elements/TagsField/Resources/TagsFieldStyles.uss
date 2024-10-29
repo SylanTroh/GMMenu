@@ -1,0 +1,85 @@
+﻿.tags-row {
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 2px 3px 2px 7px;
+    margin: 3px 5px 2px 0;
+    border-radius: 3px;
+    /*background-color: rgb(40, 40, 40);*/
+    flex-direction: row;
+    align-items: center;
+    -unity-text-align: middle-center;
+    border-width: 1px;
+}
+
+.light .tag {
+    background-color: rgb(228, 228, 228);
+    border-left-color: #B2B2B2;
+    border-top-color: #B2B2B2;
+    border-right-color: #B2B2B2;
+    border-bottom-color: #939393;
+}
+
+.dark .tag {
+    background-color: rgb(93, 93, 93);
+    border-left-color: #303030;
+    border-top-color: #303030;
+    border-right-color: #303030;
+    border-bottom-color: #242424;
+}
+
+.tag Button.tag-remove-button {
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+    background-color: rgba(0,0,0,0);
+    padding-left: 12px;
+    opacity: 0.5;
+    cursor: link;
+}
+
+.dark .tag Button.tag-remove-button {
+    background-image: resource("d_winbtn_win_close");
+}
+
+.light .tag Button.tag-remove-button {
+    background-image: resource("winbtn_win_close");
+}
+
+.tag Button.tag-remove-button:hover {
+    opacity: 1;
+}
+
+.add-tag-button {
+    padding: 2px 7px 2px 7px;
+    margin: 3px 5px 2px 0;
+    flex-direction: row;
+    align-items: center;
+    -unity-text-align: middle-center;
+    border-width: 0;
+}
+
+.row {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.col {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.d-none {
+    display: none;
+}
+
+#tags-label {
+    min-width: 135px;
+}
+
+#add-tag-block Button {
+    margin-top: 0;
+}

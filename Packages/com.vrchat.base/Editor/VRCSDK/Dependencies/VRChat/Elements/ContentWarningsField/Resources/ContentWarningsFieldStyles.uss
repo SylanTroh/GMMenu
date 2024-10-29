@@ -1,0 +1,43 @@
+﻿.tags-row {
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.row {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.col {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.d-none {
+    display: none;
+}
+
+#tags-label {
+    min-width: 135px;
+}
+
+.content-warning {
+    padding: 0;
+    margin: 1px 5px 5px 0;
+    flex-direction: row;
+    border-width: 1px;
+    width: 165px;
+}
+
+.tags-row .content-warning Toggle {
+    border-bottom-width: 0;
+}
+
+.light .content-warning, .light .content-warning Toggle {
+    background-color: rgb(211, 211, 211);
+}
+
+.dark .content-warning, .dark .content-warning Toggle {
+    background-color: rgb(75, 75, 75);
+}

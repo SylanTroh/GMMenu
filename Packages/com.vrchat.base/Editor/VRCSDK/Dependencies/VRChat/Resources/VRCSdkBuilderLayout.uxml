@@ -1,0 +1,49 @@
+﻿<UXML xmlns="UnityEngine.UIElements">
+    <VisualElement class="col relative flex-grow-1 w-100 justify-content-between">
+        <VisualElement name="save-changes-block" class="row align-items-center buttons-row d-none">
+            <Button name="save-changes-button" class="first flex-grow-1 bg-subheader hover-opacity-80" text="Save Changes" />
+            <Button name="discard-changes-button" class="last bg-red-dark hover-opacity-80" text="Discard" />
+        </VisualElement>
+        <ScrollView>
+            <VisualElement name="info-section" class="col">
+                <VisualElement class="col flex-shrink-0" name="content-info-block" />
+                <VisualElement name="validations-header" class="section-header row flex-shrink-0">
+                    <VisualElement name="validations-icon" />
+                    <Label text="Validations" />
+                </VisualElement>
+                <VisualElement class="col mt-1" name="validations-block" />
+            </VisualElement>
+        </ScrollView>
+        <VisualElement class="d-none absolute" name="descriptor-error">
+            <VisualElement name="descriptor-builder-error" />
+            <Label text="Descriptor Error" name="descriptor-error-text" />
+        </VisualElement>
+
+        <VisualElement class="col flex-shrink-0" name="build-section">
+            <VisualElement name="platform-switcher" class="section-header" />
+            <VisualElement name="progress-section" class="col d-none">
+                <VisualElement name="progress-header" class="section-header row flex-shrink-0">
+                    <Label text="Progress" />
+                </VisualElement>
+                <VisualElement name="update-progress" class="progress-container">
+                    <VisualElement name="update-progress-bar" class="progress-bar bg-subheader"  />
+                    <Label name="update-progress-text" class="progress-text text-white" />
+                </VisualElement>
+                <VisualElement class="flex-grow-1 mt-1">
+                    <Button name="update-cancel-button" class="flex-grow-1 d-none m-0" text="Cancel Upload" />
+                </VisualElement>
+            </VisualElement>
+
+            <Foldout text="Build" class="section-foldout" name="build-foldout">
+                <VisualElement class="col" name="build-panel-gui" />
+            </Foldout>
+        </VisualElement>
+        <VisualElement class="col relative" name="builder-notification">
+            <VisualElement class="row align-items-center  p-2 justify-space-between" name="builder-notification-header">
+                <Label class="text-lg text-bold" name="builder-notification-title" />
+                <Label class="absolute cursor-link hover-text-highlight" text="Dismiss" name="builder-notification-dismiss" />
+            </VisualElement>
+            <VisualElement name="builder-notification-content" class="p-2" />
+        </VisualElement>
+    </VisualElement>
+</UXML>

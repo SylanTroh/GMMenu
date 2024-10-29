@@ -1,0 +1,8 @@
+﻿<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <VisualElement class="row">
+        <Label name="tags-label" class="mt-2" />
+        <VisualElement class="flex-wrap">
+            <VisualElement class="tags-row" />
+        </VisualElement>
+    </VisualElement>
+</UXML>
