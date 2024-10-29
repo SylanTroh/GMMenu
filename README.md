@@ -13,15 +13,15 @@ Features Include:
 - NoClip for quick navigation around the map
 - A permission system, allowing for both hard-coded permissions, and self-assigned permissions.
 <p align="center">
-  <img src="https://github.com/SylanTroh/GMMenu/blob/main/Images/alerts.png" height="250" />
-  <img src="https://github.com/SylanTroh/GMMenu/blob/main/Images/playerlist.png" height="250" />
+  <img src="https://github.com/SylanTroh/GMMenu/blob/InstallGuide/Images/alerts.png" height="250" />
+  <img src="https://github.com/SylanTroh/GMMenu/blob/InstallGuide/Images/playerlist.png" height="250" />
 </p>
 
 # Installation
 1. Make sure you have UdonSharp and the VRChat Worlds SDK installed in your Unity project.
 2. Download the [latest .unitypackage](https://github.com/SylanTroh/GMMenu/releases/latest) and import it into your Unity project.
 3. Navigate to Window > Package Manager and locate the GMMenu Package. 
-4. Import the GMMenu Prefab. Importing Example Scene is not neccessary if you already have a scene in your project. <img src="https://github.com/SylanTroh/GMMenu/blob/main/Images/install1.png" height="500"/>
+4. Import the GMMenu Prefab. Importing Example Scene is not neccessary if you already have a scene in your project. <img src="https://github.com/SylanTroh/GMMenu/blob/InstallGuide/Images/install1.png" height="500"/>
 5. In your Assets folder, navigate to Samples > GMMenu > 1.1.X > GMMenu Prefab. Drag and drop the GMMenu into your scene.
 6. (Optional) Locate the GMMenu in your hierarchy, expand it and select the PlayerPermissions gameobject. You can uncheck "Everyone Is GM" and set specific permissions by entering VRChat display names into the GMList and FacilitatorList. These names must be case-sensitive.
 
