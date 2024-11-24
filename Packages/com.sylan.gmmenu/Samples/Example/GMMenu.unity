@@ -2905,6 +2905,7 @@ MonoBehaviour:
     SerializedTypeNames: []
   portraitCameraPositionOffset: {x: 0, y: 0, z: 0}
   portraitCameraRotationOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  PlayerPersistence: []
   NavigationAreas: []
 --- !u!114 &1344707369
 MonoBehaviour:
@@ -3513,7 +3514,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
         type: 3}
+      propertyPath: playersAreGM
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
       propertyPath: everyoneIsDisabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,
+        type: 3}
+      propertyPath: playersAreDeactivated
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1352804964764048447, guid: 4351c432d0cc2304ca29728c308703c9,

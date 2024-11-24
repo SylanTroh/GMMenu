@@ -44,14 +44,14 @@ namespace Sylan.GMMenu
 
         void Start()
         {
-            if (playersAreDeactivated) _permission = PERMISSION_DEACTIVATED;
-            if (playersAreFacilitator) _permission = PERMISSION_FACILITATOR;
-            if (playersAreGM) _permission = PERMISSION_GM;
+            if (playersAreDeactivated) SetBasePermission(PERMISSION_DEACTIVATED);
+            if (playersAreFacilitator) SetBasePermission(PERMISSION_FACILITATOR);
+            if (playersAreGM) SetBasePermission(PERMISSION_GM);
 
-            _permission = GetPermissionFromLists();
+            var listPermission = GetPermissionFromLists();
+            _permission = listPermission == 0 ? _permission : listPermission;
 
-            _tempPermission = _permission;
-            Debug.Log("Permission Level:" + getPermissionLevel().ToString());
+            SetTempPermission(_permission);
             SendPermissionUpdateEvent();
 
             LoadPermissionLists();
@@ -121,12 +121,23 @@ namespace Sylan.GMMenu
         {
             return _permission;
         }
+        public void SetBasePermission(int p)
+        {
+            if (PERMISSION_DEACTIVATED <= p && p <= PERMISSION_GM)
+            {
+                _permission = p;
+                SendPermissionUpdateEvent();
+                Debug.Log("[GMMenuPermissions]: Base Permission Level:" + getPermissionLevel().ToString());
+            }
+            else Debug.LogError("[GMMenuPermissions]: Permission Level Out of Bounds");
+        }
         public void SetTempPermission(int p)
         {
             if (PERMISSION_DEACTIVATED <= p && p <= PERMISSION_GM)
             {
                 _tempPermission = p;
                 SendPermissionUpdateEvent();
+                Debug.Log("[GMMenuPermissions]: Permission Level:" + getPermissionLevel().ToString());
             }
             else Debug.LogError("[GMMenuPermissions]: Permission Level Out of Bounds");
         }

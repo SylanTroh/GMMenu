@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.mmmaellon.lightsync": {
-      "version": "file:com.mmmaellon.lightsync",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.sylan.audiomanager": {
       "version": "file:com.sylan.audiomanager",
       "depth": 0,
@@ -212,7 +206,8 @@
         "com.unity.timeline": "1.7.6",
         "com.unity.xr.management": "4.3.3",
         "com.unity.xr.oculus": "4.0.0",
-        "com.unity.postprocessing": "3.2.2"
+        "com.unity.postprocessing": "3.2.2",
+        "com.unity.ugui": "1.0.0"
       }
     },
     "com.vrchat.core.bootstrap": {
@@ -239,8 +234,7 @@
         "com.unity.cinemachine": "2.9.7",
         "com.unity.textmeshpro": "3.0.6",
         "com.unity.inputsystem": "1.2.0",
-        "com.unity.ai.navigation": "1.1.5",
-        "com.unity.ugui": "1.0.0"
+        "com.unity.ai.navigation": "1.1.5"
       }
     },
     "com.unity.modules.ai": {
