@@ -9,11 +9,11 @@
     "com.sylan.audiomanager": {
       "version": "1.4.3"
     },
-    "com.sylan.gmmenu": {
-      "version": "1.5.13"
-    },
     "com.vrchat.worlds": {
       "version": "3.7.4"
+    },
+    "com.sylan.gmmenu": {
+      "version": "1.5.13"
     }
   },
   "locked": {
@@ -25,12 +25,6 @@
       "version": "1.4.3",
       "dependencies": {}
     },
-    "com.sylan.gmmenu": {
-      "version": "1.5.13",
-      "dependencies": {
-        "com.sylan.audiomanager": "~1.4.0"
-      }
-    },
     "com.vrchat.worlds": {
       "version": "3.7.4",
       "dependencies": {
@@ -40,6 +34,12 @@
     "com.vrchat.base": {
       "version": "3.7.4",
       "dependencies": {}
+    },
+    "com.sylan.gmmenu": {
+      "version": "1.5.13",
+      "dependencies": {
+        "com.sylan.audiomanager": "~1.4.0"
+      }
     }
   }
 }
