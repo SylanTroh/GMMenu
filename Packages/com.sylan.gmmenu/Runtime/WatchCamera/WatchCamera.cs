@@ -2,7 +2,6 @@
 using JetBrains.Annotations;
 using UdonSharp;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 using UnityEngine.UI;
 using VRC.SDKBase;
 using VRC.Udon;
@@ -28,7 +27,7 @@ namespace Sylan.GMMenu
         private VRCPlayerApi player;
         private VRCPlayerApi[] playerList = new VRCPlayerApi[0];
         bool[] playerIsUpdated= new bool[0];
-        const int updatesPerFrame = 4;
+        public int updatesPerFrame = 4;
 
         bool idsNeedUpdate = false;
         public void Start()
@@ -127,7 +126,7 @@ namespace Sylan.GMMenu
         }
         public void UpdateThumbnailsOnce()
         {
-            if (permissions.getPermissionLevel() < 1) return;
+            if (permissions.getPermissionLevel() < PlayerPermissions.PERMISSION_FACILITATOR) return;
             Debug.Log("[WatchCamera]: Updating Thumbnails");
             playerIsUpdated = new bool[VRCPlayerApi.GetPlayerCount()];
             UpdateThumbnail();
