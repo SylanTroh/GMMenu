@@ -7,7 +7,7 @@ using VRC.SDKBase.Editor.BuildPipeline;
 namespace Sylan.GMMenu
 {
     [InitializeOnLoad]
-    public class GMMenuOptionalInitialize : Editor, IVRCSDKBuildRequestedCallback
+    public class GMMenuOptionalInitialize : IVRCSDKBuildRequestedCallback
     {
         private static bool SetSerializedProperties()
         {
@@ -17,7 +17,7 @@ namespace Sylan.GMMenu
             {
                 //Set Serialized Property
                 SerializedPropertyUtils.PopulateSerializedProperty<AudioSettingManager>(serializedObject, VoiceModeManager.AudioSettingManagerPropertyName);
-                flag = true;            
+                flag = true;
             }
 
             if (SerializedPropertyUtils.GetSerializedObject<GMWhisperManager>(out serializedObject))
@@ -35,7 +35,7 @@ namespace Sylan.GMMenu
             }
 
             return flag;
-            
+
         }
         //
         //Run On Play

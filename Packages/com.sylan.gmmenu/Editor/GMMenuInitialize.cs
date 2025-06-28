@@ -6,14 +6,14 @@ using VRC.SDKBase.Editor.BuildPipeline;
 namespace Sylan.GMMenu
 {
     [InitializeOnLoad]
-    public class GMMenuInitialize : Editor, IVRCSDKBuildRequestedCallback
+    public class GMMenuInitialize : IVRCSDKBuildRequestedCallback
     {
         private static bool SetSerializedProperties()
         {
             //Object with Serialized Property(s)
             if (!SerializedPropertyUtils.GetSerializedObjects<GMMenuPart>(out SerializedObject[] serializedObjects)) return false;
 
-            foreach(SerializedObject serializedObject in serializedObjects)
+            foreach (SerializedObject serializedObject in serializedObjects)
             {
                 //Set Serialized Property
                 SerializedPropertyUtils.PopulateSerializedProperty<GMMenu>(serializedObject, GMMenuPart.GMMenuPropertyName);
