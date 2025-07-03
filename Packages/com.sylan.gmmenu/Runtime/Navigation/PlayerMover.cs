@@ -1,5 +1,6 @@
 ﻿
 using System;
+using Sylan.GMMenu.Utils;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
@@ -98,7 +99,7 @@ namespace Sylan.GMMenu
         public void UpdateStationPosition()
         {
             if (!noclip) return;
-            //Don't teleport while staying still. 
+            //Don't teleport while staying still.
             bool isStill = (speedHorizontal == 0 && speedVertical == 0 && speedLongitudinal == 0);
             if (!isStill)
             {
@@ -108,10 +109,9 @@ namespace Sylan.GMMenu
                 offset += speedVertical * (headVector * Vector3.up);
                 offset *= speedMagnitude * Time.deltaTime;
                 station.position += offset;
-                //localPlayer.TeleportTo(
-                TeleportPlayer(
+                TeleportUtils.RoomAlignedTeleport(
                     localPlayer,
-                    station.position, 
+                    station.position,
                     localPlayer.GetRotation(),
                     true
                     );
@@ -119,8 +119,7 @@ namespace Sylan.GMMenu
             }
             if (!menuToggle.MenuState())
             {
-                //localPlayer.TeleportTo(
-                TeleportPlayer(
+                TeleportUtils.RoomAlignedTeleport(
                     localPlayer,
                     station.position,
                     localPlayer.GetRotation(),
@@ -130,24 +129,6 @@ namespace Sylan.GMMenu
             }
             localPlayer.SetVelocity(Vector3.zero);
             return;
-
-        }
-        public void TeleportPlayer(VRCPlayerApi player, Vector3 teleportPos, Quaternion teleportRotation, bool lerpOnRemote)
-        {
-            //This function teleports the player,
-            //calculates the difference between the expected rotation and the actual rotation resulting from the teleport.
-            //then teleports the player again to compensate for the error.
-            //This is temporary patch for a problem where noclip causes one to spin rapidly, until I can figure out what is causing this to happen
-            player.TeleportTo(
-                teleportPos,
-                teleportRotation,
-                VRC_SceneDescriptor.SpawnOrientation.AlignPlayerWithSpawnPoint,
-                lerpOnRemote
-                );
-            player.TeleportTo(teleportPos,
-                Quaternion.Inverse(localPlayer.GetRotation()) * teleportRotation * teleportRotation, 
-                VRC_SceneDescriptor.SpawnOrientation.AlignPlayerWithSpawnPoint,
-                lerpOnRemote);
         }
         public void ToggleNoclip()
         {
