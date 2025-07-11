@@ -11,9 +11,9 @@
     "name": "Sylan Troh",
     "url": "https://twitter.com/sylan_troh"
   },
-  "vpmDependencies": {
-    "com.sylan.audiomanager": "^1.4.0"
-  },
+
+  "vpmDependencies": {},
+  
   "samples": [
     {
       "displayName": "GMMenu Prefab",

@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace Sylan.GMMenu.EditorUtilities
@@ -121,4 +120,3 @@ namespace Sylan.GMMenu.EditorUtilities
         }
     }
 }
-#endif

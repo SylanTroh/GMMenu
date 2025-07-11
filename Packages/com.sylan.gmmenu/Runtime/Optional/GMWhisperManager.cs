@@ -1,9 +1,15 @@
-﻿using Sylan.AudioManager;
+﻿#if SYLAN_AUDIOMANAGER_VERSION || (COMPILER_UDONSHARP && SYLAN_AUDIOMANAGER)
+// See VoiceModeManager for an explanation for the condition above.
+#define AUDIOMANAGER
+#endif
+
+#if AUDIOMANAGER
+using Sylan.AudioManager;
+#endif
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace Sylan.GMMenu
 {
@@ -12,19 +18,33 @@ namespace Sylan.GMMenu
     {
         [SerializeField] GameObject GMWhisperButton;
         [HideInInspector] public GMWhisper localGMWhisper;
-        private GMWhisper[] gmWhispers;
-        [HideInInspector,SerializeField] public AudioSettingManager audioSettingManager;
+        [SerializeField] Text GMWhisperButtonText;
+
+#if AUDIOMANAGER
+        [HideInInspector, SerializeField] public AudioSettingManager audioSettingManager;
         public const string AudioSettingManagerPropertyName = nameof(audioSettingManager);
 
-        [SerializeField] Text GMWhisperButtonText;
+        private GMWhisper[] gmWhispers;
         bool gmWhisperEnabled = false;
+#endif
 
+        private void DestroySelf()
+        {
+            // Destroy(GMWhisperButton.gameObject);
+            Destroy(gameObject);
+        }
+
+#if !AUDIOMANAGER
+        void Start()
+        {
+            DestroySelf();
+        }
+#else
         void Start()
         {
             if (audioSettingManager == null)
             {
-                Destroy(GMWhisperButton.gameObject);
-                Destroy(gameObject);
+                DestroySelf();
                 gmWhispers = new GMWhisper[0]; // Prevent error in SetOwnership, since Destroy is not instant.
                 return;
             }
@@ -75,7 +95,7 @@ namespace Sylan.GMMenu
         {
             VRCPlayerApi[] players = gmMenu.PlayerSelector.GetSelectedPlayers();
             int[] playerIDs = new int[players.Length];
-            for(int i = 0; i < players.Length; i++)
+            for (int i = 0; i < players.Length; i++)
             {
                 playerIDs[i] = players[i].playerId;
             }
@@ -93,5 +113,6 @@ namespace Sylan.GMMenu
             localGMWhisper.RequestSerialization();
             GMWhisperButtonText.text = "GM Whisper";
         }
+#endif
     }
 }

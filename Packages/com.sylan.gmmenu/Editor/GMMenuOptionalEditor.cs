@@ -1,4 +1,8 @@
-#if SYLAN_AUDIOMANAGER && !COMPILER_UDONSHARP && UNITY_EDITOR
+#if SYLAN_AUDIOMANAGER_VERSION
+// Must only be compiled if the audio manager package is present, therefore using SYLAN_AUDIOMANAGER_VERSION
+// and not SYLAN_AUDIOMANAGER. Using the latter would cause compile errors when the audio manager package is
+// removed, and then due to those compile errors the editor script that is supposed to unset that define would
+// not run since it is part of the same assembly definition.
 using Sylan.AudioManager;
 using Sylan.GMMenu.EditorUtilities;
 using UnityEditor;
@@ -35,7 +39,6 @@ namespace Sylan.GMMenu
             }
 
             return flag;
-
         }
         //
         //Run On Play
