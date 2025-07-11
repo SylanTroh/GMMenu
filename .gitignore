@@ -64,7 +64,7 @@ Assets/PackageMakerWindowData.asset*
 .vscode
 .vsconfig
 
-#GMMenu
+#VRCPackage
 /*
 !.git
 !.github
@@ -73,4 +73,3 @@ Assets/PackageMakerWindowData.asset*
 !README.md
 !Packages/
 Packages/*
-!Packages/com.sylan.gmmenu/*
