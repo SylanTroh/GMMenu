@@ -1,7 +1,7 @@
 {
   "name": "com.sylan.gmmenu",
   "displayName": "GMMenu",
-  "version": "1.5.16",
+  "version": "1.6.0",
   "unity": "2022.3",
   "description": "An UDON menu panel designed for VRChat roleplay.",
   "vrchatVersion": "2022.1.1",
@@ -12,7 +12,7 @@
     "url": "https://twitter.com/sylan_troh"
   },
   "vpmDependencies": {
-    "com.sylan.audiomanager": "~1.4.0"
+    "com.sylan.audiomanager": "^1.4.0"
   },
   "samples": [
     {
