@@ -1,8 +1,7 @@
 ﻿
+using System;
 using UdonSharp;
-using UnityEngine;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace Sylan.GMMenu.Utils
 {
@@ -22,21 +21,21 @@ namespace Sylan.GMMenu.Utils
 
             array = newArray;
         }
-    }
-    public static T Pop<T>(ref T[] array)
-    {
-        // Handle an empty array
-        if (array.Length == 0)
+        public static T Pop<T>(ref T[] array)
         {
-            return default(T); // Returns default value for T (null for reference types, default for value types)
-        }
+            // Handle an empty array
+            if (array.Length == 0)
+            {
+                return default(T); // Returns default value for T (null for reference types, default for value types)
+            }
             
-        var returnValue = array[array.Length - 1];
+            var returnValue = array[array.Length - 1];
             
-        var newArray = new T[array.Length - 1];
-        Array.Copy(array, 0, newArray, 0, newArray.Length);
+            var newArray = new T[array.Length - 1];
+            Array.Copy(array, 0, newArray, 0, newArray.Length);
 
-        array = newArray;
-        return returnValue;
+            array = newArray;
+            return returnValue;
+        }
     }
 }
