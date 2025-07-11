@@ -63,3 +63,14 @@ Assets/PackageMakerWindowData.asset*
 .idea
 .vscode
 .vsconfig
+
+#GMMenu
+/*
+!.git
+!.github
+!.gitignore
+!LICENSE
+!README.md
+!Packages/
+Packages/*
+!Packages/com.sylan.gmmenu/*
