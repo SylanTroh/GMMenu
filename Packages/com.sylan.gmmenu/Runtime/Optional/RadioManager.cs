@@ -20,8 +20,7 @@ namespace Sylan.AudioManager
         public const string AudioSettingManagerPropertyName = null;
 #endif
 
-        [HideInInspector, SerializeField] private Radio[] Radios;
-        public const string RadioChannelsPropertyName = nameof(Radios);
+        private Radio[] radios;
         [HideInInspector] public Radio localRadio;
 
         [Header("Set AudioSetting when in the same channel")]
@@ -52,6 +51,7 @@ namespace Sylan.AudioManager
             {
                 Destroy(RadioButton);
                 Destroy(gameObject);
+                radios = new Radio[0]; // Prevent potential errors since Destroy is not instant.
                 return;
             }
             RadioChannelAudioSettings[AudioSettingManager.VOICE_GAIN_INDEX] = voiceGain;
@@ -59,8 +59,8 @@ namespace Sylan.AudioManager
             RadioChannelAudioSettings[AudioSettingManager.RANGE_FAR_INDEX] = voiceRangeFar;
             RadioChannelAudioSettings[AudioSettingManager.VOLUMETRIC_RADIUS_INDEX] = volumetricRadius;
             RadioChannelAudioSettings[AudioSettingManager.VOICE_LOWPASS_INDEX] = voiceLowpass;
-            
-            Radios = GetComponentsInChildren<Radio>();
+
+            radios = GetComponentsInChildren<Radio>();
         }
 
         //
@@ -103,7 +103,7 @@ namespace Sylan.AudioManager
                 Debug.LogError("[RadioManager] Failed to remove RadioChannel for " + player.displayName + "-" + player.playerId.ToString());
             }
             Debug.Log("[RadioManager] Removed RadioChannel for " + player.displayName + "-" + player.playerId.ToString());
-            
+
             return value.Int;
         }
         public override void OnPlayerJoined(VRCPlayerApi joiningPlayer)
@@ -133,7 +133,7 @@ namespace Sylan.AudioManager
         }
         private void SetRadioOwnership(VRCPlayerApi player)
         {
-            foreach (Radio radio in Radios)
+            foreach (Radio radio in radios)
             {
                 if (radio.owner != null) continue;
 
@@ -144,7 +144,7 @@ namespace Sylan.AudioManager
         }
         private void RevokeRadioOwnership(VRCPlayerApi player)
         {
-            foreach (Radio radio in Radios)
+            foreach (Radio radio in radios)
             {
                 if (radio.owner != player) continue;
 

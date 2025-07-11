@@ -25,6 +25,7 @@ namespace Sylan.GMMenu
             {
                 Destroy(GMWhisperButton.gameObject);
                 Destroy(gameObject);
+                gmWhispers = new GMWhisper[0]; // Prevent error in SetOwnership, since Destroy is not instant.
                 return;
             }
             gmWhispers = GetComponentsInChildren<GMWhisper>();
@@ -86,7 +87,7 @@ namespace Sylan.GMMenu
         }
         private void DisableGMWhisper()
         {
-            if (!Networking.IsOwner(localGMWhisper.gameObject)) 
+            if (!Networking.IsOwner(localGMWhisper.gameObject))
                 Networking.SetOwner(Networking.LocalPlayer, localGMWhisper.gameObject);
             localGMWhisper.playerIDs = new int[0];
             localGMWhisper.RequestSerialization();
