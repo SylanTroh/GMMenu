@@ -1,4 +1,36 @@
 {
-  "dependencies": {},
-  "locked": {}
+  "dependencies": {
+    "com.vrchat.base": {
+      "version": "3.8.2"
+    },
+    "com.vrchat.core.vpm-resolver": {
+      "version": "0.1.29"
+    },
+    "com.vrchat.worlds": {
+      "version": "3.8.2"
+    },
+    "com.sylan.audiomanager": {
+      "version": "1.4.4"
+    }
+  },
+  "locked": {
+    "com.vrchat.base": {
+      "version": "3.8.2",
+      "dependencies": {}
+    },
+    "com.vrchat.core.vpm-resolver": {
+      "version": "0.1.29",
+      "dependencies": {}
+    },
+    "com.vrchat.worlds": {
+      "version": "3.8.2",
+      "dependencies": {
+        "com.vrchat.base": "3.8.2"
+      }
+    },
+    "com.sylan.audiomanager": {
+      "version": "1.4.4",
+      "dependencies": {}
+    }
+  }
 }

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: SummonButton
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 464519baaf5f3db4aa28b5fd21798446,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 464519baaf5f3db4aa28b5fd21798446, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 40f9d747be0386441a44b95b53422fc6, type: 3}

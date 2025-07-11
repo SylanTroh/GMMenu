@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: PanelTemplate
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 06cdef338bad29143bb8794f0f394016,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 06cdef338bad29143bb8794f0f394016, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: a7d0aecfd6774cc4ba0120b5f44db650, type: 3}

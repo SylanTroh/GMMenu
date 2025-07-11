@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: MenuOpenSettings
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: e41a52038fc54994399da3cc3d71720a,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: e41a52038fc54994399da3cc3d71720a, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 9376dfe3638905447a061b26e44d90de, type: 3}

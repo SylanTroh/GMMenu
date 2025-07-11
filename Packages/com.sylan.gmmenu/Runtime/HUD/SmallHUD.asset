@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: SmallHUD
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 08a324885cd852245a96107afc5aaa29,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 08a324885cd852245a96107afc5aaa29, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 835bd0ec8d2f56f43af8dd1e46f3be99, type: 3}

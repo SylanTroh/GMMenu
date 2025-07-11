@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: AlertListViewport
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 35487d08ce5d3c44f9a66922cd8d8ae8,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 35487d08ce5d3c44f9a66922cd8d8ae8, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 33c6b2c03d232404fb6a556e8886e84f, type: 3}

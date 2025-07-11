@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: MessagePanel
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 153b48e3208ba6642ba62bd3beca1bf8,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 153b48e3208ba6642ba62bd3beca1bf8, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 49c27e9cbadf8e54198053f5fc38c340, type: 3}

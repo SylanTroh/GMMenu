@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: GMMenuPart
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 130104b48b35bb647ab37577b8f84092,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 130104b48b35bb647ab37577b8f84092, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: bc9f47a3c0cae484d97c44897b3656e3, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 1
   hasInteractEvent: 0
-  scriptID: -4221427208270465761
+  scriptID: 5618050947480460618
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: VoiceMode
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 060a2d40f8fca7c44a04eda83fb8216c,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 060a2d40f8fca7c44a04eda83fb8216c, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 41d18c72db4e5ee4bb0912e8606de94d, type: 3}

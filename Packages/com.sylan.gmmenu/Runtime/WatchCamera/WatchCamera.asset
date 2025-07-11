@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: WatchCamera
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 7b04550c0e8981742a4c92fe95d856e7,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 7b04550c0e8981742a4c92fe95d856e7, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 85fc7116e30a297438ec72f82904e373, type: 3}

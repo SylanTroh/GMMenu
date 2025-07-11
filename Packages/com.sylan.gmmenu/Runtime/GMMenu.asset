@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: GMMenu
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 7540a4316145aca4c971b055a410661f,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 7540a4316145aca4c971b055a410661f, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 7bc4d6f1ae842dd47b862505b2122b8c, type: 3}
