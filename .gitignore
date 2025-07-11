@@ -65,11 +65,5 @@ Assets/PackageMakerWindowData.asset*
 .vsconfig
 
 #VRCPackage
-/*
-!.git
-!.github
-!.gitignore
-!LICENSE
-!README.md
-!Packages/
-Packages/*
+/Assets/SerializedUdonPrograms/*
+UserSettings/*
