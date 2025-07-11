@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Sylan.GMMenu.EditorUtilities
 {
-    public class SerializedPropertyUtils : Editor
+    public static class SerializedPropertyUtils
     {
         /// <summary>
         /// Find exactly one object of Type T in the scene hierarchy.
@@ -38,7 +38,7 @@ namespace Sylan.GMMenu.EditorUtilities
             return true;
         }
         /// <summary>
-        /// Set Serialized Property of Type T. Property must not be an array. 
+        /// Set Serialized Property of Type T. Property must not be an array.
         /// </summary>
         /// <typeparam name="T">Type of Object to set</typeparam>
         /// <param name="serializedObject">Object with the property</param>
@@ -64,7 +64,7 @@ namespace Sylan.GMMenu.EditorUtilities
         /// <param name="propertyName">Name of Serialized Property</param>
         public static void PopulateSerializedArray<T>(SerializedObject serializedObject, string propertyName) where T : MonoBehaviour
         {
-            if(serializedObject == null) return;
+            if (serializedObject == null) return;
             SerializedProperty arrayProperty;
             arrayProperty = serializedObject.FindProperty(propertyName);
 
@@ -95,7 +95,7 @@ namespace Sylan.GMMenu.EditorUtilities
                 EditorApplication.isPlaying = false;
                 return false;
             }
-            if(obj != null) serializedObject = new SerializedObject(obj);
+            if (obj != null) serializedObject = new SerializedObject(obj);
             return true;
         }
         /// <summary>
