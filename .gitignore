@@ -63,3 +63,13 @@ Assets/PackageMakerWindowData.asset*
 .idea
 .vscode
 .vsconfig
+
+#VRCPackage
+/*
+!.git
+!.github
+!.gitignore
+!LICENSE
+!README.md
+!Packages/
+Packages/*
