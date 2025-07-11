@@ -26,7 +26,7 @@ namespace Sylan.GMMenu
 
 #if !COMPILER_UDONSHARP && UNITY_EDITOR
 [InitializeOnLoad]
-public class TeleportButtonInitialize : IVRCSDKBuildRequestedCallback
+public class DoorSyncInitialize : IVRCSDKBuildRequestedCallback
 {
     private static bool SetSerializedProperties()
     {
@@ -42,7 +42,7 @@ public class TeleportButtonInitialize : IVRCSDKBuildRequestedCallback
     //
     //Run On Play
     //
-    static TeleportButtonInitialize()
+    static DoorSyncInitialize()
     //Rename Static Constructor to match Class name
     {
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
