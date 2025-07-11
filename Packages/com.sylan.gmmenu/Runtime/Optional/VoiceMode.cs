@@ -1,10 +1,15 @@
-﻿
+﻿#if SYLAN_AUDIOMANAGER_VERSION || (COMPILER_UDONSHARP && SYLAN_AUDIOMANAGER)
+// See VoiceModeManager for an explanation for the condition above.
+#define AUDIOMANAGER
+#endif
+
+#if AUDIOMANAGER
+using Sylan.AudioManager;
+#endif
 using UdonSharp;
 using UnityEngine;
-using VRC.SDKBase;
 using VRC.SDK3.Data;
-using VRC.Udon;
-using Sylan.AudioManager;
+using VRC.SDKBase;
 
 namespace Sylan.GMMenu
 {
@@ -15,12 +20,14 @@ namespace Sylan.GMMenu
 
         [HideInInspector] public int priority = 2000;
 
+#if AUDIOMANAGER
         const int OWNER_NULL = -1;
         [UdonSynced]
         private int _ownerID = OWNER_NULL;
 
         [FieldChangeCallback(nameof(owner))]
         VRCPlayerApi _owner;
+#endif
 
         public const int SETTING_NULL = -1;
         public const int SETTING_EMPTY = 0;
@@ -29,12 +36,15 @@ namespace Sylan.GMMenu
         public const int SETTING_YELL = 3;
         public const int SETTING_BROADCAST = 4;
 
+#if AUDIOMANAGER
         [UdonSynced, FieldChangeCallback(nameof(setting))]
         int _setting = SETTING_NULL;
+#endif
 
         public VoiceModeManager voiceModeManager;
 
         public const string AUDIO_ZONE_SETTING_ID = "GMMENUAUDIOSETTING";
+#if AUDIOMANAGER
         DataList SettingWhisper = new DataList()
         {
             (DataToken)15.0f, //Voice Gain
@@ -146,6 +156,6 @@ namespace Sylan.GMMenu
                 voiceModeManager.audioSettingManager.UpdateAudioSettings(owner);
             }
         }
+#endif
     }
-
 }

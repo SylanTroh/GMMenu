@@ -1,5 +1,30 @@
-﻿
+﻿#if SYLAN_AUDIOMANAGER_VERSION || (COMPILER_UDONSHARP && SYLAN_AUDIOMANAGER)
+// The version define SYLAN_AUDIOMANAGER_VERSION defined on the assembly definition is sufficient for
+// regular compilation, it appears to be how optional compilation should be done for unity packages,
+// including when having optional package dependencies.
+//
+// The define SYLAN_AUDIOMANAGER is set in the project settings through editor scripting by the audio manager
+// package. That is specifically required for UdonSharp because that does not have support for version defines.
+// However since SYLAN_AUDIOMANAGER is in the global list of defines, it is going to remain there when the
+// audio manager gets removed, therefore we cannot just use SYLAN_AUDIOMANAGER to conditionally compile code
+// that uses the audio manager as that would fail compilation when the package gets removed.
+//
+// There is editor scripting in the editor assembly in the GMMenu which removes the SYLAN_AUDIOMANAGER define
+// to make sure the UdonSharp compilation result matches the compiled UdonSharpBehaviour.
+//
+// Since the editor assembly is separate from the runtime assembly we could just not care about these compile
+// errors, so long as just the editor assembly compiles successfully so it can unset the define. However if
+// the audio manager package was removed while unity was closed, opening unity would prompt that there are
+// compile errors and if somebody choses to enter safe mode, the editor script would not run and the compile
+// errors would not be resolved automatically.
+//
+// All of that is the reason why SYLAN_AUDIOMANAGER is only used if COMPILER_UDONSHARP is also set.
+#define AUDIOMANAGER
+#endif
+
+#if AUDIOMANAGER
 using Sylan.AudioManager;
+#endif
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Data;
@@ -12,8 +37,10 @@ namespace Sylan.GMMenu
     {
         [SerializeField] GameObject VoiceModeButtons;
 
+#if AUDIOMANAGER
         [HideInInspector,SerializeField] public AudioSettingManager audioSettingManager;
         public const string AudioSettingManagerPropertyName = nameof(audioSettingManager);
+#endif
 
         private UdonSharpBehaviour[] VoiceModeChangedEventListeners = new UdonSharpBehaviour[0];
 
@@ -31,8 +58,26 @@ namespace Sylan.GMMenu
         public float yellGain = 15f;
         public float yellFarRange = 40f;
 
+        private void DestroySelf()
+        {
+            Destroy(VoiceModeButtons);
+            Destroy(gameObject);
+        }
+
+#if !AUDIOMANAGER
         void Start()
         {
+            DestroySelf();
+        }
+#else
+        void Start()
+        {
+            if (audioSettingManager == null)
+            {
+                DestroySelf();
+                audioSettings = new VoiceMode[0]; // Prevent potential errors since Destroy is not instant.
+                return;
+            }
             audioSettings = GetComponentsInChildren<VoiceMode>();
             foreach (VoiceMode voiceMode in audioSettings)
             {
@@ -137,5 +182,6 @@ namespace Sylan.GMMenu
         {
             Utils.ArrayUtils.Append(ref VoiceModeChangedEventListeners, b);
         }
+#endif
     }
 }

@@ -1,15 +1,25 @@
-﻿
+﻿#if SYLAN_AUDIOMANAGER_VERSION || (COMPILER_UDONSHARP && SYLAN_AUDIOMANAGER)
+// See VoiceModeManager for an explanation for the condition above.
+#define AUDIOMANAGER
+#endif
+
+#if AUDIOMANAGER
 using Sylan.AudioManager;
+#endif
 using UdonSharp;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
-using UnityEngine;
 
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class GMWhisper : GMMenuPart
     {
+        public GMWhisperManager gmWhisperManager;
+
+        public const string SETTING_ID = "GMWhisper";
+
+#if AUDIOMANAGER
         bool isInitialized = false;
 
         const int OWNER_NULL = -1;
@@ -22,9 +32,6 @@ namespace Sylan.GMMenu
         [UdonSynced, FieldChangeCallback(nameof(playerIDs))]
         int[] _playerIDs = new int[0];
 
-        public GMWhisperManager gmWhisperManager;
-
-        public const string SETTING_ID = "GMWhisper";
         DataList SettingBroadcast = new DataList()
         {
             (DataToken)0.0f, //Voice Gain
@@ -108,5 +115,6 @@ namespace Sylan.GMMenu
             if (_playerIDs.Length > 0) owner.AddAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID, int.MinValue, SettingOff);
             gmWhisperManager.audioSettingManager.UpdateAudioSettings(owner);
         }
+#endif
     }
 }

@@ -11,7 +11,9 @@
         "GUID:99835874ee819da44948776e0df4ff1d",
         "GUID:1672080bce8200a45a7242051b0566e6"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
@@ -22,7 +24,7 @@
         {
             "name": "com.sylan.audiomanager",
             "expression": "1.4.2",
-            "define": "SYLAN_AUDIOMANAGER"
+            "define": "SYLAN_AUDIOMANAGER_VERSION"
         }
     ],
     "noEngineReferences": false

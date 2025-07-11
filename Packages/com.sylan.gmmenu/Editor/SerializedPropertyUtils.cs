@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace Sylan.GMMenu.EditorUtilities
@@ -38,7 +37,7 @@ namespace Sylan.GMMenu.EditorUtilities
             return true;
         }
         /// <summary>
-        /// Set Serialized Property of Type T. Property must not be an array. 
+        /// Set Serialized Property of Type T. Property must not be an array.
         /// </summary>
         /// <typeparam name="T">Type of Object to set</typeparam>
         /// <param name="serializedObject">Object with the property</param>
@@ -121,4 +120,3 @@ namespace Sylan.GMMenu.EditorUtilities
         }
     }
 }
-#endif

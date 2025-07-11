@@ -1,20 +1,25 @@
-﻿using UdonSharp;
+﻿#if SYLAN_AUDIOMANAGER_VERSION || (COMPILER_UDONSHARP && SYLAN_AUDIOMANAGER)
+// See VoiceModeManager for an explanation for the condition above.
+#define AUDIOMANAGER
+#endif
+
+using UdonSharp;
 using UnityEngine;
-using VRC.SDKBase;
 
 namespace Sylan.GMMenu
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class VoiceModeHUD : GMMenuPart
     {
-        private VoiceModeManager voiceModeManager;
-
         public GameObject hudWhisper;
         public GameObject hudYell;
         public GameObject hudBroadcast;
 
         public GameObject hud;
         public Transform hudIcons;
+
+#if AUDIOMANAGER
+        private VoiceModeManager voiceModeManager;
 
         void Start()
         {
@@ -56,5 +61,6 @@ namespace Sylan.GMMenu
         {
             UpdateHUD();
         }
+#endif
     }
 }

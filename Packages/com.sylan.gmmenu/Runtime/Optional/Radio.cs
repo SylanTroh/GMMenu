@@ -1,7 +1,10 @@
-﻿
+﻿#if SYLAN_AUDIOMANAGER_VERSION || (COMPILER_UDONSHARP && SYLAN_AUDIOMANAGER)
+// See VoiceModeManager for an explanation for the condition above.
+#define AUDIOMANAGER
+#endif
+
 using UdonSharp;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VRC.SDKBase;
 
 namespace Sylan.AudioManager
@@ -9,22 +12,23 @@ namespace Sylan.AudioManager
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class Radio : UdonSharpBehaviour
     {
+        public RadioManager _RadioManager;
+
+        public const int CHANNEL_NULL = -1;
+        public const int CHANNEL_EMPTY = 0;
+
+#if AUDIOMANAGER
         const int OWNER_NULL = -1;
         [UdonSynced]
         private int _ownerID = OWNER_NULL;
-        
+
         [FieldChangeCallback(nameof(owner))]
         VRCPlayerApi _owner;
-        
-        public const int CHANNEL_NULL = -1;
-        public const int CHANNEL_EMPTY = 0;
-        
+
         [UdonSynced]
         [FieldChangeCallback(nameof(channel))]
         private int _channel = CHANNEL_NULL;
-        
-        public RadioManager _RadioManager;
-        
+
         public void ResetVariables()
         {
             channel = CHANNEL_NULL;
@@ -101,5 +105,6 @@ namespace Sylan.AudioManager
             channel = CHANNEL_EMPTY;
             RequestSerialization();
         }
+#endif
     }
 }
