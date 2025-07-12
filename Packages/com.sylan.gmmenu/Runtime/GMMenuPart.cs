@@ -1,12 +1,12 @@
 ﻿using UdonSharp;
 using UnityEngine;
 
-namespace Sylan.GMMenu
+[UdonBehaviourSyncMode(BehaviourSyncMode.None)]
+public class GMMenuPart : UdonSharpBehaviour
 {
-    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class GMMenuPart : UdonSharpBehaviour
-    {
-        [HideInInspector, SerializeField] public GMMenu gmMenu;
-        public const string GMMenuPropertyName = nameof(gmMenu);
-    }
+    // Using a 'using Sylan.GMMenu;' made UdonSharp fail to compile, claiming that GMMenu is a namespace that
+    // is being used as a type, but only if it was compiling without the audio manager package present.
+    // That makes just about zero sense but it is what it is.
+    [HideInInspector, SerializeField] public Sylan.GMMenu.GMMenu gmMenu;
+    public const string GMMenuPropertyName = nameof(gmMenu);
 }
