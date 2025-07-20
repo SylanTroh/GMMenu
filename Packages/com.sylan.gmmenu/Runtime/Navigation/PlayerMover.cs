@@ -109,22 +109,12 @@ namespace Sylan.GMMenu
                 offset += speedVertical * (headVector * Vector3.up);
                 offset *= speedMagnitude * Time.deltaTime;
                 station.position += offset;
-                TeleportUtils.RoomAlignedTeleport(
-                    localPlayer,
-                    station.position,
-                    localPlayer.GetRotation(),
-                    true
-                    );
+                TeleportUtils.TeleportAndRetainHeadRotation(localPlayer, station.position, lerpOnRemote: true);
                 return;
             }
             if (!menuToggle.MenuState())
             {
-                TeleportUtils.RoomAlignedTeleport(
-                    localPlayer,
-                    station.position,
-                    localPlayer.GetRotation(),
-                    true
-                    );
+                TeleportUtils.TeleportAndRetainHeadRotation(localPlayer, station.position, lerpOnRemote: true);
                 return;
             }
             localPlayer.SetVelocity(Vector3.zero);
