@@ -22,6 +22,6 @@ Features Include:
 2. Click Manage Project in the creator companion and press the plus button next to GMMenu
 3. Import the GMMenu Prefab into the scene.
 4. If you would like to use the features that change audio settings such as talk, whisper, yell, broadcast, radio and GM radio:
-  1. Add the [AudioManager](https://github.com/SylanTroh/AudioManager) package to the project the same way as the GMMenu
-  2. Create an empty game object in your scene and add an 'AudioSettingManager' component
-  3. The presence of the audio manager automatically enables features depending on it
+    1. Add the [AudioManager](https://github.com/SylanTroh/AudioManager) package to the project the same way as the GMMenu
+    2. Create an empty game object in your scene and add an 'AudioSettingManager' component
+    3. The presence of the audio manager automatically enables features depending on it
