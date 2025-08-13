@@ -1,33 +1,3 @@
-/*
-Teleports the player using GetPosition and GetRotation as the basis for
-the interface, but does all the math to teleport by TrackingData origin
-under the hood correctly. This gives it a solid, reliable teleport suitable
-for seamless teleportation use cases, while giving you an interface that
-still has an easy to use pivot point and forward axis.
-
-Copyright (c) 2023 @Phasedragon on GitHub
-Additional help by @Nestorboy
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 using UnityEngine;
 using VRC.SDKBase;
 
@@ -35,44 +5,60 @@ namespace Sylan.GMMenu.Utils
 {
     public static class TeleportUtils
     {
-        /// <summary>
-        /// <para>See: https://gist.github.com/Phasedragon/5b76edfb8723b6bc4a49cd43adde5d3d</para>
-        /// </summary>
-        /// <param name="teleportRot">Gets projected onto the Y plane.</param>
-        public static void RoomAlignedTeleport(VRCPlayerApi player, Vector3 teleportPos, Quaternion teleportRot, bool lerpOnRemote)
+        /// <summary>Handles quaternions where their forward vector is pointing straight up or down.</summary>
+        /// <returns>A quaternion purely rotating around the Y axis. If the given <paramref name="rotation"/>
+        /// was upside down, the result does not reflect as such. The "up" of the resulting rotation is always
+        /// equal to <see cref="Vector3.up"/>.</returns>
+        public static Quaternion ProjectOntoYPlane(Quaternion rotation)
         {
-#if UNITY_EDITOR
-            // Skip process and Exit early for ClientSim since there is no play space to orient.
-            player.TeleportTo(teleportPos, teleportRot);
-#else
-            // This is absolutely not how you are supposed to use euler angles. Converting a quaternion to
-            // euler angles, taking some component of that and then converting that back to a quaternion is
-            // asking for trouble, and that is exactly what is happening here. However through some miracle
-            // this case actually behaves correctly, and I (JanSharp) believe that it's related to the order
-            // that the euler axis get processed by Unity. Supposedly it is YXZ around local axis and ZXY
-            // around world axis. So maybe these functions here use YXZ and that's why it works.
-            teleportRot = Quaternion.Euler(0, teleportRot.eulerAngles.y, 0);
+            Vector3 projectedForward = Vector3.ProjectOnPlane(rotation * Vector3.forward, Vector3.up);
+            return projectedForward == Vector3.zero // Facing straight up or down?
+                ? Quaternion.LookRotation(rotation * Vector3.down) // Imagine a head facing staring up. The chin is down.
+                : Quaternion.LookRotation(projectedForward.normalized);
+        }
 
-            // Get player pos/rot
-            Vector3 playerPos = player.GetPosition();
-            Quaternion invPlayerRot = Quaternion.Inverse(player.GetRotation());
-
-            // Get origin pos/rot
-            VRCPlayerApi.TrackingData origin = player.GetTrackingData(VRCPlayerApi.TrackingDataType.Origin);
-
-            // Subtract player from origin in order to get the offset from the player to the origin
-            // offset = origin - player
-            Vector3 offsetPos = origin.position - playerPos;
-            Quaternion offsetRot = invPlayerRot * origin.rotation;
-
-            // Add the offset onto the destination in order to construct a pos/rot of where your origin would be in order to put the player at the destination
-            // target = destination + offset
-            player.TeleportTo(
-                teleportPos + teleportRot * invPlayerRot * offsetPos,
-                teleportRot * offsetRot,
-                VRC_SceneDescriptor.SpawnOrientation.AlignRoomWithSpawnPoint,
-                lerpOnRemote);
-#endif
+        /// <summary>
+        /// <para><see cref="VRC_SceneDescriptor.SpawnOrientation.AlignPlayerWithSpawnPoint"/> is bugged,
+        /// see this canny: https://feedback.vrchat.com/udon/p/teleporting-the-player-to-the-same-rotation-they-were-already-sometimes-introduc</para>
+        /// <para><see cref="VRC_SceneDescriptor.SpawnOrientation.AlignRoomWithSpawnPoint"/> is bugged,
+        /// see this canny: https://feedback.vrchat.com/udon/p/teleport-sometimes-gets-stuck-on-geometry</para>
+        /// <para>The latter makes it unusable for no-clip. Even doing an "align player" teleport beforehand
+        /// to theoretically move the player into the collider, followed by an "align room" teleport does not
+        /// work, it has the exact same issue.</para>
+        /// <para>Not just no-clip though, this can happen when teleporting through colliders even in "normal"
+        /// use cases of the teleport function.</para>
+        /// <para>Thus the only option is to use "align player" teleports, and deal with the former mentioned
+        /// bug.</para>
+        /// <para>Note that when not dealing with the bug, so just using a single normal "align player"
+        /// teleport call for no-clip causes players in VR to spin when looking up/down and then looking left
+        /// or right.</para>
+        /// <para>Using <see cref="VRCPlayerApi.GetRotation"/> before and after a teleport call to then
+        /// calculate a rotation difference which gets applied to a consecutive teleport call mostly works
+        /// around this issue. Works for desktop, mostly works in half body though it sometimes causes
+        /// intentional head movement to get undone, however in full body it causes nearly all horizontal
+        /// head rotation to get cancelled out, such that looking left or right while using no-clip keeps the
+        /// view point pointed straight as though the head did not move at all.</para>
+        /// <para>Doing almost the exact same thing, however instead of using
+        /// <see cref="VRCPlayerApi.GetRotation"/>, getting the head tracking data and using that to calculate
+        /// a rotation difference that was induced by the teleport mostly solves this full body issue. There
+        /// might just be a few jitters left or right that can be noticed when looking up or down while in
+        /// full body VR.</para>
+        /// <para>Turning the head upside down can cause the player to get turned around 180 degrees due to
+        /// the projection of the head rotation onto the Y plane. Does not seem consistent, but luckily hardly
+        /// anybody does that.</para>
+        /// <para>And lastly another oddity that can happen is when turning the head in a circle rather
+        /// quickly, some of that rotation can also get cancelled out, which is presumably jarring. It seems
+        /// rare however.</para>
+        /// </summary>
+        public static void TeleportAndRetainHeadRotation(VRCPlayerApi player, Vector3 teleportPosition, bool lerpOnRemote)
+        {
+            // Get head rotation => teleport => get head rotation again => calculate offset induced by teleport => corrective teleport.
+            Quaternion playerRotation = player.GetRotation();
+            Quaternion preHeadRotation = ProjectOntoYPlane(player.GetTrackingData(VRCPlayerApi.TrackingDataType.Head).rotation);
+            player.TeleportTo(teleportPosition, playerRotation, VRC_SceneDescriptor.SpawnOrientation.AlignPlayerWithSpawnPoint, lerpOnRemote);
+            Quaternion postHeadRotation = ProjectOntoYPlane(player.GetTrackingData(VRCPlayerApi.TrackingDataType.Head).rotation);
+            Quaternion headRotationOffset = Quaternion.Inverse(postHeadRotation) * preHeadRotation;
+            player.TeleportTo(teleportPosition, headRotationOffset * playerRotation, VRC_SceneDescriptor.SpawnOrientation.AlignPlayerWithSpawnPoint, lerpOnRemote);
         }
     }
 }
