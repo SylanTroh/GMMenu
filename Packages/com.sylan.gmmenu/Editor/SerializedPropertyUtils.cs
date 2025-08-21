@@ -13,7 +13,7 @@ namespace Sylan.GMMenu.EditorUtilities
         /// <returns>True if successful, false if unsuccessful</returns>
         public static bool GetObject<T>(out T obj) where T : MonoBehaviour
         {
-            T[] objects = UnityEngine.Object.FindObjectsOfType<T>();
+            T[] objects = UnityEngine.Object.FindObjectsOfType<T>(includeInactive: true);
 
             if (objects.Length == 0)
             {
@@ -32,7 +32,8 @@ namespace Sylan.GMMenu.EditorUtilities
         }
         public static bool GetObjects<T>(out T[] obj) where T : MonoBehaviour
         {
-            T[] objects = UnityEngine.Object.FindObjectsOfType<T>();
+            // Use FindObjectsOfType with includeInactive to find disabled objects too
+            T[] objects = UnityEngine.Object.FindObjectsOfType<T>(includeInactive: true);
             obj = objects;
             return true;
         }
