@@ -44,9 +44,9 @@ namespace Sylan.GMMenu
 
         private UdonSharpBehaviour[] VoiceModeChangedEventListeners = new UdonSharpBehaviour[0];
 
+        public GameObject VoiceModeTemplate;
         [HideInInspector] public VoiceMode localVoiceMode;
-        private VoiceMode[] audioSettings;
-        private DataDictionary audioSettingsIndex = new DataDictionary();
+        [HideInInspector] public DataDictionary audioSettings;
 
         [Header("Lower number means higher priority", order = 0)]
         [Space(-10, order = 1)]
@@ -75,49 +75,12 @@ namespace Sylan.GMMenu
             if (audioSettingManager == null)
             {
                 DestroySelf();
-                audioSettings = new VoiceMode[0]; // Prevent potential errors since Destroy is not instant.
-                return;
-            }
-            audioSettings = GetComponentsInChildren<VoiceMode>();
-            foreach (VoiceMode voiceMode in audioSettings)
-            {
-                voiceMode.priority = priority;
-            }
-        }
-        public override void OnPlayerJoined(VRCPlayerApi player)
-        {
-            if (!Networking.IsOwner(gameObject)) return;
-            SetAudioSettingOwnership(player);
-        }
-        private void SetAudioSettingOwnership(VRCPlayerApi player)
-        {
-            for (int i = 0; i < audioSettings.Length; i++)
-            {
-                VoiceMode voiceMode = audioSettings[i];
-                if (voiceMode.owner != null) continue;
-
-                voiceMode.owner = player;
-                voiceMode.RequestSerialization();
-                audioSettingsIndex.SetValue(player.playerId, i);
-                return;
+                audioSettings.Clear(); // Prevent potential errors since Destroy is not instant.
             }
         }
         public override void OnPlayerLeft(VRCPlayerApi player)
         {
-            if (!Networking.IsOwner(gameObject)) return;
-            RevokeAudioSettingOwnership(player);
-        }
-        private void RevokeAudioSettingOwnership(VRCPlayerApi player)
-        {
-            for (int i = 0; i < audioSettings.Length; i++)
-            {
-                VoiceMode voiceMode = audioSettings[i];
-                if (voiceMode.owner != player) continue;
-
-                voiceMode.owner = null;
-                voiceMode.RequestSerialization();
-                audioSettingsIndex.Remove(player.playerId);
-            }
+            audioSettings.Remove(player.playerId);
         }
         public VoiceMode GetLocalSetting()
         {
@@ -130,10 +93,10 @@ namespace Sylan.GMMenu
         }
         public int GetPlayerSettingValue(VRCPlayerApi player)
         {
-            if (audioSettingsIndex.TryGetValue(player.playerId, TokenType.Int, out DataToken value))
+            if (audioSettings.TryGetValue(player.playerId, TokenType.Reference, out DataToken value))
             {
-                int i = value.Int;
-                return audioSettings[i].setting;
+                VoiceMode voiceMode = (VoiceMode)value.Reference;
+                return voiceMode.setting;
             }
             return VoiceMode.SETTING_NULL;
         }

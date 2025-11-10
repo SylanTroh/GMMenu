@@ -16,18 +16,7 @@ namespace Sylan.GMMenu
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class VoiceMode : GMMenuPart
     {
-        bool isInitialized = false;
-
         [HideInInspector] public int priority = 2000;
-
-#if AUDIOMANAGER
-        const int OWNER_NULL = -1;
-        [UdonSynced]
-        private int _ownerID = OWNER_NULL;
-
-        [FieldChangeCallback(nameof(owner))]
-        VRCPlayerApi _owner;
-#endif
 
         public const int SETTING_NULL = -1;
         public const int SETTING_EMPTY = 0;
@@ -40,7 +29,7 @@ namespace Sylan.GMMenu
         [UdonSynced, FieldChangeCallback(nameof(setting))]
         int _setting = SETTING_NULL;
 #endif
-
+        
         public VoiceModeManager voiceModeManager;
 
         public const string AUDIO_ZONE_SETTING_ID = "GMMENUAUDIOSETTING";
@@ -72,66 +61,39 @@ namespace Sylan.GMMenu
 
         private void Start()
         {
+            if (Networking.IsOwner(Networking.LocalPlayer, gameObject))
+            {
+                voiceModeManager.localVoiceMode = this;
+            }
+            
+            voiceModeManager.audioSettings.SetValue(Networking.GetOwner(gameObject).playerId,this);
+            priority = voiceModeManager.priority;
+            
             SettingWhisper[0] = voiceModeManager.whisperGain;
             SettingWhisper[1] = voiceModeManager.whisperNearRange;
             SettingWhisper[2] = voiceModeManager.whisperFarRange;
             SettingYell[0] = voiceModeManager.yellGain;
             SettingYell[2] = voiceModeManager.yellFarRange;
         }
-
-        public void ResetVariables()
-        {
-            setting = SETTING_NULL;
-        }
-        public VRCPlayerApi owner
-        {
-            set
-            {
-                Networking.SetOwner(Networking.LocalPlayer, gameObject);
-                _owner = value;
-                if (!Utilities.IsValid(value))
-                {
-                    _ownerID = OWNER_NULL;
-                    ResetVariables();
-                    return;
-                }
-                var id = VRCPlayerApi.GetPlayerId(value);
-                if (id != _ownerID) ResetVariables();
-                _ownerID = id;
-                if (_owner == Networking.LocalPlayer) voiceModeManager.localVoiceMode = this;
-            }
-            get => _owner;
-        }
+        
         public override void OnDeserialization()
         {
-            //Set _owner from synced _ownerID
-            if (_ownerID == OWNER_NULL)
-            {
-                _owner = null;
-                return;
-            }
-            _owner = VRCPlayerApi.GetPlayerById(_ownerID);
-            if (!Utilities.IsValid(_owner)) return;
-            if (_owner == Networking.LocalPlayer) voiceModeManager.localVoiceMode = this;
-            if (!isInitialized)
-            {
-                SetVoiceMode();
-                isInitialized = true;
-            }
+            Debug.Log("[VoiceMode] OnDeserialization");
+            SetVoiceMode();
         }
         public int setting
         {
             set
             {
+                Debug.Log("[VoiceMode] OnSettingChanged");
                 _setting = value;
-                if (!Utilities.IsValid(owner)) return;
-                if (owner == Networking.LocalPlayer) return;
                 SetVoiceMode();
             }
             get => _setting;
         }
         public void SetVoiceMode()
         {
+            VRCPlayerApi owner = Networking.GetOwner(gameObject);
             if (setting == SETTING_WHISPER)
             {
                 owner.RemoveAudioSetting(voiceModeManager.audioSettingManager, AUDIO_ZONE_SETTING_ID);
