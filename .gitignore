@@ -67,3 +67,5 @@ Assets/PackageMakerWindowData.asset*
 #VRCPackage
 /Assets/SerializedUdonPrograms/*
 UserSettings/*
+ClientSimStorage/
+ClientSimStorage/*
