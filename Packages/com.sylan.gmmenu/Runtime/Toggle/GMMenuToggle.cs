@@ -157,7 +157,7 @@ namespace Sylan.GMMenu
 
         private void MenuScale()
         {
-            var scale = (float)2.8447205e-4*Utils.AvatarUtils.AvatarHeight(Networking.LocalPlayer);
+            var scale = (float)2.85e-4*Utils.AvatarUtils.AvatarHeight(Networking.LocalPlayer);
             canvasTransform.localScale = new Vector3(scale, scale, scale);
         }
         //PC Specific

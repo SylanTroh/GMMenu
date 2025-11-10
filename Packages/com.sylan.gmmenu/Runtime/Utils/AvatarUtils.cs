@@ -10,6 +10,12 @@ namespace Sylan.GMMenu.Utils
     {
         public static float AvatarHeight(VRCPlayerApi player)
         {
+            return player.GetAvatarEyeHeightAsMeters();
+        }
+        public static float AvatarHeightFromBones(VRCPlayerApi player)
+        {
+            //Old Method
+            //Doesn't work for models without bones
             var avatarHeight = 0.0f;
             var head = player.GetBonePosition(HumanBodyBones.Head);
             var neck = player.GetBonePosition(HumanBodyBones.Neck);
