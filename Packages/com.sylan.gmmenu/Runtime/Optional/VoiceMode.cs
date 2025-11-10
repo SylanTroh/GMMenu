@@ -75,6 +75,12 @@ namespace Sylan.GMMenu
             SettingYell[0] = voiceModeManager.yellGain;
             SettingYell[2] = voiceModeManager.yellFarRange;
         }
+
+        public override void OnPlayerRestored(VRCPlayerApi player)
+        {
+            if(player != Networking.GetOwner(gameObject)) return;
+            SetVoiceMode();
+        }
         
         public override void OnDeserialization()
         {

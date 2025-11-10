@@ -103,8 +103,6 @@ namespace Sylan.GMMenu
         public void SetTalk()
         {
             if (!Utilities.IsValid(localVoiceMode)) return;
-            if (!Networking.IsOwner(localVoiceMode.gameObject))
-                Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_TALK;
             localVoiceMode.RequestSerialization();
             SendVoiceModeChangedEvent();
@@ -112,8 +110,6 @@ namespace Sylan.GMMenu
         public void SetWhisper()
         {
             if (!Utilities.IsValid(localVoiceMode)) return;
-            if (!Networking.IsOwner(localVoiceMode.gameObject))
-                Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_WHISPER;
             localVoiceMode.RequestSerialization();
             SendVoiceModeChangedEvent();
@@ -121,8 +117,6 @@ namespace Sylan.GMMenu
         public void SetYell()
         {
             if (!Utilities.IsValid(localVoiceMode)) return;
-            if (!Networking.IsOwner(localVoiceMode.gameObject))
-                Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_YELL;
             localVoiceMode.RequestSerialization();
             SendVoiceModeChangedEvent();
@@ -130,8 +124,6 @@ namespace Sylan.GMMenu
         public void SetBroadcast()
         {
             if (!Utilities.IsValid(localVoiceMode)) return;
-            if (!Networking.IsOwner(localVoiceMode.gameObject))
-                Networking.SetOwner(Networking.LocalPlayer, localVoiceMode.gameObject);
             localVoiceMode.setting = VoiceMode.SETTING_BROADCAST;
             localVoiceMode.RequestSerialization();
             SendVoiceModeChangedEvent();
