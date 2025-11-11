@@ -10,12 +10,23 @@ namespace Sylan.GMMenu.Utils
     {
         public static float AvatarHeight(VRCPlayerApi player)
         {
-            return player.GetAvatarEyeHeightAsMeters();
+            float avatarHeightFromBones = AvatarHeightFromBones(player);
+            float avatarEyeHeightAsMeters = player.GetAvatarEyeHeightAsMeters();
+
+            if (avatarHeightFromBones > 0.1f)
+            {
+                //If the avatar is humanoid, eye height is correct
+                return avatarEyeHeightAsMeters;
+            }
+            
+            //If the avatar is non-humanoid, return a constant
+            return 1.75f;
         }
         public static float AvatarHeightFromBones(VRCPlayerApi player)
         {
             //Old Method
             //Doesn't work for models without bones
+            //Should perhaps add a better function to check for bones
             var avatarHeight = 0.0f;
             var head = player.GetBonePosition(HumanBodyBones.Head);
             var neck = player.GetBonePosition(HumanBodyBones.Neck);
@@ -33,6 +44,15 @@ namespace Sylan.GMMenu.Utils
         public static float BoneDistance(Vector3 bone1, Vector3 bone2)
         {
             return (bone1 - bone2).magnitude;
+        }
+        
+        public static float PlayerHeightFromTracking()
+        {
+            VRCPlayerApi localPlayer = Networking.LocalPlayer;
+            Vector3 headPosition = localPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head).position;
+            Vector3 playerPosition = localPlayer.GetPosition();
+            float height = headPosition.y - playerPosition.y;
+            return height;
         }
     }
 }
