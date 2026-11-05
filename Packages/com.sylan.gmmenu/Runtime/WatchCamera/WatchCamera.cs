@@ -1,10 +1,8 @@
-﻿
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace Sylan.GMMenu
 {
@@ -25,8 +23,12 @@ namespace Sylan.GMMenu
         [NotNull] PlayerPermissions permissions;
 
         private VRCPlayerApi player;
+        /// <summary>
+        /// <para><see cref="playerList"/> and <see cref="playerIsUpdated"/> must always have matching lengths.</para>
+        /// </summary>
         private VRCPlayerApi[] playerList = new VRCPlayerApi[0];
-        bool[] playerIsUpdated= new bool[0];
+        /// <inheritdoc cref="playerList"/>
+        bool[] playerIsUpdated = new bool[0];
         public int updatesPerFrame = 4;
 
         bool idsNeedUpdate = false;
@@ -42,10 +44,10 @@ namespace Sylan.GMMenu
         }
         public override void OnPlayerJoined(VRCPlayerApi player)
         {
-            if (!menuToggle.MenuState()) 
+            if (!menuToggle.MenuState())
             {
                 idsNeedUpdate = true;
-                return; 
+                return;
             }
             UpdateThumbnailIds();
             UpdateThumbnailsOnce();
@@ -62,8 +64,9 @@ namespace Sylan.GMMenu
         }
         public void UpdateThumbnailIds()
         {
-            playerList = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
-            playerIsUpdated = new bool[VRCPlayerApi.GetPlayerCount()];
+            int playerCount = VRCPlayerApi.GetPlayerCount();
+            playerList = new VRCPlayerApi[playerCount];
+            playerIsUpdated = new bool[playerCount];
             VRCPlayerApi.GetPlayers(playerList);
             SendUpdateThumbnailIDEvent();
         }
@@ -128,7 +131,7 @@ namespace Sylan.GMMenu
         {
             if (permissions.getPermissionLevel() < PlayerPermissions.PERMISSION_FACILITATOR) return;
             Debug.Log("[WatchCamera]: Updating Thumbnails");
-            playerIsUpdated = new bool[VRCPlayerApi.GetPlayerCount()];
+            playerIsUpdated = new bool[playerIsUpdated.Length];
             UpdateThumbnail();
         }
         public void UpdateThumbnail()
