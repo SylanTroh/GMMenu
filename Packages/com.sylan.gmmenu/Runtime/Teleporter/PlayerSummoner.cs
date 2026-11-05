@@ -1,8 +1,5 @@
-﻿using System.Threading;
-using UdonSharp;
-using UnityEngine;
+﻿using UdonSharp;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace Sylan.GMMenu
 {
@@ -42,6 +39,7 @@ namespace Sylan.GMMenu
                 var id = VRCPlayerApi.GetPlayerId(value);
                 if (id != _ownerID) requester = REQUESTER_NULL;
                 _ownerID = id;
+                if (_owner == Networking.LocalPlayer) teleporter.localPlayerSummoner = this;
                 RequestSerialization();
             }
             get => _owner;
@@ -66,6 +64,7 @@ namespace Sylan.GMMenu
             _owner = VRCPlayerApi.GetPlayerById(_ownerID);
 
             if (_owner != Networking.LocalPlayer) return;
+            teleporter.localPlayerSummoner = this;
 
             var teleportTarget = VRCPlayerApi.GetPlayerById(requester);
             if (!Utilities.IsValid(teleportTarget)) return;

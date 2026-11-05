@@ -6,11 +6,15 @@
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Data;
+using VRC.SDK3.UdonNetworkCalling;
 using VRC.SDKBase;
+using VRC.Udon.Common.Interfaces;
 
 namespace Sylan.AudioManager
 {
-    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
+    // Apparently using NoVariableSync does not allow for sending network events,
+    // VRChat complains that it cannot send networked events on sync mode none scripts.
+    [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class RadioManager : UdonSharpBehaviour
     {
         public GameObject RadioButton;
@@ -20,6 +24,7 @@ namespace Sylan.AudioManager
 
         private Radio[] radios;
         [HideInInspector] public Radio localRadio;
+        private const float EnsureHasLocalRadioLoopInterval = 5f;
 
 #if AUDIOMANAGER
         [HideInInspector, SerializeField] public AudioSettingManager audioSettingManager;
@@ -131,8 +136,15 @@ namespace Sylan.AudioManager
             {
                 InitPlayerRadioChannel(joiningPlayer);
             }
-            if (!Networking.IsOwner(gameObject)) return;
-            SetRadioOwnership(joiningPlayer);
+
+            if (Networking.IsOwner(gameObject))
+            {
+                SetRadioOwnership(joiningPlayer);
+            }
+            else
+            {
+                SendCustomEventDelayedSeconds(nameof(EnsureLocalRadioGotAssignedLoop), EnsureHasLocalRadioLoopInterval);
+            }
         }
 
         public override void OnPlayerLeft(VRCPlayerApi player)
@@ -151,6 +163,42 @@ namespace Sylan.AudioManager
                 radio.RequestSerialization();
                 return;
             }
+        }
+        public void EnsureLocalRadioGotAssignedLoop()
+        {
+            if (localRadio != null) return;
+            SendCustomNetworkEvent(NetworkEventTarget.Owner, nameof(RequestReconfirmationOfRadioAssignment), Networking.LocalPlayer.playerId);
+            SendCustomEventDelayedSeconds(nameof(EnsureLocalRadioGotAssignedLoop), EnsureHasLocalRadioLoopInterval);
+        }
+        [NetworkCallable(maxEventsPerSecond: 20)]
+        public void RequestReconfirmationOfRadioAssignment(int playerId)
+        {
+            VRCPlayerApi player = VRCPlayerApi.GetPlayerById(playerId);
+            if (!Utilities.IsValid(player)) return;
+            Radio radio = GetRadioByOwner(player);
+            // VRChat is supposed to guarantee that every player is going to agree what the
+            // latest synced state of a script is.
+            // Turns out when requesting serialization at exactly around the time when a player joins,
+            // the synced data will be sent to all players, except sometimes not to the joining player.
+            if (radio != null)
+            {
+                // Re-request serialization to work around the issue.
+                radio.owner = player;
+            }
+            else
+            {
+                // Oh, they actually have no script assigned to them,
+                // might happen when the master left at an inopportune time.
+                SetRadioOwnership(player);
+            }
+        }
+        public Radio GetRadioByOwner(VRCPlayerApi player)
+        {
+            foreach (Radio radio in radios)
+            {
+                if (radio.owner == player) return radio;
+            }
+            return null;
         }
         private void RevokeRadioOwnership(VRCPlayerApi player)
         {
