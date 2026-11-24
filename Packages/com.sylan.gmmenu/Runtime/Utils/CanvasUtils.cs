@@ -1,12 +1,8 @@
-﻿
-using UdonSharp;
-using UnityEngine;
-using VRC.SDKBase;
-using VRC.Udon;
+﻿using UnityEngine;
 
 namespace Sylan.GMMenu.Utils
 {
-    public class CanvasUtils : UdonSharpBehaviour
+    public static class CanvasUtils
     {
         public static void CanvasSetActive(Canvas canvas, bool val)
         {

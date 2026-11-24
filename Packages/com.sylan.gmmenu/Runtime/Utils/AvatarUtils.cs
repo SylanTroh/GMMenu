@@ -1,12 +1,9 @@
-﻿
-using UdonSharp;
-using UnityEngine;
+﻿using UnityEngine;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace Sylan.GMMenu.Utils
 {
-    public class AvatarUtils : UdonSharpBehaviour
+    public static class AvatarUtils
     {
         public static float AvatarHeight(VRCPlayerApi player)
         {

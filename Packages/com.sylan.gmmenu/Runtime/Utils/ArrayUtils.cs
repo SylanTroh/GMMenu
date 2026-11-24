@@ -1,11 +1,9 @@
-﻿
-using System;
-using UdonSharp;
+﻿using System;
 using VRC.SDKBase;
 
 namespace Sylan.GMMenu.Utils
 {
-    public class ArrayUtils : UdonSharpBehaviour
+    public static class ArrayUtils
     {
         public static void Append<T>(ref T[] array,T newElement)
         {

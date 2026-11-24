@@ -1,12 +1,10 @@
-﻿
-using UdonSharp;
+﻿using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace Sylan.GMMenu.Utils
 {
-    public class Events : UdonSharpBehaviour
+    public static class Events
     {
         public static void SendEvent(string eventName, UdonSharpBehaviour[] Listeners)
         {
