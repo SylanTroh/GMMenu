@@ -3,6 +3,7 @@
 #define AUDIOMANAGER
 #endif
 
+using Sylan.GMMenu;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Data;
@@ -13,15 +14,30 @@ namespace Sylan.AudioManager
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class RadioManager : UdonSharpBehaviour
     {
-        public GameObject RadioButton;
+        [SerializeField] private GameObject radioButton;
+        [SerializeField] private GameObject requestRadioButton;
 
-        public const int RADIO_CHANNEL_PRIORITY = 900;
-        public const string RADIO_CHANNEL_SETTING_ID = "RADIOVOICESETTINGS";
+        private const int RADIO_CHANNEL_PRIORITY = 900;
+        private const string RADIO_CHANNEL_SETTING_ID = "RADIOVOICESETTINGS";
 
-        private Radio[] radios;
-        [HideInInspector] public Radio localRadio;
+        public const int ChannelNull = -1;
+        public const int ChannelEmpty = 0;
 
-#if AUDIOMANAGER
+        private Radio _localRadio;
+
+        private void DeactivateSelf()
+        {
+            Destroy(radioButton);
+            Destroy(requestRadioButton);
+            gameObject.SetActive(false);
+        }
+
+#if !AUDIOMANAGER
+        private void Start()
+        {
+            DeactivateSelf();
+        }
+#else
         [HideInInspector, SerializeField] public AudioSettingManager audioSettingManager;
         public const string AudioSettingManagerPropertyName = nameof(audioSettingManager);
 
@@ -32,9 +48,10 @@ namespace Sylan.AudioManager
         [SerializeField] private float volumetricRadius = AudioSettingManager.DEFAULT_VOICE_VOLUMETRIC_RADIUS;
         [SerializeField] private bool voiceLowpass = false;
 
-        //Key:playerID -> int channelNumber
-        DataDictionary _RadioChannelDict = new DataDictionary();
-        DataList RadioChannelAudioSettings = new DataList()
+        //Key:playerID -> ref Radio Player Object
+        private readonly DataDictionary _radioObjectCache = new DataDictionary();
+
+        private readonly DataList _radioChannelAudioSettings = new DataList()
         {
             0.0f, //Voice Gain
             999999.0f, //Voice Range Near
@@ -42,146 +59,63 @@ namespace Sylan.AudioManager
             AudioSettingManager.DEFAULT_VOICE_VOLUMETRIC_RADIUS,
             false
         };
-#endif
-
-        private void DestroySelf()
-        {
-            Destroy(RadioButton);
-            Destroy(gameObject);
-        }
-
-#if !AUDIOMANAGER
-        private void Start()
-        {
-            DestroySelf();
-        }
-#else
         private void Start()
         {
             if (audioSettingManager == null)
             {
-                DestroySelf();
-                radios = new Radio[0]; // Prevent potential errors since Destroy is not instant.
+                DeactivateSelf();
                 return;
             }
-            RadioChannelAudioSettings[AudioSettingManager.VOICE_GAIN_INDEX] = voiceGain;
-            RadioChannelAudioSettings[AudioSettingManager.RANGE_NEAR_INDEX] = voiceRangeNear;
-            RadioChannelAudioSettings[AudioSettingManager.RANGE_FAR_INDEX] = voiceRangeFar;
-            RadioChannelAudioSettings[AudioSettingManager.VOLUMETRIC_RADIUS_INDEX] = volumetricRadius;
-            RadioChannelAudioSettings[AudioSettingManager.VOICE_LOWPASS_INDEX] = voiceLowpass;
-
-            radios = GetComponentsInChildren<Radio>();
+            _radioChannelAudioSettings[AudioSettingManager.VOICE_GAIN_INDEX] = voiceGain;
+            _radioChannelAudioSettings[AudioSettingManager.RANGE_NEAR_INDEX] = voiceRangeNear;
+            _radioChannelAudioSettings[AudioSettingManager.RANGE_FAR_INDEX] = voiceRangeFar;
+            _radioChannelAudioSettings[AudioSettingManager.VOLUMETRIC_RADIUS_INDEX] = volumetricRadius;
+            _radioChannelAudioSettings[AudioSettingManager.VOICE_LOWPASS_INDEX] = voiceLowpass;
         }
 
-        //
-        // Manage AudioZoneDict By Player
-        //
+        public void RegisterRadio(VRCPlayerApi player, Radio radio)
+        {
+            if (Networking.IsOwner(Networking.LocalPlayer, radio.gameObject)) _localRadio = radio;
+            GMMenu.Utils.PlayerObjectCache.RegisterPlayerObject(_radioObjectCache, player, radio);
+        }
+
+        public int GetLocalRadioChannel()
+        {
+            if (!Utilities.IsValid(_localRadio)) return ChannelNull;
+            return _localRadio.GetChannel();
+        }
+
         public int GetPlayerRadioChannel(VRCPlayerApi player)
         {
-            DataDictionary dict = _RadioChannelDict;
-
-            if (!Utilities.IsValid(player)) return -1;
-            if (!player.IsValid()) return -1;
-
-            if (!dict.TryGetValue((DataToken)player.playerId, TokenType.Int, out DataToken value))
+            if (GMMenu.Utils.PlayerObjectCache.GetPlayerObject(_radioObjectCache, player, out Radio radio))
             {
-                Debug.LogError("[RadioManager] Failed to get Channel for " + player.displayName + "-" + player.playerId.ToString());
-                return -1;
+                return radio.GetChannel();
             }
-            return value.Int;
-        }
-        public void InitPlayerRadioChannel(VRCPlayerApi player)
-        {
-            if (!Utilities.IsValid(player)) return;
-            if (!player.IsValid()) return;
-
-            if (_RadioChannelDict.TryGetValue((DataToken)player.playerId, TokenType.Int, out DataToken value))
-            {
-                Debug.Log("[RadioManager] RadioChannel already initialized for " + player.displayName + "-" + player.playerId.ToString());
-                return;
-            }
-            _RadioChannelDict.SetValue(key: (DataToken)player.playerId, value: 0);
-            Debug.Log("[RadioManager] Initialize RadioChannel for " + player.displayName + "-" + player.playerId.ToString());
-        }
-        public int RemovePlayerRadioChannel(VRCPlayerApi player)
-        {
-            if (!Utilities.IsValid(player)) return -1;
-            if (!player.IsValid()) return -1;
-
-            if (!_RadioChannelDict.Remove(key: (DataToken)player.playerId, out DataToken value))
-            {
-                Debug.LogError("[RadioManager] Failed to remove RadioChannel for " + player.displayName + "-" + player.playerId.ToString());
-            }
-            Debug.Log("[RadioManager] Removed RadioChannel for " + player.displayName + "-" + player.playerId.ToString());
-
-            return value.Int;
-        }
-        public override void OnPlayerJoined(VRCPlayerApi joiningPlayer)
-        {
-            if (joiningPlayer == Networking.LocalPlayer)
-            {
-                VRCPlayerApi[] players = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
-                VRCPlayerApi.GetPlayers(players);
-                foreach (var player in players)
-                {
-                    InitPlayerRadioChannel(player);
-                }
-            }
-            else
-            {
-                InitPlayerRadioChannel(joiningPlayer);
-            }
-            if (!Networking.IsOwner(gameObject)) return;
-            SetRadioOwnership(joiningPlayer);
+            return ChannelNull;
         }
 
         public override void OnPlayerLeft(VRCPlayerApi player)
         {
-            RemovePlayerRadioChannel(player);
-            if (!Networking.IsOwner(gameObject)) return;
-            RevokeRadioOwnership(player);
+            GMMenu.Utils.PlayerObjectCache.DeregisterPlayerObject(_radioObjectCache,player);
         }
-        private void SetRadioOwnership(VRCPlayerApi player)
-        {
-            foreach (Radio radio in radios)
-            {
-                if (radio.owner != null) continue;
 
-                radio.owner = player;
-                radio.RequestSerialization();
-                return;
-            }
-        }
-        private void RevokeRadioOwnership(VRCPlayerApi player)
-        {
-            foreach (Radio radio in radios)
-            {
-                if (radio.owner != player) continue;
-
-                radio.owner = null;
-                radio.RequestSerialization();
-            }
-        }
-        public int GetLocalRadioChannel()
-        {
-            if (!Utilities.IsValid(localRadio)) return Radio.CHANNEL_NULL;
-            return localRadio.channel;
-        }
         //
-        //Manage AudioZoneDict[player]
+        // Manage Channel
         //
         public void EnterRadioChannel(VRCPlayerApi player, int channelID)
         {
-            _RadioChannelDict.SetValue(player.playerId, channelID);
+            if (GMMenu.Utils.PlayerObjectCache.GetPlayerObject(_radioObjectCache, player, out Radio radio))
+                radio.EnterChannel(channelID);
         }
         public void ExitRadioChannel(VRCPlayerApi player)
         {
-            _RadioChannelDict.SetValue(player.playerId, 0);
+            if (GMMenu.Utils.PlayerObjectCache.GetPlayerObject(_radioObjectCache, player, out Radio radio))
+                radio.ExitChannel();
         }
         public bool InRadioChannel(VRCPlayerApi player, int channelID)
         {
             int value = GetPlayerRadioChannel(player);
-            if (value == -1) return false;
+            if (value == ChannelNull) return false;
             return channelID == value;
         }
         public bool SharesRadioChannelWith(VRCPlayerApi player1, VRCPlayerApi player2)
@@ -226,7 +160,7 @@ namespace Sylan.AudioManager
             if (Networking.LocalPlayer.SharesRadioChannelWith(player, this))
             {
                 //Debug.Log("[AudioManager] Shares AudioZone with" + player.displayName + ".");
-                audioSettingManager.AddAudioSetting(player, RADIO_CHANNEL_SETTING_ID, RADIO_CHANNEL_PRIORITY, RadioChannelAudioSettings);
+                audioSettingManager.AddAudioSetting(player, RADIO_CHANNEL_SETTING_ID, RADIO_CHANNEL_PRIORITY, _radioChannelAudioSettings);
             }
             else
             {
@@ -237,9 +171,9 @@ namespace Sylan.AudioManager
 
         public void SetChannel1()
         {
-            if (!Utilities.IsValid(localRadio)) return;
-            if (localRadio.channel == 1) localRadio.ExitChannel();
-            else localRadio.EnterChannel(1);
+            if (!Utilities.IsValid(_localRadio)) return;
+            if (_localRadio.GetChannel() == 1) _localRadio.ExitChannel();
+            else _localRadio.EnterChannel(1);
         }
 #endif
     }

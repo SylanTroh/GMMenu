@@ -40,7 +40,7 @@ namespace Sylan.GMMenu
             isActive = ((1 << permissionLevel) & permissionMask) > 0;
             foreach (GameObject obj in gameObjects)
             {
-                obj.SetActive(isActive);
+                if (Utilities.IsValid(obj)) obj.SetActive(isActive);
             }
         }
         public bool IsActive()

@@ -10,12 +10,12 @@
       "version": "3.8.2"
     },
     "com.sylan.audiomanager": {
-      "version": "1.4.4"
+      "version": "1.6.1"
     }
   },
   "locked": {
     "com.vrchat.base": {
-      "version": "3.8.2",
+      "version": "3.10.6",
       "dependencies": {}
     },
     "com.vrchat.core.vpm-resolver": {
@@ -23,13 +23,13 @@
       "dependencies": {}
     },
     "com.vrchat.worlds": {
-      "version": "3.8.2",
+      "version": "3.10.6",
       "dependencies": {
-        "com.vrchat.base": "3.8.2"
+        "com.vrchat.base": "3.10.6"
       }
     },
     "com.sylan.audiomanager": {
-      "version": "1.6.0",
+      "version": "2.0.0-beta",
       "dependencies": {}
     }
   }

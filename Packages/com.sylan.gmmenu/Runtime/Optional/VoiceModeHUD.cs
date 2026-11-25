@@ -19,18 +19,18 @@ namespace Sylan.GMMenu
         public Transform hudIcons;
 
 #if AUDIOMANAGER
-        private VoiceModeManager voiceModeManager;
+        private VoiceModeManager _voiceModeManager;
 
         void Start()
         {
-            voiceModeManager = gmMenu.VoiceModeManager;
+            _voiceModeManager = gmMenu.VoiceModeManager;
 
-            voiceModeManager.AddListener(this);
+            _voiceModeManager.AddListener(this);
         }
         void UpdateHUD()
         {
             DisableHUD();
-            var voiceMode = voiceModeManager.GetLocalSettingValue();
+            var voiceMode = _voiceModeManager.GetLocalVoiceModeSetting();
             switch (voiceMode)
             {
                 case VoiceMode.SETTING_BROADCAST:

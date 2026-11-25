@@ -28,24 +28,23 @@ namespace Sylan.GMMenu
         bool gmWhisperEnabled = false;
 #endif
 
-        private void DestroySelf()
+        private void DeactivateSelf()
         {
-            // Destroy(GMWhisperButton.gameObject);
-            Destroy(gameObject);
+            GMWhisperButton.SetActive(false);
+            gameObject.SetActive(false);
         }
 
 #if !AUDIOMANAGER
         void Start()
         {
-            DestroySelf();
+            DeactivateSelf();
         }
 #else
         void Start()
         {
             if (audioSettingManager == null)
             {
-                DestroySelf();
-                gmWhispers = new GMWhisper[0]; // Prevent error in SetOwnership, since Destroy is not instant.
+                DeactivateSelf();
                 return;
             }
             gmWhispers = GetComponentsInChildren<GMWhisper>();

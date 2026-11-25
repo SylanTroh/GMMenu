@@ -27,6 +27,7 @@ using Sylan.AudioManager;
 #endif
 using UdonSharp;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
 
@@ -35,18 +36,18 @@ namespace Sylan.GMMenu
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class VoiceModeManager : GMMenuPart
     {
-        [SerializeField] GameObject VoiceModeButtons;
+        [FormerlySerializedAs("VoiceModeButtons")]
+        [SerializeField] private GameObject voiceModeButtons;
 
 #if AUDIOMANAGER
         [HideInInspector,SerializeField] public AudioSettingManager audioSettingManager;
         public const string AudioSettingManagerPropertyName = nameof(audioSettingManager);
 #endif
 
-        private UdonSharpBehaviour[] VoiceModeChangedEventListeners = new UdonSharpBehaviour[0];
+        private UdonSharpBehaviour[] _voiceModeChangedEventListeners = new UdonSharpBehaviour[0];
 
-        public GameObject VoiceModeTemplate;
-        [HideInInspector] public VoiceMode localVoiceMode;
-        [HideInInspector] public DataDictionary audioSettings;
+        private VoiceMode _localVoiceMode;
+        private readonly DataDictionary _voiceModeCache = new DataDictionary();
 
         [Header("Lower number means higher priority", order = 0)]
         [Space(-10, order = 1)]
@@ -58,84 +59,78 @@ namespace Sylan.GMMenu
         public float yellGain = 15f;
         public float yellFarRange = 40f;
 
-        private void DestroySelf()
+        private void DeactivateSelf()
         {
-            Destroy(VoiceModeButtons);
-            Destroy(gameObject);
+            Destroy(voiceModeButtons);
+            gameObject.SetActive(false);
         }
 
 #if !AUDIOMANAGER
         void Start()
         {
-            DestroySelf();
+            DeactivateSelf();
         }
 #else
         void Start()
         {
             if (audioSettingManager == null)
             {
-                DestroySelf();
-                audioSettings.Clear(); // Prevent potential errors since Destroy is not instant.
+                DeactivateSelf();
+                return;
             }
         }
+
+        public void RegisterVoiceMode(VRCPlayerApi player, VoiceMode voiceMode)
+        {
+            if (Networking.IsOwner(Networking.LocalPlayer, voiceMode.gameObject)) _localVoiceMode = voiceMode;
+            Utils.PlayerObjectCache.RegisterPlayerObject(_voiceModeCache,player,voiceMode);
+        }
+
         public override void OnPlayerLeft(VRCPlayerApi player)
         {
-            audioSettings.Remove(player.playerId);
+            Utils.PlayerObjectCache.DeregisterPlayerObject(_voiceModeCache,player);
         }
-        public VoiceMode GetLocalSetting()
+
+        public int GetLocalVoiceModeSetting()
         {
-            return localVoiceMode;
+            if (!Utilities.IsValid(_localVoiceMode)) return VoiceMode.SETTING_NULL;
+            return _localVoiceMode.GetVoiceMode();
         }
-        public int GetLocalSettingValue()
+        public int GetPlayerVoiceModeSetting(VRCPlayerApi player)
         {
-            if (!Utilities.IsValid(localVoiceMode)) return VoiceMode.SETTING_NULL;
-            return localVoiceMode.setting;
-        }
-        public int GetPlayerSettingValue(VRCPlayerApi player)
-        {
-            if (audioSettings.TryGetValue(player.playerId, TokenType.Reference, out DataToken value))
+            if (Utils.PlayerObjectCache.GetPlayerObject(_voiceModeCache, player, out VoiceMode v))
             {
-                VoiceMode voiceMode = (VoiceMode)value.Reference;
-                return voiceMode.setting;
+                return v.GetVoiceMode();
             }
             return VoiceMode.SETTING_NULL;
         }
-        public void SetTalk()
+
+        [System.Obsolete("Use GetLocalVoiceModeSetting() instead")]
+        public int GetLocalSettingValue() => GetLocalVoiceModeSetting();
+        [System.Obsolete("Use GetPlayerVoiceModeSetting() instead")]
+        public int GetPlayerSettingValue(VRCPlayerApi player) => GetPlayerVoiceModeSetting(player);
+
+        private void SetVoiceMode(int voiceModeSetting)
         {
-            if (!Utilities.IsValid(localVoiceMode)) return;
-            localVoiceMode.setting = VoiceMode.SETTING_TALK;
-            localVoiceMode.RequestSerialization();
+            if (!Utilities.IsValid(_localVoiceMode)) return;
+            _localVoiceMode.SetVoiceMode(voiceModeSetting);
+            _localVoiceMode.RequestSerialization();
             SendVoiceModeChangedEvent();
         }
-        public void SetWhisper()
-        {
-            if (!Utilities.IsValid(localVoiceMode)) return;
-            localVoiceMode.setting = VoiceMode.SETTING_WHISPER;
-            localVoiceMode.RequestSerialization();
-            SendVoiceModeChangedEvent();
-        }
-        public void SetYell()
-        {
-            if (!Utilities.IsValid(localVoiceMode)) return;
-            localVoiceMode.setting = VoiceMode.SETTING_YELL;
-            localVoiceMode.RequestSerialization();
-            SendVoiceModeChangedEvent();
-        }
-        public void SetBroadcast()
-        {
-            if (!Utilities.IsValid(localVoiceMode)) return;
-            localVoiceMode.setting = VoiceMode.SETTING_BROADCAST;
-            localVoiceMode.RequestSerialization();
-            SendVoiceModeChangedEvent();
-        }
+        public void SetTalk() => SetVoiceMode(VoiceMode.SETTING_TALK);
+        public void SetWhisper() => SetVoiceMode(VoiceMode.SETTING_WHISPER);
+        public void SetYell() => SetVoiceMode(VoiceMode.SETTING_YELL);
+        public void SetBroadcast() => SetVoiceMode(VoiceMode.SETTING_BROADCAST);
+
+
         //Events
         public void SendVoiceModeChangedEvent()
         {
-            Utils.Events.SendEvent("OnVoiceModeChanged", VoiceModeChangedEventListeners);
+            Utils.Events.SendEvent("OnVoiceModeChanged", _voiceModeChangedEventListeners);
         }
         public void AddListener(UdonSharpBehaviour b)
         {
-            Utils.ArrayUtils.Append(ref VoiceModeChangedEventListeners, b);
+            Utils.ArrayUtils.Append(ref _voiceModeChangedEventListeners, b);
         }
 #endif
     }
