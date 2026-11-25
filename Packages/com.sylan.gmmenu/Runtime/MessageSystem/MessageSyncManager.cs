@@ -1,19 +1,20 @@
-﻿
-using System;
-using System.Linq;
-using UdonSharp;
+﻿using UdonSharp;
 using UnityEngine;
+using VRC.SDK3.UdonNetworkCalling;
 using VRC.SDKBase;
-using VRC.Udon;
+using VRC.Udon.Common.Interfaces;
 
 namespace Sylan.GMMenu
 {
-    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
+    // Apparently using NoVariableSync does not allow for sending network events,
+    // VRChat complains that it cannot send networked events on sync mode none scripts.
+    [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class MessageSyncManager : GMMenuPart
     {
         private MessageData[] messageData;
         private MessageData[] sortedMessages;
         private MessageData localMessage = null;
+        private const float EnsureHasLocalMessageLoopInterval = 5f;
         private UdonSharpBehaviour[] NewMessageEventListeners = new UdonSharpBehaviour[0];
 
         private void Start()
@@ -23,8 +24,14 @@ namespace Sylan.GMMenu
         //Manage Message Data Ownership
         public override void OnPlayerJoined(VRCPlayerApi player)
         {
-            if (!Networking.IsOwner(gameObject)) return;
-            SetMessageOwnership(player);
+            if (Networking.IsOwner(gameObject))
+            {
+                SetMessageOwnership(player);
+            }
+            else if (player.isLocal)
+            {
+                SendCustomEventDelayedSeconds(nameof(EnsureLocalMessageDataGotAssignedLoop), EnsureHasLocalMessageLoopInterval);
+            }
         }
         private void SetMessageOwnership(VRCPlayerApi player)
         {
@@ -34,6 +41,34 @@ namespace Sylan.GMMenu
 
                 m.owner = player;
                 return;
+            }
+        }
+        public void EnsureLocalMessageDataGotAssignedLoop()
+        {
+            if (GetMessageByOwner(Networking.LocalPlayer) != null) return;
+            SendCustomNetworkEvent(NetworkEventTarget.Owner, nameof(RequestReconfirmationOfMessageDataAssignment), Networking.LocalPlayer.playerId);
+            SendCustomEventDelayedSeconds(nameof(EnsureLocalMessageDataGotAssignedLoop), EnsureHasLocalMessageLoopInterval);
+        }
+        [NetworkCallable(maxEventsPerSecond: 20)]
+        public void RequestReconfirmationOfMessageDataAssignment(int playerId)
+        {
+            VRCPlayerApi player = VRCPlayerApi.GetPlayerById(playerId);
+            if (!Utilities.IsValid(player)) return;
+            MessageData message = GetMessageByOwner(player);
+            // VRChat is supposed to guarantee that every player is going to agree what the
+            // latest synced state of a script is.
+            // Turns out when requesting serialization at exactly around the time when a player joins,
+            // the synced data will be sent to all players, except sometimes not to the joining player.
+            if (message != null)
+            {
+                // Re-request serialization to work around the issue.
+                message.owner = player;
+            }
+            else
+            {
+                // Oh, they actually have no script assigned to them,
+                // might happen when the master left at an inopportune time.
+                SetMessageOwnership(player);
             }
         }
         public override void OnPlayerLeft(VRCPlayerApi player)
@@ -71,7 +106,7 @@ namespace Sylan.GMMenu
         int CompareMessageTime(MessageData message1, MessageData message2)
         {
             if (message1.timeReceived == message2.timeReceived) return 0;
-            if(message1.timeReceived < message2.timeReceived) return -1;
+            if (message1.timeReceived < message2.timeReceived) return -1;
             return 1;
         }
         public MessageData[] GetMessages()
@@ -163,14 +198,14 @@ namespace Sylan.GMMenu
         }
         //Quicksort
         [RecursiveMethod]
-        private void QuickSortMessages(MessageData[] arr,int start, int end)
+        private void QuickSortMessages(MessageData[] arr, int start, int end)
         {
             if (!Utilities.IsValid(arr)) return;
 
             int i = 0;
             if (start < end)
             {
-                i = PartitionMessages(arr,start, end);
+                i = PartitionMessages(arr, start, end);
 
                 QuickSortMessages(arr, start, i - 1);
                 QuickSortMessages(arr, i + 1, end);

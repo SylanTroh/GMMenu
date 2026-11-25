@@ -9,16 +9,21 @@ using Sylan.AudioManager;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
+using VRC.SDK3.UdonNetworkCalling;
 using VRC.SDKBase;
+using VRC.Udon.Common.Interfaces;
 
 namespace Sylan.GMMenu
 {
-    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
+    // Apparently using NoVariableSync does not allow for sending network events,
+    // VRChat complains that it cannot send networked events on sync mode none scripts.
+    [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class GMWhisperManager : GMMenuPart
     {
         [SerializeField] GameObject GMWhisperButton;
         [HideInInspector] public GMWhisper localGMWhisper;
         [SerializeField] Text GMWhisperButtonText;
+        private const float EnsureHasLocalGMWhisperLoopInterval = 5f;
 
 #if AUDIOMANAGER
         [HideInInspector, SerializeField] public AudioSettingManager audioSettingManager;
@@ -52,8 +57,14 @@ namespace Sylan.GMMenu
         }
         public override void OnPlayerJoined(VRCPlayerApi player)
         {
-            if (!Networking.IsOwner(gameObject)) return;
-            SetOwnership(player);
+            if (Networking.IsOwner(gameObject))
+            {
+                SetOwnership(player);
+            }
+            else
+            {
+                SendCustomEventDelayedSeconds(nameof(EnsureLocalGMWhisperGotAssignedLoop), EnsureHasLocalGMWhisperLoopInterval);
+            }
         }
         private void SetOwnership(VRCPlayerApi player)
         {
@@ -65,6 +76,42 @@ namespace Sylan.GMMenu
                 gmWhisper.RequestSerialization();
                 return;
             }
+        }
+        public void EnsureLocalGMWhisperGotAssignedLoop()
+        {
+            if (localGMWhisper != null) return;
+            SendCustomNetworkEvent(NetworkEventTarget.Owner, nameof(RequestReconfirmationOfGMWhisperAssignment), Networking.LocalPlayer.playerId);
+            SendCustomEventDelayedSeconds(nameof(EnsureLocalGMWhisperGotAssignedLoop), EnsureHasLocalGMWhisperLoopInterval);
+        }
+        [NetworkCallable(maxEventsPerSecond: 20)]
+        public void RequestReconfirmationOfGMWhisperAssignment(int playerId)
+        {
+            VRCPlayerApi player = VRCPlayerApi.GetPlayerById(playerId);
+            if (!Utilities.IsValid(player)) return;
+            GMWhisper gmWhisper = GetGMWhisperByOwner(player);
+            // VRChat is supposed to guarantee that every player is going to agree what the
+            // latest synced state of a script is.
+            // Turns out when requesting serialization at exactly around the time when a player joins,
+            // the synced data will be sent to all players, except sometimes not to the joining player.
+            if (gmWhisper != null)
+            {
+                // Re-request serialization to work around the issue.
+                gmWhisper.owner = player;
+            }
+            else
+            {
+                // Oh, they actually have no script assigned to them,
+                // might happen when the master left at an inopportune time.
+                SetOwnership(player);
+            }
+        }
+        public GMWhisper GetGMWhisperByOwner(VRCPlayerApi player)
+        {
+            foreach (GMWhisper gmWhisper in gmWhispers)
+            {
+                if (gmWhisper.owner == player) return gmWhisper;
+            }
+            return null;
         }
         public override void OnPlayerLeft(VRCPlayerApi player)
         {

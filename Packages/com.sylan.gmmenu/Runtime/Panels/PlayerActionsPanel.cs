@@ -25,7 +25,7 @@ namespace Sylan.GMMenu
         }
         public void SetMessageEmergency()
         {
-            if(messageSyncManager.GetLocalMessageValue() == MessageData.MESSAGE_URGENT)
+            if (messageSyncManager.GetLocalMessageValue() == MessageData.MESSAGE_URGENT)
                 messageSyncManager.SetMessage(Networking.LocalPlayer, MessageData.MESSAGE_NULL);
             else
                 messageSyncManager.SetMessage(Networking.LocalPlayer, MessageData.MESSAGE_URGENT);

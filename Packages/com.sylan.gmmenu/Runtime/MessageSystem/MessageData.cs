@@ -10,7 +10,7 @@ namespace Sylan.GMMenu
     {
         const int OWNER_NULL = -1;
         const float TIME_NULL = -1.0f;
-        const float TIME_UNTIL_STALE = 5*60.0f;
+        const float TIME_UNTIL_STALE = 5 * 60.0f;
 
         public const int MESSAGE_NULL = -1;
         public const int MESSAGE_EMPTY = 0;
@@ -21,13 +21,13 @@ namespace Sylan.GMMenu
         public const int MESSAGE_GMRADIO = 5;
 
         MessageSyncManager messageSyncManager;
-        [UdonSynced] 
+        [UdonSynced]
         int _ownerID = OWNER_NULL;
 
-        [FieldChangeCallback(nameof(owner))] 
+        [FieldChangeCallback(nameof(owner))]
         VRCPlayerApi _owner;
 
-        [SerializeField, UdonSynced, FieldChangeCallback(nameof(message))] 
+        [SerializeField, UdonSynced, FieldChangeCallback(nameof(message))]
         int _message = MESSAGE_NULL;
 
         public float timeReceived = TIME_NULL;
@@ -130,7 +130,7 @@ namespace Sylan.GMMenu
         }
         void SetReadTime()
         {
-            if(timeRead == TIME_NULL) timeRead = Time.time;
+            if (timeRead == TIME_NULL) timeRead = Time.time;
         }
         void ResetReadTime()
         {
