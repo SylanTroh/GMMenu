@@ -14,19 +14,17 @@ namespace Sylan.GMMenu.Utils
 
         public static bool DeregisterPlayerObject(DataDictionary cache, VRCPlayerApi player)
         {
-            var success = cache.Remove(player.playerId);
-            return success;
+            if (!Utilities.IsValid(player)) return false;
+            return cache.Remove(player.playerId);
         }
 
         public static bool GetPlayerObject<T>(DataDictionary cache, VRCPlayerApi player, out T playerObject)
         {
-            if (cache.TryGetValue(player.playerId, TokenType.Reference, out DataToken value))
-            {
-                playerObject = (T)value.Reference;
-                return true;
-            }
             playerObject = default(T);
-            return false;
+            if (!Utilities.IsValid(player)) return false;
+            if (!cache.TryGetValue(player.playerId, TokenType.Reference, out DataToken value)) return false;
+            playerObject = (T)value.Reference;
+            return true;
         }
     }
 }
