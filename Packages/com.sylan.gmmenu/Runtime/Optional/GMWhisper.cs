@@ -16,21 +16,27 @@ namespace Sylan.GMMenu
     public class GMWhisper : GMMenuPart
     {
         public GMWhisperManager gmWhisperManager;
-
-        public const string SETTING_ID = "GMWhisper";
+        private const string SETTING_ID = "GMWhisper";
 
 #if AUDIOMANAGER
-        bool isInitialized = false;
 
-        const int OWNER_NULL = -1;
         [UdonSynced]
-        int _ownerID = OWNER_NULL;
-
-        [FieldChangeCallback(nameof(owner))]
-        VRCPlayerApi _owner;
-
-        [UdonSynced, FieldChangeCallback(nameof(playerIDs))]
         int[] _playerIDs = new int[0];
+
+        public int[] GetPlayerIDs()
+        {
+            return _playerIDs;
+        }
+
+        public void SetPlayerIDs(int[] playerIDs)
+        {
+            _playerIDs = playerIDs;
+        }
+
+        public void ClearPlayerIDs()
+        {
+            _playerIDs = new int[0];
+        }
 
         DataList SettingBroadcast = new DataList()
         {
@@ -48,71 +54,41 @@ namespace Sylan.GMMenu
             (DataToken)AudioSettingManager.DEFAULT_VOICE_VOLUMETRIC_RADIUS,
             (DataToken)false //Voice Lowpass
         };
-        public void ResetVariables()
+
+        private void Start()
         {
-            playerIDs = new int[0];
+            if (gmWhisperManager.audioSettingManager == null) return;
+            gmWhisperManager.RegisterGMWhisper(Networking.GetOwner(gameObject),this);
         }
-        public VRCPlayerApi owner
+
+        public override void OnPlayerRestored(VRCPlayerApi player)
         {
-            set
-            {
-                Networking.SetOwner(Networking.LocalPlayer, gameObject);
-                _owner = value;
-                if (!Utilities.IsValid(value))
-                {
-                    _ownerID = OWNER_NULL;
-                    ResetVariables();
-                    return;
-                }
-                var id = VRCPlayerApi.GetPlayerId(value);
-                if (id != _ownerID) ResetVariables();
-                _ownerID = id;
-                if (_owner == Networking.LocalPlayer) gmWhisperManager.localGMWhisper = this;
-            }
-            get => _owner;
+            if (player != Networking.GetOwner(gameObject)) return;
+            SetGMWhisper();
         }
         public override void OnDeserialization()
         {
-            //Set _owner from synced _ownerID
-            if (_ownerID == OWNER_NULL)
-            {
-                _owner = null;
-                return;
-            }
-            _owner = VRCPlayerApi.GetPlayerById(_ownerID);
-            if (!Utilities.IsValid(_owner)) return;
-            if (_owner == Networking.LocalPlayer) gmWhisperManager.localGMWhisper = this;
-            if (!isInitialized)
-            {
-                SetGMWhisper();
-                isInitialized = true;
-            }
+            SetGMWhisper();
         }
-        public int[] playerIDs
-        {
-            set
-            {
-                _playerIDs = value;
-                if (!Utilities.IsValid(owner)) return;
-                if (owner == Networking.LocalPlayer) return;
-                SetGMWhisper();
-            }
-            get => _playerIDs;
-        }
+
         public void SetGMWhisper()
         {
+            if (gmWhisperManager.audioSettingManager == null) return;
+            if (Networking.IsOwner(gameObject)) return;
+
+            var owner = Networking.GetOwner(gameObject);
             int localID = Networking.LocalPlayer.playerId;
+            bool selectedFlag = false;
             foreach (var id in _playerIDs)
             {
-                if (id != localID) continue;
-                owner.RemoveAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID);
-                owner.AddAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID, int.MinValue, SettingBroadcast);
-                gmWhisperManager.audioSettingManager.UpdateAudioSettings(owner);
-
-                return;
+                if (id != localID)  continue;
+                selectedFlag = true;
+                break;
             }
             owner.RemoveAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID);
-            if (_playerIDs.Length > 0) owner.AddAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID, int.MinValue, SettingOff);
+            if(selectedFlag) owner.AddAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID, int.MinValue, SettingBroadcast);
+            else if (_playerIDs.Length > 0) owner.AddAudioSetting(gmWhisperManager.audioSettingManager, SETTING_ID, int.MinValue, SettingOff);
+
             gmWhisperManager.audioSettingManager.UpdateAudioSettings(owner);
         }
 #endif

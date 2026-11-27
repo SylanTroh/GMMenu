@@ -31,6 +31,12 @@ namespace Sylan.AudioManager
             UpdateChannel();
         }
 
+        public override void OnPlayerRestored(VRCPlayerApi player)
+        {
+            if (player != Networking.GetOwner(gameObject)) return;
+            radioManager.UpdateRadioChannelSetting(player);
+        }
+
         public int GetChannel() => _channel;
 
         public void SetChannel(int value)

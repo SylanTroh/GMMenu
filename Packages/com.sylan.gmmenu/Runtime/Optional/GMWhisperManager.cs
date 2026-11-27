@@ -5,6 +5,7 @@
 
 #if AUDIOMANAGER
 using Sylan.AudioManager;
+using VRC.SDK3.Data;
 #endif
 using UdonSharp;
 using UnityEngine;
@@ -16,16 +17,17 @@ namespace Sylan.GMMenu
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class GMWhisperManager : GMMenuPart
     {
-        [SerializeField] GameObject GMWhisperButton;
-        [HideInInspector] public GMWhisper localGMWhisper;
-        [SerializeField] Text GMWhisperButtonText;
+        [SerializeField] private GameObject GMWhisperButton;
+        [SerializeField] private Text GMWhisperButtonText;
 
 #if AUDIOMANAGER
         [HideInInspector, SerializeField] public AudioSettingManager audioSettingManager;
         public const string AudioSettingManagerPropertyName = nameof(audioSettingManager);
 
-        private GMWhisper[] gmWhispers;
-        bool gmWhisperEnabled = false;
+        private readonly DataDictionary _gmWhisperCache = new DataDictionary();
+        private GMWhisper _localGMWhisper;
+
+        private bool _gmWhisperEnabled = false;
 #endif
 
         private void DeactivateSelf()
@@ -47,71 +49,81 @@ namespace Sylan.GMMenu
                 DeactivateSelf();
                 return;
             }
-            gmWhispers = GetComponentsInChildren<GMWhisper>();
         }
-        public override void OnPlayerJoined(VRCPlayerApi player)
-        {
-            if (!Networking.IsOwner(gameObject)) return;
-            SetOwnership(player);
-        }
-        private void SetOwnership(VRCPlayerApi player)
-        {
-            foreach (GMWhisper gmWhisper in gmWhispers)
-            {
-                if (gmWhisper.owner != null) continue;
 
-                gmWhisper.owner = player;
-                gmWhisper.RequestSerialization();
-                return;
-            }
+        public void RegisterGMWhisper(VRCPlayerApi player, GMWhisper gmWhisper)
+        {
+            if (Networking.IsOwner(Networking.LocalPlayer, gmWhisper.gameObject)) _localGMWhisper = gmWhisper;
+            Utils.PlayerObjectCache.RegisterPlayerObject(_gmWhisperCache,player,gmWhisper);
         }
         public override void OnPlayerLeft(VRCPlayerApi player)
         {
-            if (!Networking.IsOwner(gameObject)) return;
-            RevokeOwnership(player);
-        }
-        private void RevokeOwnership(VRCPlayerApi player)
-        {
-            foreach (GMWhisper gmWhisper in gmWhispers)
-            {
-                if (gmWhisper.owner != player) continue;
-
-                gmWhisper.owner = null;
-                gmWhisper.RequestSerialization();
-            }
+            Utils.PlayerObjectCache.DeregisterPlayerObject(_gmWhisperCache,player);
         }
         public GMWhisper GetLocalGMWhisper()
         {
-            return localGMWhisper;
+            return _localGMWhisper;
+        }
+
+        private int[] GetPlayerWhisperListenerIDs(VRCPlayerApi player)
+        {
+            if (Utils.PlayerObjectCache.GetPlayerObject(_gmWhisperCache, player, out GMWhisper gmWhisper))
+            {
+                return gmWhisper.GetPlayerIDs();
+            }
+            return new int[0];
+        }
+        public bool IsWhisperingTo(VRCPlayerApi whisperer, VRCPlayerApi listener)
+        {
+            int[] ids = GetPlayerWhisperListenerIDs(whisperer);
+
+            if (ids.Length == 0) return false;
+
+            int listenerID = listener.playerId;
+            foreach (var t in ids)
+            {
+                if (t == listenerID) return true;
+            }
+            return false;
         }
         public void ToggleGMWhisper()
         {
-            gmWhisperEnabled = !gmWhisperEnabled;
-            if (gmWhisperEnabled) EnableGMWhisper();
+            if (!_gmWhisperEnabled) EnableGMWhisper();
             else DisableGMWhisper();
         }
         private void EnableGMWhisper()
         {
+            if (!Utilities.IsValid(_localGMWhisper)) return;
             VRCPlayerApi[] players = gmMenu.PlayerSelector.GetSelectedPlayers();
             int[] playerIDs = new int[players.Length];
             for (int i = 0; i < players.Length; i++)
             {
                 playerIDs[i] = players[i].playerId;
             }
-            if (!Networking.IsOwner(localGMWhisper.gameObject))
-                Networking.SetOwner(Networking.LocalPlayer, localGMWhisper.gameObject);
-            localGMWhisper.playerIDs = playerIDs;
-            localGMWhisper.RequestSerialization();
+            _localGMWhisper.SetPlayerIDs(playerIDs);
+            _localGMWhisper.RequestSerialization();
             GMWhisperButtonText.text = "Disable GM Whisper";
+            _gmWhisperEnabled = true;
         }
         private void DisableGMWhisper()
         {
-            if (!Networking.IsOwner(localGMWhisper.gameObject))
-                Networking.SetOwner(Networking.LocalPlayer, localGMWhisper.gameObject);
-            localGMWhisper.playerIDs = new int[0];
-            localGMWhisper.RequestSerialization();
+            if (!Utilities.IsValid(_localGMWhisper)) return;
+            _localGMWhisper.ClearPlayerIDs();
+            _localGMWhisper.RequestSerialization();
             GMWhisperButtonText.text = "GM Whisper";
+            _gmWhisperEnabled = false;
         }
 #endif
     }
+
+#if AUDIOMANAGER
+    public static class GMWhisperManagerExtensions
+    {
+        public static bool IsWhisperingTo(this VRCPlayerApi whisperer, VRCPlayerApi listener,
+            GMWhisperManager gmWhisperManager)
+        {
+            return gmWhisperManager.IsWhisperingTo(whisperer, listener);
+        }
+    }
+#endif
 }
