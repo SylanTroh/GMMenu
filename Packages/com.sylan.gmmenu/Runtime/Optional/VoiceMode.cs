@@ -73,10 +73,10 @@ namespace Sylan.GMMenu
 
         public override void OnPlayerRestored(VRCPlayerApi player)
         {
-            if(player != Networking.GetOwner(gameObject)) return;
+            if (player != Networking.GetOwner(gameObject)) return;
             SetVoiceMode();
         }
-        
+
         public override void OnDeserialization()
         {
             Debug.Log("[VoiceMode] OnDeserialization");

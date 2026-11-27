@@ -8,12 +8,14 @@ using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
+using UnityEngine.Serialization;
 
 namespace Sylan.AudioManager
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class RadioManager : UdonSharpBehaviour
     {
+        [FormerlySerializedAs("RadioButton")]
         [SerializeField] private GameObject radioButton;
         [SerializeField] private GameObject requestRadioButton;
 
@@ -102,15 +104,15 @@ namespace Sylan.AudioManager
         //
         // Manage Channel
         //
-        public void EnterRadioChannel(VRCPlayerApi player, int channelID)
+        public void EnterRadioChannel(int channelID)
         {
-            if (GMMenu.Utils.PlayerObjectCache.GetPlayerObject(_radioObjectCache, player, out Radio radio))
-                radio.EnterChannel(channelID);
+            if (!Utilities.IsValid(_localRadio)) return;
+            _localRadio.EnterChannel(channelID);
         }
-        public void ExitRadioChannel(VRCPlayerApi player)
+        public void ExitRadioChannel()
         {
-            if (GMMenu.Utils.PlayerObjectCache.GetPlayerObject(_radioObjectCache, player, out Radio radio))
-                radio.ExitChannel();
+            if (!Utilities.IsValid(_localRadio)) return;
+            _localRadio.ExitChannel();
         }
         public bool InRadioChannel(VRCPlayerApi player, int channelID)
         {
@@ -171,10 +173,10 @@ namespace Sylan.AudioManager
 
         public void SetChannel1()
         {
-            if (!Utilities.IsValid(_localRadio)) return;
-            if (_localRadio.GetChannel() == 1) _localRadio.ExitChannel();
-            else _localRadio.EnterChannel(1);
+            if (GetLocalRadioChannel() == 1) ExitRadioChannel();
+            else EnterRadioChannel(1);
         }
+
 #endif
     }
 
@@ -184,14 +186,6 @@ namespace Sylan.AudioManager
         //
         //Extensions for VRCPlayerAPI
         //
-        public static void EnterRadioChannel(this VRCPlayerApi player, RadioManager radioManager, int channelID)
-        {
-            radioManager.EnterRadioChannel(player, channelID);
-        }
-        public static void ExitRadioChannel(this VRCPlayerApi player, RadioManager radioManager)
-        {
-            radioManager.ExitRadioChannel(player);
-        }
         public static bool InRadioChannel(this VRCPlayerApi player, RadioManager radioManager, int channelID)
         {
             return radioManager.InRadioChannel(player, channelID);

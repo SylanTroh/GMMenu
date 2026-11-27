@@ -48,20 +48,9 @@ namespace Sylan.AudioManager
         private void UpdateChannel()
         {
             if (radioManager.audioSettingManager == null) return;
-            if (_channel <= RadioManager.ChannelEmpty)
-            {
-                radioManager.UpdateRadioChannelSetting(Owner());
-                Debug.Log("[RadioManager] " +
-                          Owner().displayName + "-" + Owner().playerId +
-                          " Exiting Channel " + "-" + gameObject.GetInstanceID());
-            }
-            else
-            {
-                radioManager.UpdateRadioChannelSetting(Owner());
-                Debug.Log("[RadioManager] " +
-                          Owner().displayName + "-" + Owner().playerId +
-                          " Entering Channel " + "-" + gameObject.GetInstanceID());
-            }
+            radioManager.UpdateRadioChannelSetting(Owner());
+            string action = _channel <= RadioManager.ChannelEmpty ? " Exiting Channel " : " Entering Channel ";
+            Debug.Log("[RadioManager] " + Owner().displayName + "-" + Owner().playerId + action + "-" + gameObject.GetInstanceID());
         }
 
         public void EnterChannel(int channelID)
